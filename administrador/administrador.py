@@ -1,4 +1,5 @@
-from cursos import menu_cursos
+from cursos.menu_cursos import menu_curso
+from alunos.menu_alunos import menu_alunos
 
 def administrador():
     menu = ["Cursos", "Professores", "Alunos", "Turmas"]
@@ -13,18 +14,19 @@ def administrador():
 
         try:
             opcao = input("Digite uma opção: ")
+            
             match opcao:
                 case 1:
                    menu_cursos() 
-                case 2:
-                   menu_professores()
-                   pass 
+               #  case 2:
+               #     menu_professores()
+               #     pass 
                 case 3:
                    menu_alunos()
                    pass 
-                case 4:
-                   menu_turmas()
-                   pass 
+               #  case 4:
+               #     menu_turmas()
+               #     pass 
                 case _:
                    print("Opção inválida!")
         

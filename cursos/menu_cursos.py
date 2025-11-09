@@ -81,6 +81,7 @@ def menu_curso():
                 case 5:
                     print("--------------------------------------------")
                     print("Voltando...")
+                    limpar_tela()
                     break
                 case _:
                     print("--------------------------------------------")
@@ -88,5 +89,6 @@ def menu_curso():
         except ValueError:
             print("--------------------------------------------")
             print("[ERRO]: Digite um número!")
+            limpar_tela()
 
 # TODO: Colocar ORDER BY ASC no DBeaver ou aqui

@@ -1,10 +1,17 @@
-from bando_de_dados.bd import criar_conexao
+from banco_de_dados.bd import criar_conexao
+from criptografar.criptografar import criptografar, checar_senha
 
-def cadastrar_aluno(nome, email, senha, telefone, curso):
+# TODO: Verificar se o aluno coloca o curso no cadastro ou se o 'adm' que coloca 
+# def cadastrar_aluno(id_aluno: int, nome_completo: str, usuario: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
+def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO alunos (nome, email) VALUES (%s, %s);", (nome, email, senha, telefone, curso))
+
+        senha = criptografar(senha)
+        
+        # cursor.execute("INSERT INTO alunos_teste (id_aluno, nome_completo, usuario, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (id_aluno, nome_completo, usuario, cpf, data_nascimento, numero_telefone, senha))
+        cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha))
         conexao.commit()
         print("Aluno cadastrado com sucesso!")
     except Exception as e:
@@ -13,12 +20,38 @@ def cadastrar_aluno(nome, email, senha, telefone, curso):
         cursor.close()
         conexao.close()
 
-def listar_alunos(nome, email, senha, telefone, curso):
-    conexao = criar_conexao()
-    cursor = conexao.cursor()
-    cursor.execute("SELECT * FROM alunos;")
-    lista_alunos = cursor.fetchall()
-    return lista_alunos
+def login(usuario: str, senha: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM alunos_teste WHERE usuario = %s", (usuario,))
+        aluno = cursor.fetchone
+        
+        if aluno and checar_senha(senha, bytes[aluno[8]]):
+            print(f"Usuário '{usuario}' logado com sucesso!")
+            return aluno
+        return None
+    
+    except Exception as e:
+        print(f"[ERRO]: Falha ao logar usuário: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def listar_alunos():
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM alunos_teste")
+        lista_alunos = cursor.fetchall()
+        print("--------------------------------------------")
+        print(f"Alunos listados com sucesso!")
+        return lista_alunos
+    except Exception as e:
+        print(f"[ERRO] ao listar alunos: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
 """
 def autenticar_aluno():
     try:
@@ -33,6 +66,7 @@ def autenticar_aluno():
     finally:
         cursor.close()
         conexao.close()
+"""
 """
 def atualizar_curso(id_aluno, nome, email, senha, telefone, curso, opcao):
     try:
@@ -55,13 +89,18 @@ def atualizar_curso(id_aluno, nome, email, senha, telefone, curso, opcao):
     finally:
         cursor.close()
         conexao.close()
+"""
+def atualizar_aluno():
+    pass    
 
-def deletar_aluno(nome, email, senha, telefone, curso):
+def deletar_aluno(id_aluno):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("DELETE from alunos WHERE id_usuario = %s AND nome = %s AND senha = %s AND telefone = %s AND curso = %s;", (nome, email, senha, telefone, curso))
+        cursor.execute("DELETE from alunos_teste WHERE id_aluno = %s", (id_aluno,))
         conexao.commit()
+        # TODO: Verificar se tem como colocar o nome do aluno aqui:
+        # print(f"Aluno '{nome_completo}' deletado com sucesso!")
         print("Aluno deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar aluno: {e}")

@@ -1,10 +1,11 @@
 from limpar_tela.limpar_tela import limpar_tela
-from identificacao.identificacao import identificacao
-from cursos.menu_cursos import menu_curso
+# from identificacao.identificacao import identificacao
+# from cursos.menu_cursos import menu_curso
+from alunos.menu_alunos import menu_aluno
 
 # menu = ["Administrador", "Professor", "Aluno", "Sair"]
 # Teste
-menu = ["Curso", "Professor", "Aluno", "Sair"]
+menu = ["Curso", "Professor", "Aluno", "Turma", "Sair"]
 limpar_tela()
 while True:
     print("--------------------------------------------")
@@ -16,9 +17,10 @@ while True:
 
     print("--------------------------------------------")
     try:
-        opcao = int(input("Digite uma opção: "))
+        opcao = int(input("Digite uma opção:\n"))
         # identificacao(opcao)
-        menu_curso()
+        # menu_curso()
+        menu_aluno()
         break
     except ValueError:
         print("[ERRO]: Digite um número!")
