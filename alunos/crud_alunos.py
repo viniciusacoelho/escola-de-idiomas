@@ -4,6 +4,18 @@ from criptografar.criptografar import criptografar, checar_senha
 # TODO: Verificar se o aluno coloca o curso no cadastro ou se o 'adm' que coloca 
 # def cadastrar_aluno(id_aluno: int, nome_completo: str, usuario: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
 def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
+    """
+        Cadastra os alunos no banco de dados.
+
+        Args:
+            nome_completo (str): Nome completo digitado pelo aluno.
+            usuario (str): Usuário digitado pelo aluno.
+            email (str): E-mail digitado pelo aluno.
+
+        Raises:
+            [ERRO]: Falha ao cadastrar aluno.
+    """
+    
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -21,6 +33,22 @@ def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data
         conexao.close()
 
 def login(usuario: str, senha: str):
+    # TODO: Verificar melhor os Returns
+    """
+    Loga os alunos no banco de dados.
+
+    Args:
+        usuario (str): Usuário digitado pelo aluno.
+        senha (str): Senha digitada pelo aluno.
+
+    Returns:
+        aluno: Aluno logado no banco de dados
+        None: Aluno não logado no banco de dados
+
+    Raises:
+        [ERRO]: Falha ao logar aluno.
+    """
+
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -39,6 +67,16 @@ def login(usuario: str, senha: str):
         conexao.close()
 
 def listar_alunos():
+    """
+    Cadastra os alunos no banco de dados
+
+    Returns:
+        lista_alunos: Lista dos alunos cadastrados.
+
+    Raises:
+        [ERRO]: Falha ao cadastrar aluno.
+    """
+
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -93,7 +131,17 @@ def atualizar_curso(id_aluno, nome, email, senha, telefone, curso, opcao):
 def atualizar_aluno():
     pass    
 
-def deletar_aluno(id_aluno):
+def deletar_aluno(id_aluno: int):
+    """
+    Deleta os alunos no banco de dados.
+
+    Args:
+        id_usuario (int): ID do usuário cadastrado no banco de dados.
+    
+    Raises:
+        [ERRO]: Falha ao deletar aluno.
+    """
+
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()

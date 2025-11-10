@@ -25,3 +25,5 @@ while True:
     except ValueError:
         print("[ERRO]: Digite um número!")
         limpar_tela()
+
+# TODO: Tentar fazer um crud só para todas as entidades

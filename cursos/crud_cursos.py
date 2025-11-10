@@ -1,6 +1,15 @@
 from banco_de_dados.bd import criar_conexao
 
 def cadastrar_curso(nome_curso: str):
+    """
+        Cadastra os cursos no banco de dados.
+
+        Args:
+            nome_curso (str): Nome do curso digitado pelo usuário.
+        
+        Raises:
+            [ERRO]: Falha ao cadastrar curso.
+    """
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -14,6 +23,15 @@ def cadastrar_curso(nome_curso: str):
         conexao.close()
 
 def listar_cursos():
+    """
+        Lista os cursos no banco de dados.
+
+        Returns:
+            lista_cursos: Lista dos cursos castrados.
+
+        Raises:
+            [ERRO]: Falha ao cadastrar curso.
+    """
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -41,6 +59,16 @@ def autenticar_curso(nome_curso: str):
         conexao.close()
 """
 def atualizar_curso(id_curso: int, nome_curso: str):
+    """
+        Atualiza os cursos no banco de dados.
+
+        Args:
+            id_curso (int): ID do curso cadastrado no banco de dados.
+            nome_curso (str): Nome do curso digitado pelo usuário.
+        
+        Raises:
+            [ERRO]: Falha ao atualizar curso.
+    """
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -55,6 +83,15 @@ def atualizar_curso(id_curso: int, nome_curso: str):
 
 def deletar_curso(id_curso: int):
 # def deletar_curso(id_curso: int, nome_curso: str):
+    """
+        Deleta o curso no banco de dados.
+
+        Args:
+            id_curso (int): ID do curso cadastrado no banco de dados.
+        
+        Raises:
+            [ERRO]: Falha ao deletar curso.
+    """
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()

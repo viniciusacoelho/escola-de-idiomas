@@ -10,7 +10,9 @@ def validar_usuario(usuario: str) -> str:
 # TODO: Verificar se há pessoas com o mesmo email porque ele é UNIQUE no BD
 # TODO: Pesquisar sobre REGEX
 def validar_email(email: str) -> str: # REGEX
-    pass
+    # TODO: split()
+    if "@" not in email and "." not in email:
+        return f"E-mail inválido!"
 
 # TODO: Verificar se há pessoas com o mesmo cpf porque ele é UNIQUE no BD
 def validar_cpf(cpf: int) -> str:

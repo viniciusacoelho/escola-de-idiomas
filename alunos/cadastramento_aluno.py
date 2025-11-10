@@ -14,11 +14,11 @@ def cadastramento_aluno():
     nome_completo_validado = validar_nome_completo(nome_completo)
     print(f"{nome_completo_validado}")
     
-    usuario = input("Digite seu username:\n")
+    usuario = input("Digite seu usuário:\n").lower()
     usuario_validado = validar_usuario(usuario)
     print(f"{usuario_validado}")
     
-    email = input("Digite seu e-mail:\n")
+    email = input("Digite seu e-mail:\n").lower()   
     email_validado = validar_email(email)
     print(f"{email_validado}")
 
