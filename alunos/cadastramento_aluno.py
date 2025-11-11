@@ -30,7 +30,8 @@ def cadastramento_aluno():
             cpf_validado = validar_cpf(cpf)
             print(f"{cpf_validado}")
 
-            data_nascimento = int(input("Digite sua data de nascimento:\n"))
+            # TODO: Arrumar um jeito de colocar int
+            data_nascimento = input("Digite sua data de nascimento:\n")
             data_nascimento_validada =  validar_data_nascimento(data_nascimento)
             print(f"{data_nascimento_validada}")
 

@@ -1,7 +1,7 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.cadastramento_aluno import cadastramento_aluno
 from alunos.crud_alunos import listar_alunos, atualizar_aluno, deletar_aluno
-
+from alunos.atualizar_alunos import atualizar_alunos
 def menu_aluno():
     menu = ["Cadastrar Aluno", "Listar Alunos", "Atualizar Aluno", "Deletar Aluno", "Voltar"]
 
@@ -27,9 +27,10 @@ def menu_aluno():
                     # TODO: Colocar uma validação se há alunos cadastrados anteriormente
                     # TODO: Melhorar isso:
                     alunos = listar_alunos()
+                    
                     for aluno in alunos:
                         print(f"{aluno[0]} - {aluno[1]}")
-                        limpar_tela()
+                    limpar_tela()
                 case 3:
 
                     while True:
@@ -37,12 +38,12 @@ def menu_aluno():
                             # TODO: Colocar uma validação se há alunos cadastrados anteriormente
                             # TODO: Colocar uma validação se o ID é válido
                             id_aluno = input("Digite o ID do aluno que deseja atualizar:\n")
+                            atualizar_alunos(id_aluno)
                             break
                         except ValueError:
                             print("[ERRO]: Digite um número!")
-                    # TODO: Perguntar o que quer atualizar do aluno
-                    novo_nome_completo = input("Digite o novo nome do aluno:")
-                    atualizar_aluno(id_aluno[0], novo_nome_completo[1])
+
+
                 case 4:
 
                     while True:

@@ -23,21 +23,3 @@ def validar_numero_telefone(numero_telefone: int) -> str:
     if len(numero_telefone_modificado) != TAMANHO_NUMERO_TELEFONE:
         return f"Número de telefone inválido!"
     return f"({numero_telefone_modificado[:2]}) {numero_telefone_modificado[2:7]}-{numero_telefone_modificado[7:]}"
-
-print("--------------------------------------------")
-print("                   Cadastro")
-print("--------------------------------------------")
-nome_completo = input("Digite seu nome completo: ")
-print(f"{validar_nome_completo(nome_completo)}")
-
-while True:
-    try:
-        cpf = input("Digite seu CPF: ")
-        print(f"{validar_cpf(cpf)}")
-        data_nascimento = int(input("Digite sua data de nascimento: "))
-        print(f"{validar_data_nascimento(data_nascimento)}")
-        numero_telefone = int(input("Digite seu número de telefone: "))
-        print(f"{validar_numero_telefone(numero_telefone)}")
-        break
-    except ValueError:
-        print("[ERRO]: Digite números!")

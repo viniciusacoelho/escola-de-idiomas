@@ -27,10 +27,13 @@ def validar_cpf(cpf: int) -> str:
 
 def validar_data_nascimento(data_nascimento: int) -> str:
     TAMANHO_DATA_NASCIMENTO = 8
-    data_nascimento_modificado = str(data_nascimento)
-    if len(data_nascimento_modificado) != TAMANHO_DATA_NASCIMENTO:
+    if len(data_nascimento) != TAMANHO_DATA_NASCIMENTO:
         return f"Data de nascimento inválida!"
-    return f"{data_nascimento_modificado[:2]}/{data_nascimento_modificado[2:4]}/{data_nascimento_modificado[4:]}"
+    return f"{data_nascimento[:2]}/{data_nascimento[2:4]}/{data_nascimento[4:]}"
+    # data_nascimento_modificado = str(data_nascimento)
+    # if len(data_nascimento_modificado) != TAMANHO_DATA_NASCIMENTO:
+    #     return f"Data de nascimento inválida!"
+    # return f"{data_nascimento_modificado[:2]}/{data_nascimento_modificado[2:4]}/{data_nascimento_modificado[4:]}"
 
 # TODO: Verificar se há pessoas com o mesmo telefone porque ele é UNIQUE no BD
 def validar_numero_telefone(numero_telefone: int) -> str:
