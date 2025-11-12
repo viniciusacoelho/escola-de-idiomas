@@ -51,15 +51,15 @@ def login(usuario: str, senha: str):
         conexao = criar_conexao()
         cursor = conexao.cursor()
         cursor.execute("SELECT * FROM alunos_teste WHERE usuario = %s", (usuario,))
-        aluno = cursor.fetchone
+        alunos_teste = cursor.fetchone()
         
-        if aluno and checar_senha(senha, bytes[aluno[8]]):
+        if alunos_teste and checar_senha(senha, bytes(alunos_teste[7])):
             print(f"Usuário '{usuario}' logado com sucesso!")
-            return aluno
-        return None
+            return alunos_teste
+        return f"Usuário e/ou senha incorretos!"
     
     except Exception as e:
-        print(f"[ERRO]: Falha ao logar usuário: {e}")
+        return f"[ERRO]: Falha ao logar usuário: {e}"
     finally:
         cursor.close()
         conexao.close()
@@ -84,7 +84,7 @@ def listar_alunos():
         print(f"Alunos listados com sucesso!")
         return lista_alunos
     except Exception as e:
-        print(f"[ERRO] ao listar alunos: {e}")
+        return f"[ERRO] ao listar alunos: {e}"
     finally:
         cursor.close()
         conexao.close()
@@ -120,28 +120,33 @@ def atualizar_aluno(id_aluno: int, parametro: str, opcao: int):
         
         if opcao == 1:
             cursor.execute("UPDATE alunos_teste SET nome_completo = %s WHERE id_aluno = %s", (parametro, id_aluno))
+            print(f"'Nome completo' de aluno atualizado com sucesso!")
         elif opcao == 2:
             cursor.execute("UPDATE alunos_teste SET usuario = %s WHERE id_aluno = %s", (parametro, id_aluno))
+            print(f"'Usuário' de aluno atualizado com sucesso!")
         elif opcao == 3:
             cursor.execute("UPDATE alunos_teste SET email = %s WHERE id_aluno = %s", (parametro, id_aluno))
+            print(f"'E-mail' de aluno atualizado com sucesso!")
         elif opcao == 4:
             cursor.execute("UPDATE alunos_teste SET cpf = %s WHERE id_aluno = %s", (parametro, id_aluno))
+            print(f"'CPF' de aluno atualizado com sucesso!")
         elif opcao == 5:
             cursor.execute("UPDATE alunos_teste SET data_nascimento = %s WHERE id_aluno = %s", (parametro, id_aluno))
+            print(f"'Data de nascimento' de aluno atualizado com sucesso!")
         elif opcao == 6:
             cursor.execute("UPDATE alunos_teste SET numero_telefone = %s WHERE id_aluno = %s", (parametro, id_aluno))
+            print(f"'Telefone' de aluno atualizado com sucesso!")
         elif opcao == 7:
             # TODO: Talvez precise criptografar a senha
             cursor.execute("UPDATE alunos_teste SET senha = %s WHERE id_aluno = %s", (parametro, id_aluno))
+            print(f"'Senha' de aluno atualizado com sucesso!")
         # TODO: Atualizar curso do aluno
 
         conexao.commit()
-        print(f"'{parametro}' de aluno atualizado com sucesso!")
+        # print(f"'{parametro}' de aluno atualizado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar aluno: {e}")
         
-    pass    
-
 def deletar_aluno(id_aluno: int):
     """
     Deleta os alunos no banco de dados.
@@ -159,7 +164,7 @@ def deletar_aluno(id_aluno: int):
         conexao.commit()
         # TODO: Verificar se tem como colocar o nome do aluno aqui:
         # print(f"Aluno '{nome_completo}' deletado com sucesso!")
-        print("Aluno deletado com sucesso!")
+        print(f"Aluno '{id_aluno[0]}' deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar aluno: {e}")
     finally:

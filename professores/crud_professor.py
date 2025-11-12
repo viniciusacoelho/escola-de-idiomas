@@ -1,4 +1,4 @@
-from bando_de_dados.bd import criar_conexao
+from banco_de_dados.bd import criar_conexao
 
 def cadastrar_professor():
     pass

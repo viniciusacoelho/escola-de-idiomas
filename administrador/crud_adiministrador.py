@@ -14,4 +14,3 @@ def atualizar_administrador():
 
 def deletar_administrador():
     pass
-

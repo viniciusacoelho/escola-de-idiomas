@@ -10,45 +10,80 @@ def cadastramento_aluno():
     print("                   Cadastro")
     print("--------------------------------------------")
     
-    nome_completo = input("Digite seu nome completo:\n")
-    nome_completo_validado = validar_nome_completo(nome_completo)
-    print(f"{nome_completo_validado}")
+    while True:
+        nome_completo = input("Digite seu nome completo:\n")
+        erro_nome_completo = validar_nome_completo(nome_completo)
+        
+        if erro_nome_completo:
+            print(erro_nome_completo)
+        else:
+            break
     
-    usuario = input("Digite seu usuário:\n").lower()
-    usuario_validado = validar_usuario(usuario)
-    print(f"{usuario_validado}")
-    
-    email = input("Digite seu e-mail:\n").lower()   
-    email_validado = validar_email(email)
-    print(f"{email_validado}")
+    while True:
+        usuario = input("Digite seu usuário:\n").lower()
+        erro_usuario = validar_usuario(usuario)
+        
+        if erro_usuario:
+            print(erro_usuario)
+        else:
+            break
 
     while True:
-        try:
-            # TODO: Arrumar um jeito de colocar int
-            cpf = input("Digite seu CPF:\n")
-            
-            cpf_validado = validar_cpf(cpf)
-            print(f"{cpf_validado}")
-
-            # TODO: Arrumar um jeito de colocar int
-            data_nascimento = input("Digite sua data de nascimento:\n")
-            data_nascimento_validada =  validar_data_nascimento(data_nascimento)
-            print(f"{data_nascimento_validada}")
-
-            numero_telefone = int(input("Digite seu número de telefone:\n"))
-            numero_telefone_validado = validar_numero_telefone(numero_telefone)
-            print(f"{numero_telefone_validado}")
-            
+        email = input("Digite seu e-mail:\n").lower()
+        erro_email = validar_email(email)
+        
+        if erro_email:
+            print(erro_email)
+        else:
             break
-        except ValueError:
-            print("[ERRO]: Digite números!")
 
-    senha = getpass.getpass("Digite sua senha:\n")
-    # senha_validada = validar_senha(senha)
-    # print(f"{senha_validada}")
+    while True:
+        # TODO: Arrumar um jeito de colocar int e try/except e [ERRO]: Digite números!"
+        cpf = input("Digite seu CPF:\n")
+        erro_cpf = validar_cpf(cpf)
+        
+        if erro_cpf:
+            print(erro_cpf)
+        else:
+            cpf_validado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+            break
+    
+    while True:
+        # TODO: Arrumar um jeito de colocar int e try/except e [ERRO]: Digite números!"
+        data_nascimento = input("Digite sua data de nascimento:\n")
+        erro_data_nascimento =  validar_data_nascimento(data_nascimento)
+        
+        if erro_data_nascimento:
+            print(erro_data_nascimento)
+        else:
+            data_nascimento_validada = f"{data_nascimento[:2]}/{data_nascimento[2:4]}/{data_nascimento[4:]}"
+            break
+    
+    while True:
+        numero_telefone = int(input("Digite seu número de telefone:\n"))
+        erro_numero_telefone = validar_numero_telefone(numero_telefone)
+        
+        if erro_numero_telefone:
+            print(erro_numero_telefone)
+        else:
+            numero_telefone = str(numero_telefone)
+            numero_telefone_validado = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
+            break
+        
+    while True:
+        senha = getpass.getpass("Digite sua senha:\n")
+        # erro_senha = validar_senha(senha)
+        
+        # if erro_senha:
+        #     print(erro_senha)
+        # else:
+        #     senha_validada = erro_senha
+        #     break
+        break
 
     while True:
         confirmar_senha = getpass.getpass("Confirme sua senha:\n")
+        
         if confirmar_senha != senha:
             print("Digite a mesma senha!")
         else:

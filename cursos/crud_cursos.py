@@ -40,6 +40,7 @@ def listar_cursos():
         print("Cursos listados com sucesso!")
         print("--------------------------------------------")
         return lista_cursos
+        # return cursor.fetchall()
     except Exception as e:
         print(f"[ERRO]: Falha ao listar cursos: {e}")
     finally:

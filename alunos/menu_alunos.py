@@ -1,7 +1,8 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.cadastramento_aluno import cadastramento_aluno
-from alunos.crud_alunos import listar_alunos, atualizar_aluno, deletar_aluno
-from alunos.atualizar_alunos import atualizar_alunos
+from alunos.crud_alunos import listar_alunos, deletar_aluno
+from alunos.menu_atualizar_alunos import menu_atualizar_alunos
+
 def menu_aluno():
     menu = ["Cadastrar Aluno", "Listar Alunos", "Atualizar Aluno", "Deletar Aluno", "Voltar"]
 
@@ -25,9 +26,9 @@ def menu_aluno():
                     limpar_tela()
                 case 2:
                     # TODO: Colocar uma validação se há alunos cadastrados anteriormente
-                    # TODO: Melhorar isso:
                     alunos = listar_alunos()
                     
+                    # TODO: Melhorar isso:
                     for aluno in alunos:
                         print(f"{aluno[0]} - {aluno[1]}")
                     limpar_tela()
@@ -38,12 +39,11 @@ def menu_aluno():
                             # TODO: Colocar uma validação se há alunos cadastrados anteriormente
                             # TODO: Colocar uma validação se o ID é válido
                             id_aluno = input("Digite o ID do aluno que deseja atualizar:\n")
-                            atualizar_alunos(id_aluno)
+                            menu_atualizar_alunos(id_aluno)
                             break
                         except ValueError:
                             print("[ERRO]: Digite um número!")
-
-
+                            limpar_tela()
                 case 4:
 
                     while True:
@@ -55,12 +55,15 @@ def menu_aluno():
                             break
                         except ValueError:
                             print("[ERRO]: Digite um número!")
+                            limpar_tela()
+                
                 case 5:
                     print("Voltando...")
                     limpar_tela()
                     break
                 case _:
                     print("Digite uma opção válida!")
+                    limpar_tela()
                 
         except ValueError:
             print("--------------------------------------------")
