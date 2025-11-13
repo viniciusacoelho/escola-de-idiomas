@@ -21,13 +21,14 @@ def cadastramento_aluno():
     
     while True:
         usuario = input("Digite seu usuário:\n").lower()
-        erro_usuario = validar_usuario(usuario)
+        # erro_usuario = validar_usuario(usuario)
         
-        if erro_usuario:
-            print(erro_usuario)
-        else:
-            break
-
+        # if erro_usuario:
+        #     print(erro_usuario)
+        # else:
+        #     break
+        break
+    
     while True:
         email = input("Digite seu e-mail:\n").lower()
         erro_email = validar_email(email)
@@ -45,7 +46,7 @@ def cadastramento_aluno():
         if erro_cpf:
             print(erro_cpf)
         else:
-            cpf_validado = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+            cpf = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
             break
     
     while True:
@@ -56,7 +57,7 @@ def cadastramento_aluno():
         if erro_data_nascimento:
             print(erro_data_nascimento)
         else:
-            data_nascimento_validada = f"{data_nascimento[:2]}/{data_nascimento[2:4]}/{data_nascimento[4:]}"
+            data_nascimento = f"{data_nascimento[:2]}/{data_nascimento[2:4]}/{data_nascimento[4:]}"
             break
     
     while True:
@@ -67,11 +68,12 @@ def cadastramento_aluno():
             print(erro_numero_telefone)
         else:
             numero_telefone = str(numero_telefone)
-            numero_telefone_validado = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
+            numero_telefone = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
             break
         
     while True:
         senha = getpass.getpass("Digite sua senha:\n")
+        # TODO:
         # erro_senha = validar_senha(senha)
         
         # if erro_senha:
@@ -89,6 +91,5 @@ def cadastramento_aluno():
         else:
             break
 
-    cadastrar_aluno(nome_completo, usuario, email, cpf_validado, data_nascimento_validada, numero_telefone_validado, senha)
-    # cadastrar_aluno(nome_completo_validado, usuario_validado, email_validado, cpf_validado, data_nascimento_validada, numero_telefone_validado, senha)
-    # cadastrar_aluno(id_aluno, nome_completo, usuario, cpf, data_nascimento, numero_telefone, senha)
+    cadastrar_aluno(nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha)
+    # cadastrar_aluno(id_aluno, nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha)

@@ -6,9 +6,9 @@ from alunos.menu_atualizar_alunos import menu_atualizar_alunos
 def menu_aluno():
     menu = ["Cadastrar Aluno", "Listar Alunos", "Atualizar Aluno", "Deletar Aluno", "Voltar"]
 
-    limpar_tela()
 
     while True:
+        limpar_tela()
         print("--------------------------------------------")
         print("                   Alunos")
         print("--------------------------------------------")
@@ -23,7 +23,6 @@ def menu_aluno():
             match opcao:
                 case 1:
                     cadastramento_aluno()
-                    limpar_tela()
                 case 2:
                     # TODO: Colocar uma validação se há alunos cadastrados anteriormente
                     alunos = listar_alunos()
@@ -31,7 +30,7 @@ def menu_aluno():
                     # TODO: Melhorar isso:
                     for aluno in alunos:
                         print(f"{aluno[0]} - {aluno[1]}")
-                    limpar_tela()
+
                 case 3:
 
                     while True:
@@ -43,7 +42,7 @@ def menu_aluno():
                             break
                         except ValueError:
                             print("[ERRO]: Digite um número!")
-                            limpar_tela()
+
                 case 4:
 
                     while True:
@@ -55,17 +54,13 @@ def menu_aluno():
                             break
                         except ValueError:
                             print("[ERRO]: Digite um número!")
-                            limpar_tela()
                 
                 case 5:
                     print("Voltando...")
-                    limpar_tela()
                     break
                 case _:
                     print("Digite uma opção válida!")
-                    limpar_tela()
                 
         except ValueError:
             print("--------------------------------------------")
             print("[ERRO]: Digite um número!")
-            limpar_tela()

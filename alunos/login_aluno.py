@@ -5,16 +5,20 @@ from alunos.crud_alunos import login
 from alunos.home_alunos import home_alunos
 
 def login_aluno():
-    limpar_tela()
+    while True:
+        limpar_tela()
 
-    print("--------------------------------------------")
-    print("              Escola de Idiomas")
-    print("--------------------------------------------")
-    print("Começe a aprender agora!\n")
-    
-    usuario = input("Digite seu usuário: ").lower()
-    senha = getpass.getpass("Digite sua senha: ")
+        print("--------------------------------------------")
+        print("              Escola de Idiomas")
+        print("--------------------------------------------")
+        print("Começe a aprender agora!\n")
+        
+        usuario = input("Digite seu usuário: ").lower()
+        senha = getpass.getpass("Digite sua senha: ")
 
-    login(usuario, senha)
-
-    home_alunos(usuario)
+        aluno = login(usuario, senha)
+        if not aluno:
+            print(f"Usuário e/ou senha incorretos!")
+        else:
+            home_alunos(aluno)
+            break

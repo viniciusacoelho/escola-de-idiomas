@@ -38,7 +38,6 @@ def listar_cursos():
         cursor.execute("SELECT * FROM cursos_teste")
         lista_cursos = cursor.fetchall()
         print("Cursos listados com sucesso!")
-        print("--------------------------------------------")
         return lista_cursos
         # return cursor.fetchall()
     except Exception as e:
@@ -59,7 +58,7 @@ def autenticar_curso(nome_curso: str):
         cursor.close()
         conexao.close()
 """
-def atualizar_curso(id_curso: int, nome_curso: str):
+def atualizar_curso(id_curso: int, nome_curso: str=""):
     """
         Atualiza os cursos no banco de dados.
 

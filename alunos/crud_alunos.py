@@ -24,7 +24,9 @@ def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data
         # cursor.execute("INSERT INTO alunos_teste (id_aluno, nome_completo, usuario, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (id_aluno, nome_completo, usuario, cpf, data_nascimento, numero_telefone, senha))
         cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha))
         conexao.commit()
-        print("Aluno cadastrado com sucesso!")
+        print(f"Aluno {nome_completo} cadastrado com sucesso!")
+        # TODO: Colocar somente o primeiro e último nome
+        # print(f"Aluno {nome_completo} cadastrado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao cadastrar aluno: {e}")
     finally:
@@ -56,8 +58,9 @@ def login(usuario: str, senha: str):
         if alunos_teste and checar_senha(senha, bytes(alunos_teste[7])):
             print(f"Usuário '{usuario}' logado com sucesso!")
             return alunos_teste
-        return f"Usuário e/ou senha incorretos!"
-    
+        return None
+        # return f"Usuário e/ou senha incorretos!"
+        
     except Exception as e:
         return f"[ERRO]: Falha ao logar usuário: {e}"
     finally:
@@ -117,7 +120,7 @@ def atualizar_aluno(id_aluno: int, parametro: str, opcao: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        
+
         if opcao == 1:
             cursor.execute("UPDATE alunos_teste SET nome_completo = %s WHERE id_aluno = %s", (parametro, id_aluno))
             print(f"'Nome completo' de aluno atualizado com sucesso!")

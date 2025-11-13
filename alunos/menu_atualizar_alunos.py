@@ -9,9 +9,8 @@ def menu_atualizar_alunos(id_aluno):
     menu_atualizar = ["Atualizar Nome Completo", "Atualizar Usuário", "Atualizar E-mail", "Atualizar CPF", 
                       "Atualizar Data de Nascimento", "Atualizar Número de Telefone", "Atualizar Senha", "Voltar"]
     
-    limpar_tela()
-    
     while True:
+        limpar_tela()
         print("--------------------------------------------")
         print("              Atualizar Aluno")
         print("--------------------------------------------")
@@ -24,7 +23,6 @@ def menu_atualizar_alunos(id_aluno):
             opcao_atualizar = int(input("Digite uma opção: "))
             match opcao_atualizar:
                 case 1:
-
                     while True:
                         novo_nome_completo = input("Digite o novo nome completo do aluno:\n")
                         erro_novo_nome_completo = validar_nome_completo(novo_nome_completo)
@@ -33,24 +31,32 @@ def menu_atualizar_alunos(id_aluno):
                             print(erro_novo_nome_completo)
                         else:
                             atualizar_aluno(id_aluno, novo_nome_completo, opcao_atualizar)
-                            limpar_tela()
                             break
                 case 2:
+                    # TODO: Verificar erros
                     novo_usuario = input("Digite o novo usuário do aluno:\n")
                     validar_usuario(novo_usuario)
                     atualizar_aluno(id_aluno, novo_usuario, opcao_atualizar)
-                    limpar_tela()
                 case 3:
-                    novo_email = input("Digite o novo nome e-mail do aluno:\n")
-                    validar_email(novo_email)
-                    atualizar_aluno(id_aluno, novo_email, opcao_atualizar)
-                    limpar_tela()
+                    while True:
+                        novo_email = input("Digite o novo nome e-mail do aluno:\n")
+                        erro_novo_email = validar_email(novo_email)
+                        
+                        if erro_novo_email:
+                            print(erro_novo_email)
+                        else:
+                            atualizar_aluno(id_aluno, novo_email, opcao_atualizar)
+                            break
                 case 4:
-                    novo_cpf = input("Digite o novo CPF do aluno:\n")
-                    cpf_validado = validar_cpf(novo_cpf)
-                    atualizar_aluno(id_aluno, cpf_validado, opcao_atualizar)
-                    limpar_tela()
-
+                    while True:
+                        novo_cpf = input("Digite o novo CPF do aluno:\n")
+                        erro_cpf = validar_cpf(novo_cpf)
+                        
+                        if erro_cpf:
+                            print(erro_cpf)
+                        else:
+                            atualizar_aluno(id_aluno, novo_cpf, opcao_atualizar)
+                            break
                 case 5:
                     while True:
                         nova_data_nascimento = input("Digite a nova data de nascimento do aluno:\n")
@@ -61,28 +67,33 @@ def menu_atualizar_alunos(id_aluno):
                         else:
                             nova_data_nascimento_validada = f"{nova_data_nascimento[:2]}/{nova_data_nascimento[2:4]}/{nova_data_nascimento[4:]}"
                             atualizar_aluno(id_aluno, nova_data_nascimento_validada, opcao_atualizar)
-                            limpar_tela()
                             break
-
                 case 6:
-                    novo_numero_telefone = input("Digite o novo número de telefone do aluno:\n")
-                    numero_telefone_validado = validar_numero_telefone(novo_numero_telefone)
-                    atualizar_aluno(id_aluno, numero_telefone_validado, opcao_atualizar)
-                    limpar_tela()
+                    while True:
+                        novo_numero_telefone = input("Digite o novo número de telefone do aluno:\n")
+                        erro_numero_telefone = validar_numero_telefone(novo_numero_telefone)
+                        
+                        if erro_numero_telefone:
+                            print(erro_numero_telefone)
+                        else:
+                            atualizar_aluno(id_aluno, novo_numero_telefone, opcao_atualizar)
                 case 7:
+                    # TODO: Verificar erros
                     nova_senha = getpass.getpass("Digite a nova senha do aluno:\n")
                     validar_senha(nova_senha)
-                    confirmar_nova_senha = getpass.getpass("Confirme a nova senha do aluno:\n")
-                    atualizar_aluno(id_aluno, nova_senha, opcao_atualizar)
-                    limpar_tela()
+                    while True:
+                        confirmar_nova_senha = getpass.getpass("Confirme a nova senha do aluno:\n")
+                        if confirmar_nova_senha != nova_senha:
+                            print("Digite a mesma senha!")
+                        else:
+                            atualizar_aluno(id_aluno, nova_senha, opcao_atualizar)
+                            
                 case 8:
                     print("Voltando...")
-                    limpar_tela()
                     break
                 case _:
                     print(f"Opção inválida!")
-                    limpar_tela()
-                    continue
+                    
         except ValueError:
             print("[ERRO]: Digite um número!")
             limpar_tela()
