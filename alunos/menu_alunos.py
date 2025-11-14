@@ -27,33 +27,41 @@ def menu_aluno():
                     # TODO: Colocar uma validação se há alunos cadastrados anteriormente
                     alunos = listar_alunos()
                     
-                    # TODO: Melhorar isso:
-                    for aluno in alunos:
-                        print(f"{aluno[0]} - {aluno[1]}")
-
+                    if len(alunos) > 0:
+                        # TODO: Melhorar isso:
+                        print(f"Alunos listados com sucesso!")
+                        print("--------------------------------------------")
+            
+                        for aluno in alunos:
+                            print(f"{aluno[0]} - {aluno[1]}")
+                    else:
+                        print("Nenhum aluno cadastrado anteriormente")
                 case 3:
-
                     while True:
-                        try:
-                            # TODO: Colocar uma validação se há alunos cadastrados anteriormente
-                            # TODO: Colocar uma validação se o ID é válido
-                            id_aluno = input("Digite o ID do aluno que deseja atualizar:\n")
-                            menu_atualizar_alunos(id_aluno)
-                            break
-                        except ValueError:
-                            print("[ERRO]: Digite um número!")
-
+                        if len(listar_alunos()) > 0: 
+                            
+                            try:
+                                # TODO: Colocar uma validação se há alunos cadastrados anteriormente
+                                # TODO: Colocar uma validação se o ID é válido
+                                id_aluno = input("Digite o ID do aluno que deseja atualizar:\n")
+                                menu_atualizar_alunos(id_aluno)
+                                break
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
                 case 4:
-
                     while True:
-                        try:
-                            # TODO: Colocar uma validação se há alunos cadastrados anteriormente
-                            # TODO: Colocar uma validação se o ID é válido
-                            id_aluno = input("Digite o ID do aluno que deseja deletar:\n")
-                            deletar_aluno(id_aluno[0])
-                            break
-                        except ValueError:
-                            print("[ERRO]: Digite um número!")
+                        if len(listar_alunos()) > 0: 
+                            
+                            try:
+                                # TODO: Colocar uma validação se há alunos cadastrados anteriormente
+                                # TODO: Colocar uma validação se o ID é válido
+                                id_aluno = input("Digite o ID do aluno que deseja deletar:\n")
+                                deletar_aluno(id_aluno[0])
+                                break
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+                        else:
+                            print("Nenhum aluno cadastrado anteriormente")
                 
                 case 5:
                     print("Voltando...")

@@ -6,12 +6,8 @@ def cadastrar_turma():
 def listar_turmas():
     pass
 
-def autenticar_turma():
-    pass
-
 def atualizar_turma():
     pass
 
 def deletar_turma():
     pass
-

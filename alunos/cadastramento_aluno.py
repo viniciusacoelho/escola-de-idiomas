@@ -4,10 +4,11 @@ from alunos.validar_alunos import validar_nome_completo, validar_usuario, valida
 from alunos.crud_alunos import cadastrar_aluno
 
 def cadastramento_aluno():
+    """Cadastra os dados do aluno no banco de dados."""
     limpar_tela()
 
     print("--------------------------------------------")
-    print("                   Cadastro")
+    print("                  Cadastro")
     print("--------------------------------------------")
     
     while True:
@@ -18,16 +19,15 @@ def cadastramento_aluno():
             print(erro_nome_completo)
         else:
             break
-    
+
     while True:
         usuario = input("Digite seu usuário:\n").lower()
-        # erro_usuario = validar_usuario(usuario)
-        
-        # if erro_usuario:
-        #     print(erro_usuario)
-        # else:
-        #     break
-        break
+        erro_usuario = validar_usuario(usuario)
+
+        if erro_usuario:
+            print(erro_usuario)
+        else:
+            break
     
     while True:
         email = input("Digite seu e-mail:\n").lower()
@@ -39,37 +39,47 @@ def cadastramento_aluno():
             break
 
     while True:
-        # TODO: Arrumar um jeito de colocar int e try/except e [ERRO]: Digite números!"
         cpf = input("Digite seu CPF:\n")
-        erro_cpf = validar_cpf(cpf)
-        
-        if erro_cpf:
-            print(erro_cpf)
-        else:
-            cpf = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
-            break
+        try:
+            int(cpf)
+            erro_cpf = validar_cpf(cpf)
+            
+            if erro_cpf:
+                print(erro_cpf)
+            else:
+                cpf = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+                break
+        except ValueError:
+            print("[ERRO]: Digite apenas números!")
     
     while True:
-        # TODO: Arrumar um jeito de colocar int e try/except e [ERRO]: Digite números!"
         data_nascimento = input("Digite sua data de nascimento:\n")
-        erro_data_nascimento =  validar_data_nascimento(data_nascimento)
-        
-        if erro_data_nascimento:
-            print(erro_data_nascimento)
-        else:
-            data_nascimento = f"{data_nascimento[:2]}/{data_nascimento[2:4]}/{data_nascimento[4:]}"
-            break
+        try:
+            int(data_nascimento)
+            erro_data_nascimento =  validar_data_nascimento(data_nascimento)
+            
+            if erro_data_nascimento:
+                print(erro_data_nascimento)
+            else:
+                data_nascimento = f"{data_nascimento[:2]}/{data_nascimento[2:4]}/{data_nascimento[4:]}"
+                break
+        except ValueError:
+            print("[ERRO]: Digite apenas números!")
     
     while True:
-        numero_telefone = int(input("Digite seu número de telefone:\n"))
-        erro_numero_telefone = validar_numero_telefone(numero_telefone)
-        
-        if erro_numero_telefone:
-            print(erro_numero_telefone)
-        else:
-            numero_telefone = str(numero_telefone)
-            numero_telefone = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
-            break
+        numero_telefone = input("Digite seu número de telefone:\n")   
+        try:
+            int(numero_telefone)
+            erro_numero_telefone = validar_numero_telefone(numero_telefone)
+            
+            if erro_numero_telefone:
+                print(erro_numero_telefone)
+            else:
+                numero_telefone = str(numero_telefone)
+                numero_telefone = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
+                break
+        except ValueError:
+            print("[ERRO]: Digite apenas números!")
         
     while True:
         senha = getpass.getpass("Digite sua senha:\n")
@@ -92,4 +102,3 @@ def cadastramento_aluno():
             break
 
     cadastrar_aluno(nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha)
-    # cadastrar_aluno(id_aluno, nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha)

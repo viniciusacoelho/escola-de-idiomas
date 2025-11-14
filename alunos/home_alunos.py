@@ -1,7 +1,7 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
 
-def home_alunos(aluno):
+def home_alunos(aluno_autenticado):
     menu = ["Vizualizar Turma", "Atualizar Cadastro", "Sair"]
     # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mudar Curso", "Sair"]
     
@@ -12,9 +12,7 @@ def home_alunos(aluno):
         print("             Escola de Idiomas              ")
         print("--------------------------------------------")
 
-        print(f"Bem-Vindo de Volta, {aluno[1]}!\n")
-        # TODO: Tentar colocar o nome do aluno
-        # print(f"Bem-Vindo de Volta, {nome_aluno}!\n")
+        print(f"Bem-Vindo de Volta, {aluno_autenticado[1]}!\n")
 
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
@@ -34,13 +32,7 @@ def home_alunos(aluno):
                     # Professor: José
                     print("Em breve")
                 case 2:
-                    
-                    menu_atualizar_alunos(aluno[0])
-                    # TODO: Tentar colocar o ID
-                    # menu_atualizar_alunos(id_aluno[0], usuario)
-                    # ou
-                    # menu_atualizar_alunos(id_aluno, usuario)
-                    # print("Em breve")
+                    menu_atualizar_alunos(aluno_autenticado[0])
                 case 3:
                     break
                 case _:

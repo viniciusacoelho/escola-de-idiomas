@@ -3,9 +3,9 @@ from cursos.menu_cursos import menu_curso
 from alunos.menu_alunos import menu_aluno
 
 def menu_administrador():
-    
+
     menu = ["Cursos", "Professores", "Alunos", "Turmas", "Voltar"]
-    
+
     while True:
         limpar_tela()
         print("--------------------------------------------")
@@ -29,7 +29,7 @@ def menu_administrador():
                 case 3:
                    menu_aluno()
                 case 4:
-                #     menu_turmas()
+                    # menu_turmas()
                     print("Em breve")
                 case 5:
                     print("Voltando...")

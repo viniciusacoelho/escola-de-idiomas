@@ -47,5 +47,3 @@ while True:
     except ValueError:
         print("--------------------------------------------")
         print("[ERRO]: Digite um número!")
-
-# TODO: Tentar fazer um crud só para todas as entidades

@@ -1,11 +1,9 @@
 from cursos.crud_cursos import cadastrar_curso, listar_cursos, atualizar_curso, deletar_curso
 from limpar_tela.limpar_tela import limpar_tela
 
-# def menu_curso(usuario):
 def menu_curso():
     menu = ["Cadastrar Curso", "Listar Cursos", "Atualizar Curso", "Deletar Curso", "Voltar"]
-    
-    
+
     while True:
         limpar_tela()
         print("--------------------------------------------")
@@ -24,11 +22,11 @@ def menu_curso():
                     print("--------------------------------------------")
                     nome_curso = input("Digite o nome do curso que deseja cadastrar:\n")
                     cadastrar_curso(nome_curso)
-                    # TODO: Verificar se 'if nome_curso' funciona, se não funcionar
                 case 2:
                     cursos = listar_cursos()
 
                     if len(cursos) > 0:
+                        print("Cursos listados com sucesso!")
                         print("--------------------------------------------")
 
                         for curso in cursos:
@@ -39,40 +37,47 @@ def menu_curso():
 
                 case 3:
                     while True:
-                        try:
-                            print("--------------------------------------------")
-                            id_curso = int(input("Digite o ID do curso que deseja atualizar:\n"))
-                            existe_curso = atualizar_curso(id_curso)
-                            
-                            if existe_curso:
-                                print("ID do curso não existe!")
-                                # limpar_tela()
-                            else:    
+                        cursos = listar_cursos()
+
+                        if len(cursos) > 0:
+                            try:
+                                print("--------------------------------------------")
+                                id_curso = int(input("Digite o ID do curso que deseja atualizar:\n"))
+                                # existe_curso = atualizar_curso(id_curso)
+                                
+                                # if existe_curso:
+                                #     print("ID do curso não existe!")
+                                # else:    
                                 print("--------------------------------------------")
                                 novo_nome_curso = input("Digite o novo nome do curso:\n")
                                 existe_nome_curso = atualizar_curso(id_curso, novo_nome_curso)
 
-                                if not existe_nome_curso:
-                                    print("Nenhum curso cadastrado anteriormente.")
-                                else:
-                                    break
-                                
-                        except ValueError:
-                            print("[ERRO]: Digite um número!")
+                                # if existe_nome_curso:
+                                #     print(f"Curso '{novo_nome_curso}'já cadastrado anteriormente.")
+                                # else:
+                                #     break
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
                 case 4:
                     while True:
-                        try:
-                            print("--------------------------------------------")
-                            id_curso = int(input("Digite o ID do curso que deseja deletar:\n"))
-                            existe_id_curso = deletar_curso(id_curso)
-                            if existe_id_curso:
-                                break
-                            else:
-                                print("ID não existe!")
+                        cursos = listar_cursos()
+                        
+                        if len(cursos) > 0:    
+                            try:
+                                print("--------------------------------------------")
+                                id_curso = int(input("Digite o ID do curso que deseja deletar:\n"))
+                                deletar_curso(id_curso)
+                                # existe_id_curso = deletar_curso(id_curso)
+                                
+                                # if existe_id_curso:
+                                #     break
+                                # else:
+                                #     print("ID não existe!")
 
-                        except ValueError:
-                            print("[ERRO]: Digite um número!")
-
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+                        else:
+                            print("Nenhum curso cadastrado anteriormente.")
                 case 5:
                     print("--------------------------------------------")
                     print("Voltando...")

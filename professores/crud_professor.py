@@ -3,10 +3,10 @@ from banco_de_dados.bd import criar_conexao
 def cadastrar_professor():
     pass
 
-def listar_professores():
+def autenticar_professor():
     pass
 
-def autenticar_professor():
+def listar_professores():
     pass
 
 def atualizar_professor():
@@ -14,4 +14,3 @@ def atualizar_professor():
 
 def deletar_professor():
     pass
-

@@ -1,7 +1,7 @@
 import getpass
 
 from limpar_tela.limpar_tela import limpar_tela
-from alunos.crud_alunos import login
+from alunos.crud_alunos import autenticar_aluno
 from alunos.home_alunos import home_alunos
 
 def login_aluno():
@@ -13,12 +13,12 @@ def login_aluno():
         print("--------------------------------------------")
         print("Começe a aprender agora!\n")
         
-        usuario = input("Digite seu usuário: ").lower()
+        usuario = input("Digite seu usuário: ")
         senha = getpass.getpass("Digite sua senha: ")
 
-        aluno = login(usuario, senha)
-        if not aluno:
+        aluno_autenticado = autenticar_aluno(usuario, senha)
+        if not aluno_autenticado:
             print(f"Usuário e/ou senha incorretos!")
         else:
-            home_alunos(aluno)
+            home_alunos(aluno_autenticado)
             break

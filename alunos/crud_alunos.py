@@ -2,7 +2,6 @@ from banco_de_dados.bd import criar_conexao
 from criptografar.criptografar import criptografar, checar_senha
 
 # TODO: Verificar se o aluno coloca o curso no cadastro ou se o 'adm' que coloca 
-# def cadastrar_aluno(id_aluno: int, nome_completo: str, usuario: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
 def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
     """
         Cadastra os alunos no banco de dados.
@@ -21,30 +20,30 @@ def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data
 
         senha = criptografar(senha)
         
-        # cursor.execute("INSERT INTO alunos_teste (id_aluno, nome_completo, usuario, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (id_aluno, nome_completo, usuario, cpf, data_nascimento, numero_telefone, senha))
         cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha))
         conexao.commit()
-        print(f"Aluno {nome_completo} cadastrado com sucesso!")
+        print(f"Aluno '{nome_completo}' cadastrado com sucesso!")
         # TODO: Colocar somente o primeiro e último nome
-        # print(f"Aluno {nome_completo} cadastrado com sucesso!")
+        # nome = []
+        # nome = nome_completo.split(" ")
+        # print(f"Aluno '{nome[0]} {nome[-1]}' cadastrado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao cadastrar aluno: {e}")
     finally:
         cursor.close()
         conexao.close()
 
-def login(usuario: str, senha: str):
-    # TODO: Verificar melhor os Returns
+def autenticar_aluno(usuario: str, senha: str):
     """
-    Loga os alunos no banco de dados.
+    Autentica/loga os alunos no banco de dados.
 
     Args:
         usuario (str): Usuário digitado pelo aluno.
         senha (str): Senha digitada pelo aluno.
 
     Returns:
-        aluno: Aluno logado no banco de dados
-        None: Aluno não logado no banco de dados
+        aluno: Aluno autenticado/logado no banco de dados.
+        None: Aluno não autenticado/logado no banco de dados anteriormente.
 
     Raises:
         [ERRO]: Falha ao logar aluno.
@@ -56,13 +55,13 @@ def login(usuario: str, senha: str):
         alunos_teste = cursor.fetchone()
         
         if alunos_teste and checar_senha(senha, bytes(alunos_teste[7])):
-            print(f"Usuário '{usuario}' logado com sucesso!")
+            print(f"Usuário '{usuario}' autenticado/logado com sucesso!")
             return alunos_teste
         return None
         # return f"Usuário e/ou senha incorretos!"
         
     except Exception as e:
-        return f"[ERRO]: Falha ao logar usuário: {e}"
+        return f"[ERRO]: Falha ao autenticar/logar usuário e/ou senha: {e}"
     finally:
         cursor.close()
         conexao.close()
@@ -77,42 +76,26 @@ def listar_alunos():
     Raises:
         [ERRO]: Falha ao cadastrar aluno.
     """
-
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
         cursor.execute("SELECT * FROM alunos_teste")
         lista_alunos = cursor.fetchall()
-        print("--------------------------------------------")
-        print(f"Alunos listados com sucesso!")
         return lista_alunos
     except Exception as e:
         return f"[ERRO] ao listar alunos: {e}"
     finally:
         cursor.close()
         conexao.close()
-"""
-def autenticar_aluno():
-    try:
-        conexao = criar_conexao()
-        cursor = conexao.cursor()
-        cursor.execute("", ())
-        pass
-        conexao.commit()
-        print("Aluno autenticado com sucesso!")
-    except Exception as e:
-        print(f"[ERRO]: Falha ao atualizar aluno: {e}")
-    finally:
-        cursor.close()
-        conexao.close()
-"""
+
 def atualizar_aluno(id_aluno: int, parametro: str, opcao: int):
     """
     Atualiza os alunos no banco de dados
 
     Args:
-        parametro (str): O que o aluno deseja atualizar digitado pelo aluno.
         id_aluno (int): ID do aluno cadastrado no banco de dados.
+        parametro (str): Parâmetro cadastrado do aluno que deseja atualizar.
+        opcao (int): 
 
     Raises:
         [ERRO]: Falha ao atualizar aluno.
@@ -140,7 +123,7 @@ def atualizar_aluno(id_aluno: int, parametro: str, opcao: int):
             cursor.execute("UPDATE alunos_teste SET numero_telefone = %s WHERE id_aluno = %s", (parametro, id_aluno))
             print(f"'Telefone' de aluno atualizado com sucesso!")
         elif opcao == 7:
-            # TODO: Talvez precise criptografar a senha
+            senha = criptografar(senha)
             cursor.execute("UPDATE alunos_teste SET senha = %s WHERE id_aluno = %s", (parametro, id_aluno))
             print(f"'Senha' de aluno atualizado com sucesso!")
         # TODO: Atualizar curso do aluno

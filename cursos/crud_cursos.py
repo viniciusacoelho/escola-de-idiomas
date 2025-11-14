@@ -37,7 +37,6 @@ def listar_cursos():
         cursor = conexao.cursor()
         cursor.execute("SELECT * FROM cursos_teste")
         lista_cursos = cursor.fetchall()
-        print("Cursos listados com sucesso!")
         return lista_cursos
         # return cursor.fetchall()
     except Exception as e:
@@ -45,19 +44,7 @@ def listar_cursos():
     finally:
         cursor.close()
         conexao.close()
-"""
-def autenticar_curso(nome_curso: str):
-    try:
-        conexao = criar_conexao()
-        cursor = conexao.cursor()
-        cursor.execute("", (nome_curso,))
-        print(f"Curso '{nome_curso}' autenticado com sucesso!")
-    except Exception as e:
-        print(f"[ERRO]: Falha ao autenticar curso: {e}")
-    finally:
-        cursor.close()
-        conexao.close()
-"""
+
 def atualizar_curso(id_curso: int, nome_curso: str=""):
     """
         Atualiza os cursos no banco de dados.
@@ -74,7 +61,8 @@ def atualizar_curso(id_curso: int, nome_curso: str=""):
         cursor = conexao.cursor()
         cursor.execute("UPDATE cursos_teste SET nome_curso = %s WHERE id_curso = %s", (nome_curso, id_curso))
         conexao.commit()
-        print(f"Curso '{nome_curso}' atualizado com sucesso!")
+        print(f"Curso atualizado com sucesso!")
+        # print(f"Curso '{nome_curso}' atualizado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar curso: {e}")
     finally:
@@ -95,6 +83,7 @@ def deletar_curso(id_curso: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
+        # cursor.execute("INSERT INTO lixeira-teste (nome) VALUES (%s)", (id_curso,))
         cursor.execute("DELETE FROM cursos_teste WHERE id_curso = %s", (id_curso,))
         # TODO: Verificar se vai funcionar, porque o usuário não digita o nome do curso aqui
         # cursor.execute("DELETE FROM cursos_teste WHERE id_curso = %s AND nome_curso = %s", (id_curso, nome_curso))
