@@ -17,8 +17,9 @@ def login_aluno():
         senha = getpass.getpass("Digite sua senha: ")
 
         aluno_autenticado = autenticar_aluno(usuario, senha)
-        if not aluno_autenticado:
-            print(f"Usuário e/ou senha incorretos!")
-        else:
+        
+        if aluno_autenticado:
             home_alunos(aluno_autenticado)
             break
+        else:
+            print(f"Usuário e/ou senha incorretos!")

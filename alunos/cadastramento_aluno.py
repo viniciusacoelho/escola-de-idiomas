@@ -40,6 +40,7 @@ def cadastramento_aluno():
 
     while True:
         cpf = input("Digite seu CPF:\n")
+        
         try:
             int(cpf)
             erro_cpf = validar_cpf(cpf)
@@ -49,11 +50,13 @@ def cadastramento_aluno():
             else:
                 cpf = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
                 break
+        
         except ValueError:
             print("[ERRO]: Digite apenas números!")
     
     while True:
         data_nascimento = input("Digite sua data de nascimento:\n")
+        
         try:
             int(data_nascimento)
             erro_data_nascimento =  validar_data_nascimento(data_nascimento)
@@ -63,11 +66,13 @@ def cadastramento_aluno():
             else:
                 data_nascimento = f"{data_nascimento[:2]}/{data_nascimento[2:4]}/{data_nascimento[4:]}"
                 break
+        
         except ValueError:
             print("[ERRO]: Digite apenas números!")
     
     while True:
         numero_telefone = input("Digite seu número de telefone:\n")   
+        
         try:
             int(numero_telefone)
             erro_numero_telefone = validar_numero_telefone(numero_telefone)
@@ -75,9 +80,9 @@ def cadastramento_aluno():
             if erro_numero_telefone:
                 print(erro_numero_telefone)
             else:
-                numero_telefone = str(numero_telefone)
                 numero_telefone = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
                 break
+        
         except ValueError:
             print("[ERRO]: Digite apenas números!")
         

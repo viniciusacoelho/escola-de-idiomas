@@ -4,15 +4,15 @@ from criptografar.criptografar import criptografar, checar_senha
 # TODO: Verificar se o aluno coloca o curso no cadastro ou se o 'adm' que coloca 
 def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
     """
-        Cadastra os alunos no banco de dados.
+    Cadastra os alunos no banco de dados.
 
-        Args:
-            nome_completo (str): Nome completo digitado pelo aluno.
-            usuario (str): Usuário digitado pelo aluno.
-            email (str): E-mail digitado pelo aluno.
+    Args:
+        nome_completo (str): Nome completo digitado pelo aluno.
+        usuario (str): Usuário digitado pelo aluno.
+        email (str): E-mail digitado pelo aluno.
 
-        Raises:
-            [ERRO]: Falha ao cadastrar aluno.
+    Raises:
+        [ERRO]: Falha ao cadastrar aluno.
     """
     try:
         conexao = criar_conexao()
@@ -95,11 +95,16 @@ def atualizar_aluno(id_aluno: int, parametro: str, opcao: int):
     Args:
         id_aluno (int): ID do aluno cadastrado no banco de dados.
         parametro (str): Parâmetro cadastrado do aluno que deseja atualizar.
-        opcao (int): 
+        opcao (int): Os dados que o aluno deseja atualizar.
 
     Raises:
         [ERRO]: Falha ao atualizar aluno.
     """
+    # opcoes = [
+    #     1: {'Nome completo'},
+    #     2: {'Usuário'},
+    #     2: {'Usuário'},
+    # ]
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -132,6 +137,9 @@ def atualizar_aluno(id_aluno: int, parametro: str, opcao: int):
         # print(f"'{parametro}' de aluno atualizado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar aluno: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
         
 def deletar_aluno(id_aluno: int):
     """

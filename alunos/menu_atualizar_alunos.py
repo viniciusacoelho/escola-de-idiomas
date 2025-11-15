@@ -32,6 +32,7 @@ def menu_atualizar_alunos(id_aluno: int):
                         else:
                             atualizar_aluno(id_aluno, novo_nome_completo, opcao_atualizar)
                             break
+
                 case 2:
                     while True:
                         novo_usuario = input("Digite o novo usuário do aluno:\n")
@@ -42,6 +43,7 @@ def menu_atualizar_alunos(id_aluno: int):
                         else:
                             atualizar_aluno(id_aluno, novo_usuario, opcao_atualizar)
                             break
+
                 case 3:
                     while True:
                         novo_email = input("Digite o novo e-mail do aluno:\n")
@@ -52,9 +54,11 @@ def menu_atualizar_alunos(id_aluno: int):
                         else:
                             atualizar_aluno(id_aluno, novo_email, opcao_atualizar)
                             break
+
                 case 4:
                     while True:
                         novo_cpf = input("Digite o novo CPF do aluno:\n")
+                
                         try:
                             int(novo_cpf)
                             erro_cpf = validar_cpf(novo_cpf)
@@ -64,11 +68,14 @@ def menu_atualizar_alunos(id_aluno: int):
                             else:
                                 atualizar_aluno(id_aluno, novo_cpf, opcao_atualizar)
                                 break
+
                         except ValueError:
                             print("[ERRO]: Digite apenas números!")
+                
                 case 5:
                     while True:
                         nova_data_nascimento = input("Digite a nova data de nascimento do aluno:\n")
+                
                         try:
                             int(nova_data_nascimento)
                             erro_nova_data_nascimento = validar_data_nascimento(nova_data_nascimento)
@@ -79,11 +86,14 @@ def menu_atualizar_alunos(id_aluno: int):
                                 nova_data_nascimento_validada = f"{nova_data_nascimento[:2]}/{nova_data_nascimento[2:4]}/{nova_data_nascimento[4:]}"
                                 atualizar_aluno(id_aluno, nova_data_nascimento_validada, opcao_atualizar)
                                 break
+
                         except ValueError:
                             print("[ERRO]: Digite apenas números!")
+                
                 case 6:
                     while True:
                         novo_numero_telefone = input("Digite o novo número de telefone do aluno:\n")
+                
                         try:
                             int(novo_numero_telefone)
                             erro_numero_telefone = validar_numero_telefone(novo_numero_telefone)
@@ -93,6 +103,7 @@ def menu_atualizar_alunos(id_aluno: int):
                             else:
                                 atualizar_aluno(id_aluno, novo_numero_telefone, opcao_atualizar)
                                 break
+
                         except ValueError:
                             print("[ERRO]: Digite apenas números!")
                 case 7:
@@ -106,7 +117,8 @@ def menu_atualizar_alunos(id_aluno: int):
                             print("Digite a mesma senha!")
                         else:
                             atualizar_aluno(id_aluno, nova_senha, opcao_atualizar)
-                            break    
+                            break
+
                 case 8:
                     print("Voltando...")
                     break
