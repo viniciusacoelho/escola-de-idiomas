@@ -36,16 +36,18 @@
 #             id_curso = int(input("Digite o ID do curso que deseja atualizar:\n"))
             
 #             for curso in cursos:
+#                 lista_cursos_cadastrados = []
+#                 lista_cursos_cadastrados.append(curso[1])
+                
 #                 if id_curso == curso[0]:
-#                     novo_nome_curso = input("Digite o novo nome do curso:\n")
-                    
-#                     if novo_nome_curso == curso[1]:
+#                     novo_nome_curso = input("Digite o novo nome do curso:\n")    
+
+#                     if novo_nome_curso not in lista_cursos_cadastrados:
 #                         atualizar_curso(id_curso, novo_nome_curso)
-#                         break
 #                     else:
 #                         print(f"Curso '{novo_nome_curso}' já cadastrado anteriormente.")
-#                         break
-                        
+#                     break
+
 #             else:
 #                 print("ID do curso não cadastrado anteriormente.")
 #             break
@@ -53,3 +55,7 @@
 #         except ValueError:
 #             print("[ERRO]: Digite um número!")
 #             break
+
+#     else:
+#         print("Nenhum curso cadastrado anteriormente.")
+#         break

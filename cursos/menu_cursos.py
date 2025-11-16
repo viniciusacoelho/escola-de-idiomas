@@ -13,8 +13,8 @@ def menu_curso():
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
-        print("--------------------------------------------")
         try:
+            print("--------------------------------------------")
             opcao = int(input("Digite uma opção:\n"))
 
             match opcao:
@@ -44,17 +44,21 @@ def menu_curso():
                                 print("--------------------------------------------")
                                 id_curso = int(input("Digite o ID do curso que deseja atualizar:\n"))
                                 
+                                lista_cursos_cadastrados = []
+                                
+                                for curso in cursos:
+                                    lista_cursos_cadastrados.append(curso[1])
+
                                 for curso in cursos:
                                     if id_curso == curso[0]:
-                                        novo_nome_curso = input("Digite o novo nome do curso:\n")
-                                        
-                                        if novo_nome_curso != curso:
+                                        novo_nome_curso = input("Digite o novo nome do curso:\n")    
+
+                                        if novo_nome_curso not in lista_cursos_cadastrados:
                                             atualizar_curso(id_curso, novo_nome_curso)
-                                            break
                                         else:
                                             print(f"Curso '{novo_nome_curso}' já cadastrado anteriormente.")
-                                            break
-                                            
+                                        break
+
                                 else:
                                     print("ID do curso não cadastrado anteriormente.")
                                 break
@@ -62,28 +66,35 @@ def menu_curso():
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
                                 break
-                                    
+
+                        else:
+                            print("Nenhum curso cadastrado anteriormente.")
+                            break
+
                 case 4:
                     while True:
                         cursos = listar_cursos()
-                        
+
                         if len(cursos) > 0:    
                             try:
                                 print("--------------------------------------------")
                                 id_curso = int(input("Digite o ID do curso que deseja deletar:\n"))
-                                
+
                                 for curso in cursos:
                                     if id_curso == curso[0]:
                                         deletar_curso(id_curso)
-                                        break
-                                    else:
-                                        print("ID do curso não existe!")
-                                
+                                else:
+                                    print("ID do curso não cadastrado anteriormente.")
+                                break
+
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
+                                break
 
                         else:
                             print("Nenhum curso cadastrado anteriormente.")
+                            break
+
                 case 5:
                     print("--------------------------------------------")
                     print("Voltando...")
@@ -96,4 +107,4 @@ def menu_curso():
             print("--------------------------------------------")
             print("[ERRO]: Digite um número!")
 
-# TODO: Colocar ORDER BY ASC no DBeaver ou aqui
+# TODO: Colocar ORDER BY ASC no DBeaver ou no 'crud_curso' para o 'id_curso' ficar em ordem

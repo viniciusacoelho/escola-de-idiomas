@@ -2,7 +2,7 @@ from banco_de_dados.bd import criar_conexao
 
 def cadastrar_curso(nome_curso: str):
     """
-        Cadastra os cursos no banco de dados.
+        Cadastra o curso no banco de dados.
 
         Args:
             nome_curso (str): Nome do curso digitado pelo usuário.
@@ -22,9 +22,27 @@ def cadastrar_curso(nome_curso: str):
         cursor.close()
         conexao.close()
 
+def autenticar_curso(nome_curso: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM cursos_teste WHERE nome_curso == %s", (nome_curso,))
+        conexao.commit
+        cursos = cursor.fetchone()
+        
+        if cursos:
+            return cursos
+        return None
+    
+    except Exception as e:
+        print(f"[ERRO]: Falha ao autenticar curso: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
 def listar_cursos():
     """
-        Lista os cursos no banco de dados.
+        Lista o curso cadastrado no banco de dados.
 
         Returns:
             lista_cursos: Lista dos cursos castrados.
@@ -45,9 +63,9 @@ def listar_cursos():
         cursor.close()
         conexao.close()
 
-def atualizar_curso(id_curso: int, nome_curso: str=""):
+def atualizar_curso(id_curso: int, novo_nome_curso: str):
     """
-        Atualiza os cursos no banco de dados.
+        Atualiza o curso cadastrado no banco de dados.
 
         Args:
             id_curso (int): ID do curso cadastrado no banco de dados.
@@ -59,10 +77,9 @@ def atualizar_curso(id_curso: int, nome_curso: str=""):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("UPDATE cursos_teste SET nome_curso = %s WHERE id_curso = %s", (nome_curso, id_curso))
+        cursor.execute("UPDATE cursos_teste SET nome_curso = %s WHERE id_curso = %s", (novo_nome_curso, id_curso))
         conexao.commit()
-        print(f"Curso atualizado com sucesso!")
-        # print(f"Curso '{nome_curso}' atualizado com sucesso!")
+        print(f"Curso '{novo_nome_curso}' atualizado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar curso: {e}")
     finally:
@@ -72,7 +89,7 @@ def atualizar_curso(id_curso: int, nome_curso: str=""):
 def deletar_curso(id_curso: int):
 # def deletar_curso(id_curso: int, nome_curso: str):
     """
-        Deleta o curso no banco de dados.
+        Deleta o curso cadastrado no banco de dados.
 
         Args:
             id_curso (int): ID do curso cadastrado no banco de dados.
@@ -84,12 +101,18 @@ def deletar_curso(id_curso: int):
         conexao = criar_conexao()
         cursor = conexao.cursor()
         # cursor.execute("INSERT INTO lixeira-teste (nome) VALUES (%s)", (id_curso,))
+        cursos = listar_cursos()
+        # for curso in cursos:
+        #     if id_curso == curso[0]:
+        #         print(f"Curso '{curso[1]}' deletado com sucesso!")
+        #     break
         cursor.execute("DELETE FROM cursos_teste WHERE id_curso = %s", (id_curso,))
         # TODO: Verificar se vai funcionar, porque o usuário não digita o nome do curso aqui
         # cursor.execute("DELETE FROM cursos_teste WHERE id_curso = %s AND nome_curso = %s", (id_curso, nome_curso))
         conexao.commit()
         print(f"Curso deletado com sucesso!")
-        # print(f"Curso '{nome_curso}' deletado com sucesso!")
+
+        # print("Curso deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar curso: {e}")
     finally:
