@@ -4,12 +4,16 @@ from criptografar.criptografar import criptografar, checar_senha
 # TODO: Verificar se o aluno coloca o curso no cadastro ou se o 'adm' que coloca 
 def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
     """
-    Cadastra os alunos no banco de dados.
+    Cadastra o aluno no banco de dados.
 
     Args:
-        nome_completo (str): Nome completo digitado pelo aluno.
-        usuario (str): Usuário digitado pelo aluno.
-        email (str): E-mail digitado pelo aluno.
+        nome_completo (str): Nome completo do aluno.
+        usuario (str): Usuário aluno.
+        email (str): E-mail aluno.
+        cpf (str): CPF do aluno.
+        data_nascimento (str): Data de nascimento do aluno.
+        numero_telefone (str): Número de telefone do aluno.
+        senha (str): Senha do aluno.
 
     Raises:
         [ERRO]: Falha ao cadastrar aluno.
@@ -35,18 +39,18 @@ def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data
 
 def autenticar_aluno(usuario: str, senha: str):
     """
-    Autentica/loga os alunos no banco de dados.
+    Autentica o aluno no banco de dados.
 
     Args:
-        usuario (str): Usuário digitado pelo aluno.
-        senha (str): Senha digitada pelo aluno.
+        usuario (str): Usuário do aluno.
+        senha (str): Senha do aluno.
 
     Returns:
-        aluno: Aluno autenticado/logado no banco de dados.
-        None: Aluno não autenticado/logado no banco de dados anteriormente.
+        aluno: Aluno autenticado no banco de dados.
+        None: Aluno não autenticado no banco de dados anteriormente.
 
     Raises:
-        [ERRO]: Falha ao logar aluno.
+        [ERRO]: Falha autenticar aluno.
     """
     try:
         conexao = criar_conexao()
@@ -58,23 +62,22 @@ def autenticar_aluno(usuario: str, senha: str):
             print(f"Usuário '{usuario}' autenticado/logado com sucesso!")
             return alunos_teste
         return None
-        # return f"Usuário e/ou senha incorretos!"
         
     except Exception as e:
-        return f"[ERRO]: Falha ao autenticar/logar usuário e/ou senha: {e}"
+        return f"[ERRO]: Falha ao autenticar usuário e/ou senha: {e}"
     finally:
         cursor.close()
         conexao.close()
 
 def listar_alunos():
     """
-    Cadastra os alunos no banco de dados
+    Lista os alunos cadastrados no banco de dados
 
     Returns:
-        lista_alunos: Lista dos alunos cadastrados.
+        lista_alunos: Lista dos alunos cadastrados no banco de dados.
 
     Raises:
-        [ERRO]: Falha ao cadastrar aluno.
+        [ERRO]: Falha ao listar aluno.
     """
     try:
         conexao = criar_conexao()
@@ -88,62 +91,34 @@ def listar_alunos():
         cursor.close()
         conexao.close()
 
-def atualizar_aluno(id_aluno: int, parametro: str, opcao: int):
+def atualizar_aluno(id_aluno: int, parametro: str, atualizar: str, tipo: str):
     """
-    Atualiza os alunos no banco de dados
+    Atualiza os dados do aluno no banco de dados.
 
     Args:
         id_aluno (int): ID do aluno cadastrado no banco de dados.
-        parametro (str): Parâmetro cadastrado do aluno que deseja atualizar.
-        opcao (int): Os dados que o aluno deseja atualizar.
+        parametro (str): Parâmetro cadastrado que o aluno deseja atualizar.
+        atualizar (str): O nome dos dados que o aluno deseja atualizar.
+        tipo (str): O nome dos dados que o aluno deseja atualizar para mensagem.
 
     Raises:
         [ERRO]: Falha ao atualizar aluno.
     """
-    # opcoes = [
-    #     1: {'Nome completo'},
-    #     2: {'Usuário'},
-    #     2: {'Usuário'},
-    # ]
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-
-        if opcao == 1:
-            cursor.execute("UPDATE alunos_teste SET nome_completo = %s WHERE id_aluno = %s", (parametro, id_aluno))
-            print(f"'Nome completo' de aluno atualizado com sucesso!")
-        elif opcao == 2:
-            cursor.execute("UPDATE alunos_teste SET usuario = %s WHERE id_aluno = %s", (parametro, id_aluno))
-            print(f"'Usuário' de aluno atualizado com sucesso!")
-        elif opcao == 3:
-            cursor.execute("UPDATE alunos_teste SET email = %s WHERE id_aluno = %s", (parametro, id_aluno))
-            print(f"'E-mail' de aluno atualizado com sucesso!")
-        elif opcao == 4:
-            cursor.execute("UPDATE alunos_teste SET cpf = %s WHERE id_aluno = %s", (parametro, id_aluno))
-            print(f"'CPF' de aluno atualizado com sucesso!")
-        elif opcao == 5:
-            cursor.execute("UPDATE alunos_teste SET data_nascimento = %s WHERE id_aluno = %s", (parametro, id_aluno))
-            print(f"'Data de nascimento' de aluno atualizado com sucesso!")
-        elif opcao == 6:
-            cursor.execute("UPDATE alunos_teste SET numero_telefone = %s WHERE id_aluno = %s", (parametro, id_aluno))
-            print(f"'Telefone' de aluno atualizado com sucesso!")
-        elif opcao == 7:
-            senha = criptografar(senha)
-            cursor.execute("UPDATE alunos_teste SET senha = %s WHERE id_aluno = %s", (parametro, id_aluno))
-            print(f"'Senha' de aluno atualizado com sucesso!")
-        # TODO: Atualizar curso do aluno
-
+        cursor.execute(f"UPDATE alunos_teste SET {atualizar} = %s WHERE id_aluno = %s", (parametro, id_aluno))
+        print(f"'{tipo}' de aluno atualizado com sucesso!")
         conexao.commit()
-        # print(f"'{parametro}' de aluno atualizado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar aluno: {e}")
     finally:
         cursor.close()
         conexao.close()
         
-def deletar_aluno(id_aluno: int):
+def deletar_aluno(id_aluno: int, alunos: list):
     """
-    Deleta os alunos no banco de dados.
+    Deleta o aluno no banco de dados.
 
     Args:
         id_usuario (int): ID do aluno cadastrado no banco de dados.
@@ -157,8 +132,7 @@ def deletar_aluno(id_aluno: int):
         cursor.execute("DELETE from alunos_teste WHERE id_aluno = %s", (id_aluno,))
         conexao.commit()
         # TODO: Verificar se tem como colocar o nome do aluno aqui:
-        # print(f"Aluno '{nome_completo}' deletado com sucesso!")
-        print(f"Aluno '{id_aluno[0]}' deletado com sucesso!")
+        print(f"Aluno '{alunos}' deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar aluno: {e}")
     finally:

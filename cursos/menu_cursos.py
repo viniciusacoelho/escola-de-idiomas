@@ -1,8 +1,12 @@
-from cursos.crud_cursos import cadastrar_curso, listar_cursos, atualizar_curso, deletar_curso
+from cursos.crud_cursos import cadastrar_curso, listar_cursos, buscar_curso, atualizar_curso, deletar_curso
 from limpar_tela.limpar_tela import limpar_tela
 
 def menu_curso():
+    """Menu principal dos cursos, permitindo o usuário fazer uma série de ações."""
     menu = ["Cadastrar Curso", "Listar Cursos", "Atualizar Curso", "Deletar Curso", "Voltar"]
+    
+    # TODO: Buscar Curso
+    # menu = ["Cadastrar Curso", "Listar Cursos", "Buscar Curso", "Atualizar Curso", "Deletar Curso", "Voltar"]
 
     while True:
         limpar_tela()
@@ -99,6 +103,15 @@ def menu_curso():
                     print("--------------------------------------------")
                     print("Voltando...")
                     break
+                
+                # TODO: Melhorar Buscar Curso
+                case 6:
+                    busca_nome = input("Digite nome para buscar: ")
+                    nome_bucado = buscar_curso(busca_nome)
+                    # TODO: Pode aparecer a quantidade de alunos, professores e turmas no curso
+                    for nome in nome_bucado:
+                        print(f"{nome[0]} - {nome[1]}")
+
                 case _:
                     print("--------------------------------------------")
                     print("Opção inválida!")

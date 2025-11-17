@@ -2,9 +2,10 @@ import getpass
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.validar_alunos import validar_nome_completo, validar_usuario, validar_email, validar_cpf, validar_data_nascimento, validar_numero_telefone, validar_senha
 from alunos.crud_alunos import cadastrar_aluno
+from unique.verificar_unique import verificar_unique
 
 def cadastramento_aluno():
-    """Cadastra os dados do aluno no banco de dados."""
+    """Cadastra os dados do aluno no banco de dados, pedindo uma série de informações."""
     limpar_tela()
 
     print("--------------------------------------------")
@@ -17,28 +18,42 @@ def cadastramento_aluno():
         
         if erro_nome_completo:
             print(erro_nome_completo)
+            print("--------------------------------------------\n")
         else:
             break
 
     while True:
+        print("--------------------------------------------\n")
         usuario = input("Digite seu usuário:\n").lower()
         erro_usuario = validar_usuario(usuario)
 
         if erro_usuario:
             print(erro_usuario)
         else:
-            break
+            erro_verificar_unique = verificar_unique("Alunos", usuario, 2, "Usuário")
+            
+            if erro_verificar_unique:
+                print(erro_verificar_unique)
+            else:
+                break
     
     while True:
+        print("--------------------------------------------\n")
         email = input("Digite seu e-mail:\n").lower()
         erro_email = validar_email(email)
-        
+
         if erro_email:
             print(erro_email)
         else:
-            break
+            erro_verificar_unique = verificar_unique("Alunos", email, 3, "E-mail")
+            
+            if erro_verificar_unique:
+                print(erro_verificar_unique)
+            else:
+                break
 
     while True:
+        print("--------------------------------------------\n")
         cpf = input("Digite seu CPF:\n")
         
         try:
@@ -49,12 +64,18 @@ def cadastramento_aluno():
                 print(erro_cpf)
             else:
                 cpf = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
-                break
+                erro_verificar_unique = verificar_unique("Alunos", cpf, 4, "CPF")
+
+                if erro_verificar_unique:
+                    print(erro_verificar_unique)
+                else:
+                    break
         
         except ValueError:
             print("[ERRO]: Digite apenas números!")
     
     while True:
+        print("--------------------------------------------\n")
         data_nascimento = input("Digite sua data de nascimento:\n")
         
         try:
@@ -66,11 +87,12 @@ def cadastramento_aluno():
             else:
                 data_nascimento = f"{data_nascimento[:2]}/{data_nascimento[2:4]}/{data_nascimento[4:]}"
                 break
-        
+
         except ValueError:
             print("[ERRO]: Digite apenas números!")
     
     while True:
+        print("--------------------------------------------\n")
         numero_telefone = input("Digite seu número de telefone:\n")   
         
         try:
@@ -81,12 +103,20 @@ def cadastramento_aluno():
                 print(erro_numero_telefone)
             else:
                 numero_telefone = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
-                break
+                erro_verificar_unique = verificar_unique("Alunos", numero_telefone, 6, "Número de telefone")
+
+                if erro_verificar_unique:
+                    print(erro_verificar_unique)
+                else:
+                    break
+            
+            break
         
         except ValueError:
             print("[ERRO]: Digite apenas números!")
-        
+            
     while True:
+        print("--------------------------------------------\n")
         senha = getpass.getpass("Digite sua senha:\n")
         # TODO:
         # erro_senha = validar_senha(senha)
@@ -99,9 +129,10 @@ def cadastramento_aluno():
         break
 
     while True:
+        print("--------------------------------------------\n")
         confirmar_senha = getpass.getpass("Confirme sua senha:\n")
         
-        if confirmar_senha != senha:
+        if confirmar_senha not in senha:
             print("Digite a mesma senha!")
         else:
             break

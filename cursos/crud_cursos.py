@@ -22,33 +22,15 @@ def cadastrar_curso(nome_curso: str):
         cursor.close()
         conexao.close()
 
-def autenticar_curso(nome_curso: str):
-    try:
-        conexao = criar_conexao()
-        cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM cursos_teste WHERE nome_curso == %s", (nome_curso,))
-        conexao.commit
-        cursos = cursor.fetchone()
-        
-        if cursos:
-            return cursos
-        return None
-    
-    except Exception as e:
-        print(f"[ERRO]: Falha ao autenticar curso: {e}")
-    finally:
-        cursor.close()
-        conexao.close()
-
 def listar_cursos():
     """
-        Lista o curso cadastrado no banco de dados.
+        Lista os cursos cadastrados no banco de dados.
 
         Returns:
             lista_cursos: Lista dos cursos castrados.
 
         Raises:
-            [ERRO]: Falha ao cadastrar curso.
+            [ERRO]: Falha ao listar curso.
     """
     try:
         conexao = criar_conexao()
@@ -59,6 +41,20 @@ def listar_cursos():
         # return cursor.fetchall()
     except Exception as e:
         print(f"[ERRO]: Falha ao listar cursos: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def buscar_curso(busca_nome: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM cursos_teste WHERE nome_curso LIKE %s", (f"%{busca_nome}%",))
+        cursos = cursor.fetchall()
+        print(f"Curso '{busca_nome}' buscado com sucesso!")
+        return cursos
+    except Exception as e:
+        print(f"[ERRO]: Falha ao bucar curso: {e}")
     finally:
         cursor.close()
         conexao.close()
@@ -110,9 +106,9 @@ def deletar_curso(id_curso: int):
         # TODO: Verificar se vai funcionar, porque o usuário não digita o nome do curso aqui
         # cursor.execute("DELETE FROM cursos_teste WHERE id_curso = %s AND nome_curso = %s", (id_curso, nome_curso))
         conexao.commit()
-        print(f"Curso deletado com sucesso!")
+        print("Curso deletado com sucesso!")
 
-        # print("Curso deletado com sucesso!")
+        # print(f"Curso '{nome_curso}' deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar curso: {e}")
     finally:

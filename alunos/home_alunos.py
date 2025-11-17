@@ -2,10 +2,17 @@ from limpar_tela.limpar_tela import limpar_tela
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
 
 def home_alunos(aluno_autenticado):
+    """
+    Página principal do aluno logado.
+
+    Args:
+        aluno_autenticado (list): Todos os dados cadastrados do aluno autenticado.
+    """
     menu = ["Vizualizar Turma", "Atualizar Cadastro", "Sair"]
     # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mudar Curso", "Sair"]
-    
-    while True:    
+    # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Caadastro", "Mudar Curso", "Sair"]
+
+    while True:
         limpar_tela()
 
         print("--------------------------------------------")
@@ -16,7 +23,7 @@ def home_alunos(aluno_autenticado):
 
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
-        
+
         print("--------------------------------------------")
         try:
             opcao = int(input("Digite uma opção: "))
@@ -37,6 +44,6 @@ def home_alunos(aluno_autenticado):
                     break
                 case _:
                     print("Opção inválida!")
-                
+
         except ValueError:
             print("[ERRO]: Digite um número!")
