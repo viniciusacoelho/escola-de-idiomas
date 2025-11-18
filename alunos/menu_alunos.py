@@ -1,12 +1,13 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.cadastramento_aluno import cadastramento_aluno
-from alunos.crud_alunos import listar_alunos, deletar_aluno
+from alunos.crud_alunos import listar_alunos, buscar_aluno, deletar_aluno
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
+from unique.verificar_unique import verificar_unique
 
 def menu_aluno():
     """Menu principal dos alunos."""
     # TODO: Buscar Aluno
-    menu = ["Cadastrar Aluno", "Listar Alunos", "Atualizar Aluno", "Deletar Aluno", "Voltar"]
+    menu = ["Cadastrar Aluno", "Listar Alunos", "Buscar Aluno", "Atualizar Aluno", "Deletar Aluno", "Voltar"]
 
     while True:
         limpar_tela()
@@ -32,7 +33,7 @@ def menu_aluno():
                         print(f"Alunos listados com sucesso!")
                         print("--------------------------------------------")
             
-                        # TODO: Melhorar isso:
+                        # TODO: Melhorar isso adicionando o curso:
                         for aluno in alunos:
                             print(f"{aluno[0]} - {aluno[1]}")
                     else:
@@ -42,11 +43,35 @@ def menu_aluno():
                     while True:
                         alunos = listar_alunos()
 
+                        if len(alunos) > 0:
+                            print("--------------------------------------------")
+                            buscar_usuario = input("Digite o usuário do aluno que deseja buscar:\n")
+                            nome_busca_unique = verificar_unique("Alunos", buscar_usuario, 2, "Aluno")
+                        
+                            if not nome_busca_unique:
+                                print(f"Aluno '{buscar_usuario}' não cadastrado anteriormente.")
+                                break
+                            else:
+                                usuario_buscado = buscar_aluno(buscar_usuario)
+                                
+                                print("--------------------------------------------")
+                                for nome in usuario_buscado:
+                                    print(f"Aluno {nome[0]}\nNome completo: {nome[1]}\nUsuário: {nome[2]}\nE-mail: {nome[3]}\nCPF: {nome[4]}\nData de nascimento: {nome[5]}\nNúmero de telefone: {nome[6]}\nSenha: *****")
+                                break
+
+                        else:
+                            print("Nenhum aluno cadastrado anteriormente")
+
+                case 4:
+                    while True:
+                        alunos = listar_alunos()
+
                         if len(alunos) > 0: 
                             try:
                                 id_aluno = int(input("Digite o ID do aluno que deseja atualizar:\n"))
                                 
                                 for aluno in alunos:
+                                    # TODO: Tentar colocar except IndexError: para ver se funciona
                                     if id_aluno == aluno[0]:
                                         menu_atualizar_alunos(id_aluno)
                                         break
@@ -61,7 +86,7 @@ def menu_aluno():
                         else:
                             print("Nehum aluno cadastrado anteriormente.")
                             break
-                case 4:
+                case 5:
                     while True:
                         alunos = listar_alunos()
 
@@ -70,6 +95,7 @@ def menu_aluno():
                                 id_aluno = int(input("Digite o ID do aluno que deseja deletar:\n"))
                                 
                                 for aluno in alunos:
+                                    # TODO: Tentar colocar except IndexError: para ver se funciona
                                     if id_aluno == aluno[0]:
                                         deletar_aluno(id_aluno, alunos[1])
                                         break
@@ -85,7 +111,7 @@ def menu_aluno():
                             print("Nenhum aluno cadastrado anteriormente")
                             break
                 
-                case 5:
+                case 6:
                     print("Voltando...")
                     break
                 case _:

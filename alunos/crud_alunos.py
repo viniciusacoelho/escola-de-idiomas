@@ -2,7 +2,7 @@ from banco_de_dados.bd import criar_conexao
 from criptografar.criptografar import criptografar, checar_senha
 
 # TODO: Verificar se o aluno coloca o curso no cadastro ou se o 'adm' que coloca 
-def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
+def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, curso: str, senha: str):
     """
     Cadastra o aluno no banco de dados.
 
@@ -24,7 +24,7 @@ def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data
 
         senha = criptografar(senha)
         
-        cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha))
+        cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, curso, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, curso, senha))
         conexao.commit()
         print(f"Aluno '{nome_completo}' cadastrado com sucesso!")
         # TODO: Colocar somente o primeiro e último nome
@@ -87,6 +87,20 @@ def listar_alunos():
         return lista_alunos
     except Exception as e:
         return f"[ERRO] ao listar alunos: {e}"
+    finally:
+        cursor.close()
+        conexao.close()
+
+def buscar_aluno(usuario: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM alunos_teste WHERE usuario LIKE %s", (f"%{usuario}%",))
+        aluno = cursor.fetchall()
+        print(f"Usuário '{usuario}' buscado com sucesso!")
+        return aluno
+    except Exception as e:
+        return f"[ERRO] ao buscar alunos: {e}"
     finally:
         cursor.close()
         conexao.close()

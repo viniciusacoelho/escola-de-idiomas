@@ -1,12 +1,10 @@
 from cursos.crud_cursos import cadastrar_curso, listar_cursos, buscar_curso, atualizar_curso, deletar_curso
 from limpar_tela.limpar_tela import limpar_tela
+from unique.verificar_unique import verificar_unique
 
 def menu_curso():
     """Menu principal dos cursos, permitindo o usuário fazer uma série de ações."""
-    menu = ["Cadastrar Curso", "Listar Cursos", "Atualizar Curso", "Deletar Curso", "Voltar"]
-    
-    # TODO: Buscar Curso
-    # menu = ["Cadastrar Curso", "Listar Cursos", "Buscar Curso", "Atualizar Curso", "Deletar Curso", "Voltar"]
+    menu = ["Cadastrar Curso", "Listar Cursos", "Buscar Curso", "Atualizar Curso", "Deletar Curso", "Voltar"]
 
     while True:
         limpar_tela()
@@ -44,6 +42,28 @@ def menu_curso():
                         cursos = listar_cursos()
 
                         if len(cursos) > 0:
+                            print("--------------------------------------------")
+                            nome_busca = input("Digite nome do curso que deseja buscar:\n")
+                            erro_buscar_curso_unique = verificar_unique("Cursos", nome_busca, 1, "Curso")
+
+                            if not erro_buscar_curso_unique:
+                                print(f"Curso '{nome_busca}' não cadastrado anteriormente.")
+                                break
+                            else:
+                                nome_buscado = buscar_curso(nome_busca)
+                                
+                                # TODO: Pode aparecer a quantidade de alunos, professores e turmas no curso
+                                for nome in nome_buscado:
+                                    print(f"{nome[0]} - {nome[1]}")
+                                break
+                        else:
+                            print("Nenhum curso cadastrado anteriormente.")
+
+                case 4:
+                    while True:
+                        cursos = listar_cursos()
+
+                        if len(cursos) > 0:
                             try:
                                 print("--------------------------------------------")
                                 id_curso = int(input("Digite o ID do curso que deseja atualizar:\n"))
@@ -54,6 +74,7 @@ def menu_curso():
                                     lista_cursos_cadastrados.append(curso[1])
 
                                 for curso in cursos:
+                                    # TODO: Tentar colocar except IndexError: para ver se funciona
                                     if id_curso == curso[0]:
                                         novo_nome_curso = input("Digite o novo nome do curso:\n")    
 
@@ -75,7 +96,7 @@ def menu_curso():
                             print("Nenhum curso cadastrado anteriormente.")
                             break
 
-                case 4:
+                case 5:
                     while True:
                         cursos = listar_cursos()
 
@@ -85,6 +106,7 @@ def menu_curso():
                                 id_curso = int(input("Digite o ID do curso que deseja deletar:\n"))
 
                                 for curso in cursos:
+                                    # TODO: Tentar colocar except IndexError: para ver se funciona
                                     if id_curso == curso[0]:
                                         deletar_curso(id_curso)
                                 else:
@@ -99,18 +121,12 @@ def menu_curso():
                             print("Nenhum curso cadastrado anteriormente.")
                             break
 
-                case 5:
+                case 6:
                     print("--------------------------------------------")
                     print("Voltando...")
                     break
                 
                 # TODO: Melhorar Buscar Curso
-                case 6:
-                    busca_nome = input("Digite nome para buscar: ")
-                    nome_bucado = buscar_curso(busca_nome)
-                    # TODO: Pode aparecer a quantidade de alunos, professores e turmas no curso
-                    for nome in nome_bucado:
-                        print(f"{nome[0]} - {nome[1]}")
 
                 case _:
                     print("--------------------------------------------")

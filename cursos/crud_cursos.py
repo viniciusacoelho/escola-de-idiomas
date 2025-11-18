@@ -45,16 +45,16 @@ def listar_cursos():
         cursor.close()
         conexao.close()
 
-def buscar_curso(busca_nome: str):
+def buscar_curso(nome_curso: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM cursos_teste WHERE nome_curso LIKE %s", (f"%{busca_nome}%",))
+        cursor.execute("SELECT * FROM cursos_teste WHERE nome_curso LIKE %s", (f"%{nome_curso}%",))
         cursos = cursor.fetchall()
-        print(f"Curso '{busca_nome}' buscado com sucesso!")
+        print(f"Curso '{nome_curso}' buscado com sucesso!")
         return cursos
     except Exception as e:
-        print(f"[ERRO]: Falha ao bucar curso: {e}")
+        print(f"[ERRO]: Falha ao buscar curso: {e}")
     finally:
         cursor.close()
         conexao.close()

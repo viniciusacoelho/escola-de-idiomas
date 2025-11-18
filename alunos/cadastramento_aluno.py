@@ -114,7 +114,12 @@ def cadastramento_aluno():
         
         except ValueError:
             print("[ERRO]: Digite apenas números!")
-            
+    
+    # TODO: Colocar no final
+    while True:
+        curso = input("Digite o ID do curso que você deseja se matricular:\n")
+        break
+
     while True:
         print("--------------------------------------------\n")
         senha = getpass.getpass("Digite sua senha:\n")
@@ -137,4 +142,4 @@ def cadastramento_aluno():
         else:
             break
 
-    cadastrar_aluno(nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha)
+    cadastrar_aluno(nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, curso, senha)
