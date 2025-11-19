@@ -58,7 +58,7 @@ def menu_curso():
                                 break
                         else:
                             print("Nenhum curso cadastrado anteriormente.")
-
+                            break
                 case 4:
                     while True:
                         cursos = listar_cursos()

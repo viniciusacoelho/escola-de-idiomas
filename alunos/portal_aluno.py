@@ -1,14 +1,15 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
+from cursos.crud_cursos import listar_cursos, inner_join
 
-def home_alunos(aluno_autenticado):
+def portal_aluno(aluno_autenticado):
     """
-    Página principal do aluno logado.
+    Portal do aluno referente ao aluno logado.
 
     Args:
         aluno_autenticado (list): Todos os dados cadastrados do aluno autenticado.
     """
-    menu = ["Vizualizar Turma", "Atualizar Cadastro", "Sair"]
+    menu = ["Vizualizar Turma", "Atualizar Cadastro", "Escolher Curso", "Sair"]
     # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mudar Curso", "Sair"]
     # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Caadastro", "Mudar Curso", "Sair"]
 
@@ -19,7 +20,7 @@ def home_alunos(aluno_autenticado):
         print("             Escola de Idiomas              ")
         print("--------------------------------------------")
 
-        print(f"Bem-Vindo de Volta, {aluno_autenticado[1]}!\n")
+        print(f"Bem-vindo de volta, {aluno_autenticado[1]}!\n")
 
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
@@ -37,10 +38,33 @@ def home_alunos(aluno_autenticado):
                     # 2 - Sicrano
                     # 3 - Beltrano
                     # Professor: José
+                    # Horário: 12:34
                     print("Em breve")
                 case 2:
                     menu_atualizar_alunos(aluno_autenticado[0])
                 case 3:
+                    while True:
+                        print("--------------------------------------------\n")
+                        cursos = listar_cursos()
+
+                        if len(cursos) > 0:
+                            try:
+                                for curso in cursos:
+                                    print(f"{curso[0]} - {curso[1]}")
+
+                                print("--------------------------------------------")
+                                id_curso = int(input("Digite o ID do curso que você deseja se matricular:\n"))
+                                inner_join(aluno_autenticado[0], id_curso)
+                                break
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+                            except IndexError:
+                                print("[ERRO]: ID do curso não cadastrado anteriormente.")
+                            break
+                        else:
+                            print("Nenhum curso cadastrado anteriormente.")
+                            break
+                case 4:
                     break
                 case _:
                     print("Opção inválida!")

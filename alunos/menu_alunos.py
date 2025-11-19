@@ -1,5 +1,5 @@
 from limpar_tela.limpar_tela import limpar_tela
-from alunos.cadastramento_aluno import cadastramento_aluno
+from alunos.matricular_aluno import matricular_aluno
 from alunos.crud_alunos import listar_alunos, buscar_aluno, deletar_aluno
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
 from unique.verificar_unique import verificar_unique
@@ -24,7 +24,7 @@ def menu_aluno():
 
             match opcao:
                 case 1:
-                    cadastramento_aluno()
+                    matricular_aluno()
                 case 2:
                     # TODO: Colocar uma validação se há alunos cadastrados anteriormente
                     alunos = listar_alunos()
@@ -61,6 +61,7 @@ def menu_aluno():
 
                         else:
                             print("Nenhum aluno cadastrado anteriormente")
+                            break
 
                 case 4:
                     while True:
@@ -93,7 +94,7 @@ def menu_aluno():
                         if len(alunos) > 0:
                             try:
                                 id_aluno = int(input("Digite o ID do aluno que deseja deletar:\n"))
-                                
+
                                 for aluno in alunos:
                                     # TODO: Tentar colocar except IndexError: para ver se funciona
                                     if id_aluno == aluno[0]:
@@ -102,7 +103,7 @@ def menu_aluno():
                                 else:
                                     print("ID do aluno inválido!")
                                     break
-
+                                break
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
                                 break
@@ -110,7 +111,7 @@ def menu_aluno():
                         else:
                             print("Nenhum aluno cadastrado anteriormente")
                             break
-                
+                        
                 case 6:
                     print("Voltando...")
                     break

@@ -2,12 +2,12 @@ from limpar_tela.limpar_tela import limpar_tela
 from administrador.menu_administrador import menu_administrador
 # from professores.professor import professor
 # from professores.professor import professor
-from alunos.cadastramento_aluno import cadastramento_aluno
+from alunos.matricular_aluno import matricular_aluno
 from alunos.login_aluno import login_aluno
 
 def identificacao(opcao_escolhida: int):
     while True:
-        menu = ["Criar Conta", "Login", "Voltar"]
+        menu = ["Já sou aluno", "Não sou aluno", "Voltar"]
         
         limpar_tela()
 
@@ -35,9 +35,9 @@ def identificacao(opcao_escolhida: int):
                 print("Em breve")
                 # TODO: Verificar se precisa colocar a função 'limpar_tela' em todas as opções
             elif opcao == 1 and opcao_escolhida == 3:
-                cadastramento_aluno()
-            elif opcao == 2 and opcao_escolhida == 3:
                 login_aluno()
+            elif opcao == 2 and opcao_escolhida == 3:
+                matricular_aluno()
             elif opcao == 1 and opcao_escolhida == 4:
                 # cadastrar_turma()
                 pass

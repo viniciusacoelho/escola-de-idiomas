@@ -2,7 +2,7 @@ from banco_de_dados.bd import criar_conexao
 from criptografar.criptografar import criptografar, checar_senha
 
 # TODO: Verificar se o aluno coloca o curso no cadastro ou se o 'adm' que coloca 
-def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, curso: str, senha: str):
+def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
     """
     Cadastra o aluno no banco de dados.
 
@@ -24,7 +24,7 @@ def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data
 
         senha = criptografar(senha)
         
-        cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, curso, senha) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, curso, senha))
+        cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha))
         conexao.commit()
         print(f"Aluno '{nome_completo}' cadastrado com sucesso!")
         # TODO: Colocar somente o primeiro e último nome
@@ -71,7 +71,7 @@ def autenticar_aluno(usuario: str, senha: str):
 
 def listar_alunos():
     """
-    Lista os alunos cadastrados no banco de dados
+    Lista os alunos cadastrados no banco de dados.
 
     Returns:
         lista_alunos: Lista dos alunos cadastrados no banco de dados.
@@ -82,7 +82,7 @@ def listar_alunos():
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM alunos_teste")
+        cursor.execute("SELECT * FROM alunos_teste ORDER BY id_aluno ASC")
         lista_alunos = cursor.fetchall()
         return lista_alunos
     except Exception as e:
@@ -92,6 +92,15 @@ def listar_alunos():
         conexao.close()
 
 def buscar_aluno(usuario: str):
+    """ 
+    Busca o aluno cadastrado no banco de dados, mostrando todos os dados relacionados ao usuário.
+
+    Args:
+        usuario: Usuário do aluno cadastrado para busca.
+
+    Raises:
+        [ERRO]: Falha ao buscar aluno.
+    """
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -146,7 +155,8 @@ def deletar_aluno(id_aluno: int, alunos: list):
         cursor.execute("DELETE from alunos_teste WHERE id_aluno = %s", (id_aluno,))
         conexao.commit()
         # TODO: Verificar se tem como colocar o nome do aluno aqui:
-        print(f"Aluno '{alunos}' deletado com sucesso!")
+        # print(f"Aluno '{alunos}' deletado com sucesso!")
+        print(f"Aluno deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar aluno: {e}")
     finally:

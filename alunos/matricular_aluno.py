@@ -1,17 +1,18 @@
 import getpass
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.validar_alunos import validar_nome_completo, validar_usuario, validar_email, validar_cpf, validar_data_nascimento, validar_numero_telefone, validar_senha
-from alunos.crud_alunos import cadastrar_aluno
+from alunos.crud_alunos import cadastrar_aluno, listar_alunos
 from unique.verificar_unique import verificar_unique
+from cursos.crud_cursos import listar_cursos, inserir_aluno
 
-def cadastramento_aluno():
+def matricular_aluno():
     """Cadastra os dados do aluno no banco de dados, pedindo uma série de informações."""
     limpar_tela()
 
     print("--------------------------------------------")
     print("                  Cadastro")
     print("--------------------------------------------")
-    
+    print("Matricule-se\n")
     while True:
         nome_completo = input("Digite seu nome completo:\n")
         erro_nome_completo = validar_nome_completo(nome_completo)
@@ -109,16 +110,9 @@ def cadastramento_aluno():
                     print(erro_verificar_unique)
                 else:
                     break
-            
-            break
         
         except ValueError:
             print("[ERRO]: Digite apenas números!")
-    
-    # TODO: Colocar no final
-    while True:
-        curso = input("Digite o ID do curso que você deseja se matricular:\n")
-        break
 
     while True:
         print("--------------------------------------------\n")
@@ -142,4 +136,25 @@ def cadastramento_aluno():
         else:
             break
 
-    cadastrar_aluno(nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, curso, senha)
+    # while True:
+    #     print("--------------------------------------------\n")
+    #     cursos = listar_cursos()
+    #     if len(cursos) > 0:
+    #         try:
+    #             for curso in cursos:
+    #                 print(f"{curso[0]} - {curso[1]}")
+    #             print("--------------------------------------------")
+    #             id_curso = input("Digite o ID do curso que você deseja se matricular:\n")
+    #             cursos = listar_cursos(id_curso[0])
+    #             break
+    #         except ValueError:
+    #             print("[ERRO]: Digite um número!")
+    #         except IndexError:
+    #             print("[ERRO]: ID do curso não cadastrado anteriormente.")
+    #         break
+    #     else:
+    #         print("Nenhum curso cadastrado anteriormente.")
+    #         break
+
+    cadastrar_aluno(nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha)
+    # aluno = listar_alunos()

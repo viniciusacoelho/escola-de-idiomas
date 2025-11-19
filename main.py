@@ -3,6 +3,7 @@ from identificacao.identificacao import identificacao
 # from cursos.menu_cursos import menu_curso
 from administrador.menu_administrador import menu_administrador
 # from alunos.menu_alunos import menu_aluno
+from alunos.identificacao_aluno import identificacao_aluno
 
 menu = ["Administrador", "Professor", "Aluno", "Sair"]
 
@@ -27,12 +28,13 @@ while True:
             print("--------------------------------------------")
             print("Em breve")
         elif opcao == 3:
-            identificacao(opcao)
+            # identificacao(opcao)
+            identificacao_aluno()
         elif opcao == 4:
             print("--------------------------------------------")
             print("Saindo...")
             limpar_tela()
-            
+
             print("--------------------------------------------")
             print("              Desenvolvedores")
             print("--------------------------------------------")

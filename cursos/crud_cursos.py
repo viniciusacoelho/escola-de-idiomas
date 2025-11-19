@@ -22,6 +22,46 @@ def cadastrar_curso(nome_curso: str):
         cursor.close()
         conexao.close()
 
+def inserir_aluno(id_aluno: int, nome_curso: str):
+# def inserir_aluno(id_aluno: int, id_curso: int):
+    """
+        Insere o aluno na tabela cursos no banco de dados.
+
+        Args:
+            id_aluno (int): ID do aluno cadastrado no banco de dados.
+        
+        Raises:
+            [ERRO]: Falha ao inserir aluno.
+    """
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        # cursor.execute("INSERT INTO cursos_teste (id_aluno, nome_curso) VALUES (%s, %s)", (id_aluno, nome_curso))
+        cursor.execute("INSERT INTO cursos_teste (id_aluno, nome_curso) VALUES (%s, %s)", (id_aluno, nome_curso))
+        conexao.commit()
+        print(f"Aluno inserido com sucesso!")
+        # print(f"Aluno '{nome_aluno}' inserido com sucesso!")
+    except Exception as e:
+        print(f"[ERRO]: Falha ao inserir aluno: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def inner_join(id_aluno: int, id_curso: int):
+    try:
+        coenxao = criar_conexao()
+        cursor = coenxao.cursor()
+        conn = criar_conexao()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO aluno_curso (id_aluno, id_curso) VALUES (%s, %s)", (id_aluno, id_curso))
+        print("Curso escolhido com sucesso!")
+        conn.commit()
+    except Exception as e:
+        print(f"[ERRO]: Falha as escolher curso: {e}")
+    finally:
+        cursor.close()
+        coenxao.close()
+
 def listar_cursos():
     """
         Lista os cursos cadastrados no banco de dados.
@@ -35,7 +75,7 @@ def listar_cursos():
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM cursos_teste")
+        cursor.execute("SELECT * FROM cursos_teste ORDER BY id_curso ASC")
         lista_cursos = cursor.fetchall()
         return lista_cursos
         # return cursor.fetchall()
@@ -46,6 +86,15 @@ def listar_cursos():
         conexao.close()
 
 def buscar_curso(nome_curso: str):
+    """
+    Busca o curso cadastrado no banco de dados, mostrando todos os dados relacionados ao nome do curso.
+
+    Args:
+        nome_curso: Nome do curso cadastrado para busca.
+
+    Raises:
+        [ERRO]: Falha ao buscar aluno.
+    """
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
