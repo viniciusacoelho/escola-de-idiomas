@@ -1,6 +1,7 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
 from cursos.crud_cursos import listar_cursos, inner_join
+from unique.verificar_unique import verificar_unique
 
 def portal_aluno(aluno_autenticado):
     """
@@ -54,13 +55,23 @@ def portal_aluno(aluno_autenticado):
 
                                 print("--------------------------------------------")
                                 id_curso = int(input("Digite o ID do curso que você deseja se matricular:\n"))
-                                inner_join(aluno_autenticado[0], id_curso)
+                                for curso in cursos:
+                                    if id_curso == curso[0]:
+                                        # TODO: Mudar o nome para 'matricular_curso'
+                                        inner_join(aluno_autenticado[0], id_curso)                                   
+                                        break
+                                else:
+                                    print("ID do curso não cadastrado anteriormente.")
                                 break
+                                # TODO Verificar se o aluno escolhe o ID do curso que ele já está matriculado
+                                # print(f"Aluno {aluno_autenticado[1]} já matriculado no curso.")
+                                # print(f"Aluno {aluno_autenticado[1]} já matriculado no curso {curso[1]}.")
+                                # break
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
-                            except IndexError:
-                                print("[ERRO]: ID do curso não cadastrado anteriormente.")
-                            break
+                            # except IndexError:
+                            #     print("[ERRO]: ID do curso não cadastrado anteriormente.")
+                            # break
                         else:
                             print("Nenhum curso cadastrado anteriormente.")
                             break

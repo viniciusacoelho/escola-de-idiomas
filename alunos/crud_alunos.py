@@ -1,7 +1,6 @@
 from banco_de_dados.bd import criar_conexao
 from criptografar.criptografar import criptografar, checar_senha
 
-# TODO: Verificar se o aluno coloca o curso no cadastro ou se o 'adm' que coloca 
 def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data_nascimento: str, numero_telefone: str, senha: str):
     """
     Cadastra o aluno no banco de dados.

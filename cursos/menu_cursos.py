@@ -3,7 +3,7 @@ from limpar_tela.limpar_tela import limpar_tela
 from unique.verificar_unique import verificar_unique
 
 def menu_curso():
-    """Menu principal dos cursos, permitindo o usuário fazer uma série de ações."""
+    """Menu principal dos cursos, permite o usuário fazer uma série de ações."""
     menu = ["Cadastrar Curso", "Listar Cursos", "Buscar Curso", "Atualizar Curso", "Deletar Curso", "Voltar"]
 
     while True:
@@ -59,6 +59,8 @@ def menu_curso():
                         else:
                             print("Nenhum curso cadastrado anteriormente.")
                             break
+                        # TODO: Testar se só com esse break (um break, tirando todo o resto) funciona
+                        # break
                 case 4:
                     while True:
                         cursos = listar_cursos()
@@ -68,21 +70,16 @@ def menu_curso():
                                 print("--------------------------------------------")
                                 id_curso = int(input("Digite o ID do curso que deseja atualizar:\n"))
                                 
-                                lista_cursos_cadastrados = []
-                                
-                                for curso in cursos:
-                                    lista_cursos_cadastrados.append(curso[1])
-
                                 for curso in cursos:
                                     # TODO: Tentar colocar except IndexError: para ver se funciona
                                     if id_curso == curso[0]:
                                         novo_nome_curso = input("Digite o novo nome do curso:\n")    
 
-                                        if novo_nome_curso not in lista_cursos_cadastrados:
-                                            atualizar_curso(id_curso, novo_nome_curso)
+                                        erro_novo_nome_curso_unique = verificar_unique("Curso", novo_nome_curso, 1, "Curso")
+                                        if erro_novo_nome_curso_unique:
+                                            break
                                         else:
-                                            print(f"Curso '{novo_nome_curso}' já cadastrado anteriormente.")
-                                        break
+                                            atualizar_curso(id_curso, novo_nome_curso)
 
                                 else:
                                     print("ID do curso não cadastrado anteriormente.")
@@ -106,7 +103,7 @@ def menu_curso():
                                 id_curso = int(input("Digite o ID do curso que deseja deletar:\n"))
 
                                 for curso in cursos:
-                                    # TODO: Tentar colocar except IndexError: para ver se funciona
+                                    # TODO: Tentar colocar except IndexError: para ver se funciona ao invés dises if else
                                     if id_curso == curso[0]:
                                         deletar_curso(id_curso)
                                 else:
@@ -125,8 +122,6 @@ def menu_curso():
                     print("--------------------------------------------")
                     print("Voltando...")
                     break
-                
-                # TODO: Melhorar Buscar Curso
 
                 case _:
                     print("--------------------------------------------")
@@ -135,5 +130,3 @@ def menu_curso():
         except ValueError:
             print("--------------------------------------------")
             print("[ERRO]: Digite um número!")
-
-# TODO: Colocar ORDER BY ASC no DBeaver ou no 'crud_curso' para o 'id_curso' ficar em ordem

@@ -71,7 +71,7 @@ def matricular_aluno():
                     print(erro_verificar_unique)
                 else:
                     break
-        
+
         except ValueError:
             print("[ERRO]: Digite apenas números!")
     
@@ -132,6 +132,8 @@ def matricular_aluno():
         confirmar_senha = getpass.getpass("Confirme sua senha:\n")
         
         if confirmar_senha not in senha:
+        # TODO: Verificar se não é para fazer desse jeito
+        # if confirmar_senha != senha:
             print("Digite a mesma senha!")
         else:
             break

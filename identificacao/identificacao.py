@@ -6,9 +6,10 @@ from alunos.matricular_aluno import matricular_aluno
 from alunos.login_aluno import login_aluno
 
 def identificacao(opcao_escolhida: int):
+    """Página de identificação do usuário."""
     while True:
-        menu = ["Já sou aluno", "Não sou aluno", "Voltar"]
-        
+        menu = ["Criar Conta", "Login", "Sair"]
+        # menu = ["Já sou aluno", "Não sou aluno", "Voltar"]
         limpar_tela()
 
         print("--------------------------------------------")

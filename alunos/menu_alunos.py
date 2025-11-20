@@ -4,9 +4,9 @@ from alunos.crud_alunos import listar_alunos, buscar_aluno, deletar_aluno
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
 from unique.verificar_unique import verificar_unique
 
+# TODO: Verifica se há necessidade destes meio mundo de break
 def menu_aluno():
     """Menu principal dos alunos."""
-    # TODO: Buscar Aluno
     menu = ["Cadastrar Aluno", "Listar Alunos", "Buscar Aluno", "Atualizar Aluno", "Deletar Aluno", "Voltar"]
 
     while True:
@@ -26,18 +26,19 @@ def menu_aluno():
                 case 1:
                     matricular_aluno()
                 case 2:
-                    # TODO: Colocar uma validação se há alunos cadastrados anteriormente
                     alunos = listar_alunos()
                     
                     if len(alunos) > 0:
                         print(f"Alunos listados com sucesso!")
                         print("--------------------------------------------")
-            
+
                         # TODO: Melhorar isso adicionando o curso:
                         for aluno in alunos:
                             print(f"{aluno[0]} - {aluno[1]}")
+                            print(f"Aluno {aluno[0]}\naluno completo: {aluno[1]}\nUsuário: {aluno[2]}\nE-mail: {aluno[3]}\nCPF: {aluno[4]}\nData de nascimento: {aluno[5]}\nNúmero de telefone: {aluno[6]}\nSenha: *****\n Curso: Em breve")
+                            print("--------------------------------------------")
                     else:
-                        print("Nenhum aluno cadastrado anteriormente")
+                        print("Nenhum aluno cadastrado anteriormente.")
 
                 case 3:
                     while True:
@@ -67,7 +68,7 @@ def menu_aluno():
                     while True:
                         alunos = listar_alunos()
 
-                        if len(alunos) > 0: 
+                        if len(alunos) > 0:
                             try:
                                 id_aluno = int(input("Digite o ID do aluno que deseja atualizar:\n"))
                                 
@@ -87,6 +88,7 @@ def menu_aluno():
                         else:
                             print("Nehum aluno cadastrado anteriormente.")
                             break
+
                 case 5:
                     while True:
                         alunos = listar_alunos()
@@ -104,20 +106,21 @@ def menu_aluno():
                                     print("ID do aluno inválido!")
                                     break
                                 break
+
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
                                 break
-                        
+
                         else:
                             print("Nenhum aluno cadastrado anteriormente")
                             break
-                        
+
                 case 6:
                     print("Voltando...")
                     break
                 case _:
                     print("Digite uma opção válida!")
-                
+
         except ValueError:
             print("--------------------------------------------")
             print("[ERRO]: Digite um número!")
