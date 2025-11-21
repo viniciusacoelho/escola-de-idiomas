@@ -46,12 +46,12 @@ def menu_atualizar_alunos(id_aluno: int):
                         print("--------------------------------------------\n")
                         novo_usuario = input("Digite o novo usuário do aluno:\n").lower()
                         erro_usuario = validar_usuario(novo_usuario)
-                        
+
                         if erro_usuario:
                             print(erro_usuario)
                         else:
                             erro_verificar_unique = verificar_unique("Alunos", novo_usuario, 2, "Usuário")
-                            
+
                             if erro_verificar_unique:
                                 print(erro_verificar_unique)
                             else:
@@ -63,12 +63,12 @@ def menu_atualizar_alunos(id_aluno: int):
                         print("--------------------------------------------\n")
                         novo_email = input("Digite o novo e-mail do aluno:\n").lower()
                         erro_novo_email = validar_email(novo_email)
-                        
+
                         if erro_novo_email:
                             print(erro_novo_email)
                         else:
                             erro_verificar_unique = verificar_unique("Alunos", novo_email, 3, "E-mail")
-                            
+
                             if erro_verificar_unique:
                                 print(erro_verificar_unique)
                             else:
@@ -145,7 +145,7 @@ def menu_atualizar_alunos(id_aluno: int):
                     print("--------------------------------------------\n")
                     nova_senha = getpass.getpass("Digite a nova senha do aluno:\n")
                     validar_senha(nova_senha)
-                    
+
                     while True:
                         confirmar_nova_senha = getpass.getpass("Confirme a nova senha do aluno:\n")
                         

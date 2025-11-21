@@ -3,7 +3,7 @@ from limpar_tela.limpar_tela import limpar_tela
 from alunos.validar_alunos import validar_nome_completo, validar_usuario, validar_email, validar_cpf, validar_data_nascimento, validar_numero_telefone, validar_senha
 from alunos.crud_alunos import cadastrar_aluno, listar_alunos
 from unique.verificar_unique import verificar_unique
-from cursos.crud_cursos import listar_cursos, inserir_aluno
+# from cursos.crud_cursos import listar_cursos, inserir_aluno
 
 def matricular_aluno():
     """Cadastra os dados do aluno no banco de dados, pedindo uma série de informações."""
@@ -13,6 +13,7 @@ def matricular_aluno():
     print("                  Cadastro")
     print("--------------------------------------------")
     print("Matricule-se\n")
+    
     while True:
         nome_completo = input("Digite seu nome completo:\n")
         erro_nome_completo = validar_nome_completo(nome_completo)
@@ -86,7 +87,7 @@ def matricular_aluno():
             if erro_data_nascimento:
                 print(erro_data_nascimento)
             else:
-                data_nascimento = f"{data_nascimento[:2]}/{data_nascimento[2:4]}/{data_nascimento[4:]}"
+                data_nascimento = f"{data_nascimento[:2]}-{data_nascimento[2:4]}-{data_nascimento[4:]}"
                 break
 
         except ValueError:
@@ -160,3 +161,12 @@ def matricular_aluno():
 
     cadastrar_aluno(nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha)
     # aluno = listar_alunos()
+
+
+    '''
+    1 - Cadastrar Turma
+    2 - Listar Turma
+    3 - 
+    
+    
+    '''

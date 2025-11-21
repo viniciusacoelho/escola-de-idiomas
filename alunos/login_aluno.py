@@ -20,6 +20,7 @@ def login_aluno():
         aluno_autenticado = autenticar_aluno(usuario, senha)
 
         if aluno_autenticado:
+            print(f"Aluno '{aluno_autenticado[1]}' logado com sucesso!")
             portal_aluno(aluno_autenticado)
             break
         else:

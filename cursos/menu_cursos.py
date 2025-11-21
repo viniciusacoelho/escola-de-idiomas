@@ -21,9 +21,17 @@ def menu_curso():
 
             match opcao:
                 case 1:
-                    print("--------------------------------------------")
-                    nome_curso = input("Digite o nome do curso que deseja cadastrar:\n")
-                    cadastrar_curso(nome_curso)
+                    while True:
+                        print("--------------------------------------------")
+                        nome_curso = input("Digite o nome do curso que deseja cadastrar:\n")
+                        erro_nome_curso_unique = verificar_unique("Cursos", nome_curso, 1, "Curso")
+
+                        if erro_nome_curso_unique:
+                            print(erro_nome_curso_unique)
+                        else:
+                            cadastrar_curso(nome_curso)
+                        break
+
                 case 2:
                     cursos = listar_cursos()
 
@@ -52,15 +60,14 @@ def menu_curso():
                             else:
                                 nome_buscado = buscar_curso(nome_busca)
                                 
-                                # TODO: Pode aparecer a quantidade de alunos, professores e turmas no curso
+                                # TODO: Aparecer a quantidade de alunos, professores e turmas no curso
                                 for nome in nome_buscado:
                                     print(f"{nome[0]} - {nome[1]}")
                                 break
                         else:
                             print("Nenhum curso cadastrado anteriormente.")
                             break
-                        # TODO: Testar se só com esse break (um break, tirando todo o resto) funciona
-                        # break
+
                 case 4:
                     while True:
                         cursos = listar_cursos()
@@ -69,17 +76,17 @@ def menu_curso():
                             try:
                                 print("--------------------------------------------")
                                 id_curso = int(input("Digite o ID do curso que deseja atualizar:\n"))
-                                
-                                for curso in cursos:
-                                    # TODO: Tentar colocar except IndexError: para ver se funciona
-                                    if id_curso == curso[0]:
-                                        novo_nome_curso = input("Digite o novo nome do curso:\n")    
 
-                                        erro_novo_nome_curso_unique = verificar_unique("Curso", novo_nome_curso, 1, "Curso")
+                                for curso in cursos:
+                                    if id_curso == curso[0]:
+                                        novo_nome_curso = input("Digite o novo nome do curso:\n")
+                                        erro_novo_nome_curso_unique = verificar_unique("Cursos", novo_nome_curso, 1, "Curso")
+
                                         if erro_novo_nome_curso_unique:
-                                            break
+                                            print(erro_novo_nome_curso_unique)
                                         else:
                                             atualizar_curso(id_curso, novo_nome_curso)
+                                        break
 
                                 else:
                                     print("ID do curso não cadastrado anteriormente.")
@@ -103,9 +110,9 @@ def menu_curso():
                                 id_curso = int(input("Digite o ID do curso que deseja deletar:\n"))
 
                                 for curso in cursos:
-                                    # TODO: Tentar colocar except IndexError: para ver se funciona ao invés dises if else
                                     if id_curso == curso[0]:
                                         deletar_curso(id_curso)
+                                        break
                                 else:
                                     print("ID do curso não cadastrado anteriormente.")
                                 break

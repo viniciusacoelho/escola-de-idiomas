@@ -27,16 +27,17 @@ def menu_aluno():
                     matricular_aluno()
                 case 2:
                     alunos = listar_alunos()
-                    
+
                     if len(alunos) > 0:
                         print(f"Alunos listados com sucesso!")
                         print("--------------------------------------------")
 
-                        # TODO: Melhorar isso adicionando o curso:
                         for aluno in alunos:
-                            print(f"{aluno[0]} - {aluno[1]}")
+                            # print(f"{aluno[0]} - {aluno[1]}")
+                            # TODO: Melhorar isso adicionando o curso:
                             print(f"Aluno {aluno[0]}\naluno completo: {aluno[1]}\nUsuário: {aluno[2]}\nE-mail: {aluno[3]}\nCPF: {aluno[4]}\nData de nascimento: {aluno[5]}\nNúmero de telefone: {aluno[6]}\nSenha: *****\n Curso: Em breve")
                             print("--------------------------------------------")
+
                     else:
                         print("Nenhum aluno cadastrado anteriormente.")
 
@@ -48,13 +49,13 @@ def menu_aluno():
                             print("--------------------------------------------")
                             buscar_usuario = input("Digite o usuário do aluno que deseja buscar:\n")
                             nome_busca_unique = verificar_unique("Alunos", buscar_usuario, 2, "Aluno")
-                        
+
                             if not nome_busca_unique:
                                 print(f"Aluno '{buscar_usuario}' não cadastrado anteriormente.")
                                 break
                             else:
                                 usuario_buscado = buscar_aluno(buscar_usuario)
-                                
+
                                 print("--------------------------------------------")
                                 for nome in usuario_buscado:
                                     print(f"Aluno {nome[0]}\nNome completo: {nome[1]}\nUsuário: {nome[2]}\nE-mail: {nome[3]}\nCPF: {nome[4]}\nData de nascimento: {nome[5]}\nNúmero de telefone: {nome[6]}\nSenha: *****")
@@ -71,9 +72,8 @@ def menu_aluno():
                         if len(alunos) > 0:
                             try:
                                 id_aluno = int(input("Digite o ID do aluno que deseja atualizar:\n"))
-                                
+
                                 for aluno in alunos:
-                                    # TODO: Tentar colocar except IndexError: para ver se funciona
                                     if id_aluno == aluno[0]:
                                         menu_atualizar_alunos(id_aluno)
                                         break

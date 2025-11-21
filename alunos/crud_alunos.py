@@ -58,12 +58,12 @@ def autenticar_aluno(usuario: str, senha: str):
         alunos_teste = cursor.fetchone()
         
         if alunos_teste and checar_senha(senha, bytes(alunos_teste[7])):
-            print(f"Usuário '{usuario}' autenticado/logado com sucesso!")
+            # print(f"Usuário '{usuario}' logado com sucesso!")
             return alunos_teste
         return None
         
     except Exception as e:
-        return f"[ERRO]: Falha ao autenticar usuário e/ou senha: {e}"
+        return f"[ERRO]: Falha ao logar usuário e/ou senha: {e}"
     finally:
         cursor.close()
         conexao.close()
@@ -129,6 +129,10 @@ def atualizar_aluno(id_aluno: int, parametro: str, atualizar: str, tipo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
+
+        if tipo == "Senha":
+            parametro = criptografar(parametro)
+
         cursor.execute(f"UPDATE alunos_teste SET {atualizar} = %s WHERE id_aluno = %s", (parametro, id_aluno))
         print(f"'{tipo}' de aluno atualizado com sucesso!")
         conexao.commit()
@@ -137,7 +141,7 @@ def atualizar_aluno(id_aluno: int, parametro: str, atualizar: str, tipo: str):
     finally:
         cursor.close()
         conexao.close()
-        
+
 def deletar_aluno(id_aluno: int, alunos: list):
     """
     Deleta o aluno no banco de dados.

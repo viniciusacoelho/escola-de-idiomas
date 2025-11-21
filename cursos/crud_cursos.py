@@ -22,32 +22,30 @@ def cadastrar_curso(nome_curso: str):
         cursor.close()
         conexao.close()
 
-# def inserir_aluno(id_aluno: int, nome_curso: str):
-# # def inserir_aluno(id_aluno: int, id_curso: int):
-#     """
-#         Insere o aluno na tabela cursos no banco de dados.
+def ja_matriculado(id_aluno, id_curso):
+    """
+        Cadastra o curso no banco de dados.
 
-#         Args:
-#             id_aluno (int): ID do aluno cadastrado no banco de dados.
+        Args:
+            id_aluno (int): ID do aluno cadastrado no banco de dados.
+            id_curso (int): ID do curso cadastrado no banco de dados.
         
-#         Raises:
-#             [ERRO]: Falha ao inserir aluno.
-#     """
-#     try:
-#         conexao = criar_conexao()
-#         cursor = conexao.cursor()
-#         # cursor.execute("INSERT INTO cursos_teste (id_aluno, nome_curso) VALUES (%s, %s)", (id_aluno, nome_curso))
-#         cursor.execute("INSERT INTO cursos_teste (id_aluno, nome_curso) VALUES (%s, %s)", (id_aluno, nome_curso))
-#         conexao.commit()
-#         print(f"Aluno inserido com sucesso!")
-#         # print(f"Aluno '{nome_aluno}' inserido com sucesso!")
-#     except Exception as e:
-#         print(f"[ERRO]: Falha ao inserir aluno: {e}")
-#     finally:
-#         cursor.close()
-#         conexao.close()
+        Raises:
+            [ERRO]: Falha ao matricular aluno no curso.
+    """
+    try:
+        coenxao = criar_conexao()
+        cursor = coenxao.cursor()
+        cursor.execute("SELECT * FROM aluno_curso WHERE id_aluno = %s AND id_curso = %s", (id_aluno, id_curso))
+        aluno_curso = cursor.fetchall()
+        return aluno_curso
+    except Exception as e:
+        print(f"[ERRO]: Falha ao matricular aluno no curso: {e}")
+    finally:
+        cursor.close()
+        coenxao.close()
 
-def inner_join(id_aluno: int, id_curso: int):
+def matricular_aluno_curso(id_aluno: int, id_curso: int):
     """
         Permite o usuário escolher o curso que deseja se matricular.
 
@@ -59,19 +57,18 @@ def inner_join(id_aluno: int, id_curso: int):
             [ERRO]: Falha ao escolher curso.
     """
     try:
-        coenxao = criar_conexao()
-        cursor = coenxao.cursor()
-        conn = criar_conexao()
-        cursor = conn.cursor()
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
         cursor.execute("INSERT INTO aluno_curso (id_aluno, id_curso) VALUES (%s, %s)", (id_aluno, id_curso))
         print("Curso escolhido com sucesso!")
+        # TODO: Tentar colocar o nome escolhido pelo aluno
         # print(f"Curso {nome} escolhido com sucesso!")
-        conn.commit()
+        conexao.commit()
     except Exception as e:
-        print(f"[ERRO]: Falha as escolher curso: {e}")
+        print(f"[ERRO]: Falha ao escolher curso: {e}")
     finally:
         cursor.close()
-        coenxao.close()
+        conexao.close()
 
 def listar_cursos():
     """
