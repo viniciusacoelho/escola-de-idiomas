@@ -1,11 +1,10 @@
 from limpar_tela.limpar_tela import limpar_tela
 from professores.cadastramento_professor import cadastramento_professor
 from professores.login_professor import login_professor
-from professores.crud_professor import listar_professores, buscar_professor, atualizar_professor, deletar_professor
-def menu_professor():
-    pass
-    menu = ["Cadastrar Professor", "Listar Professores", "Buscar Professor", "Atualizar Professor", "Deletar Professor", "Voltar"]
 
+def identificacao_professor():
+    menu = ["Criar Conta", "Login", "Voltar"]
+    
     while True:
         limpar_tela()
         print("--------------------------------------------")
@@ -13,30 +12,22 @@ def menu_professor():
         print("--------------------------------------------")
 
         for i in range(len(menu)):
-            print(f"{i + 1} - {menu[i]}")  
+            print(f"{i + 1} - {menu[i]}")
+
         try:
             print("--------------------------------------------")
             opcao = int(input("Digite uma opção: "))
-            
+
             match opcao:
                 case 1:
                     cadastramento_professor()
                 case 2:
-                    # listar_professores()
-                    print("Em breve")
+                    login_professor()
                 case 3:
-                    # buscar_professor()
-                    print("Em breve")
-                case 4:
-                    # atualizar_professor()
-                    print("Em breve")
-                case 5:
-                    # deletar_professor()
-                    print("Em breve")
-                case 6:
                     print("Voltando...")
                     break
                 case _:
-                    print("Digite uma opção válida!") 
+                    print("Digite uma opção válida!")
+
         except ValueError:
             print("[ERRO]: Digite um número!")

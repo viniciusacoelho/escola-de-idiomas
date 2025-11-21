@@ -1,20 +1,18 @@
-from professores.validar_professor import (
-    validar_nome_completo, 
-    validar_email, 
-    validar_senha, 
-    validar_cpf, 
-    validar_numero_telefone, 
-    validar_endereco, 
-    validar_idioma_lecionado
-)
+import getpass
 
-def cadastramento_professor(): 
+from limpar_tela.limpar_tela import limpar_tela
+from professores.validar_professor import validar_nome_completo, validar_email, validar_senha, validar_cpf, validar_numero_telefone, validar_endereco, validar_idioma_lecionado
+from professores.crud_professor import cadastrar_professor
+
+def cadastramento_professor():
+    limpar_tela()
+
     print("--------------------------------------------")
     print("            Cadastro - Professor            ")
     print("--------------------------------------------")
 
     while True:
-        nome_completo = input("Digite o seu nome completo: ")
+        nome_completo = input("Digite o seu nome completo:\n")
         erro_nome_completo = validar_nome_completo(nome_completo)
 
         if erro_nome_completo:
@@ -24,7 +22,7 @@ def cadastramento_professor():
             break
 
     while True:
-        email = input("Digite o seu e-mail: ")
+        email = input("Digite o seu e-mail:\n")
         erro_email = validar_email(email)
         
         if erro_email:
@@ -41,20 +39,22 @@ def cadastramento_professor():
             print(erro_cpf)
             print("--------------------------------------------\n")
         else:
+            cpf = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
             break
 
     while True:
-        numero_telefone = input("Digite o seu número de telefone: ")
+        numero_telefone = input("Digite o seu número de telefone:\n")
         erro_numero_telefone = validar_numero_telefone(numero_telefone)
         
         if erro_numero_telefone:
             print(erro_numero_telefone)
             print("--------------------------------------------\n")
         else:
+            numero_telefone = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
             break
 
     while True:
-        endereco = input("Digite o seu endereço: ")
+        endereco = input("Digite o seu endereço:\n")
         erro_endereco = validar_endereco(endereco)
         
         if erro_endereco:
@@ -64,7 +64,7 @@ def cadastramento_professor():
             break
 
     while True:
-        idioma_lecionado = input("Digite o idioma que você leciona: ")
+        idioma_lecionado = input("Digite o idioma que você leciona:\n")
         erro_idioma_lecionado = validar_idioma_lecionado(idioma_lecionado)
         
         if erro_idioma_lecionado:
@@ -74,7 +74,7 @@ def cadastramento_professor():
             break
 
     while True:
-        senha = input("Digite a sua senha: ")
+        senha = getpass.getpass("Digite a sua senha:\n")
         erro_senha = validar_senha(senha)
         
         if erro_senha:
@@ -83,4 +83,13 @@ def cadastramento_professor():
         else:
             break
 
-    return nome_completo, email, senha, cpf, numero_telefone, endereco, idioma_lecionado
+    while True:
+        print("--------------------------------------------\n")
+        confirmar_senha = getpass.getpass("Confirme sua senha:\n")
+        
+        if confirmar_senha != senha:
+            print("Digite a mesma senha!")
+        else:
+            break
+
+    cadastrar_professor(nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha)

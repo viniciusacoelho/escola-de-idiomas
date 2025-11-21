@@ -1,21 +1,39 @@
 from banco_de_dados.bd import criar_conexao
+from criptografar.criptografar import criptografar, checar_senha
 
-def cadastrar_professor(nome_completo, email, senha, cpf, numero_telefone, endereco, idioma_lecionado):
+def cadastrar_professor(nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        # TODO: Criptografar
-        cursor.execute("INSERT INTO professor (nome_completo, email, senha, cpf, numero_telefone, endereco, idioma_lecionado) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, email, senha, cpf, numero_telefone, endereco, idioma_lecionado))
+        
+        senha = criptografar(senha)
+
+        cursor.execute("INSERT INTO professores_teste (nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha))
         conexao.commit()
-        print("Professor cadastrado com sucesso!")
+        print(f"Professor '{nome_completo}' cadastrado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao cadastrar professor: {e}")
     finally:
         cursor.close()
         conexao.close()
 
-def autenticar_professor():
-    pass
+def autenticar_professor(email: str, senha: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM professores_teste WHERE email = %s", (email,))
+        professores_teste = cursor.fetchone()
+    
+        if professores_teste and checar_senha(senha, bytes(professores_teste[7])):
+            print(f"E-mail '{email}' logado com sucesso!")
+            return professores_teste
+        return None
+    
+    except Exception as e:
+        return f"[ERRO]: Falha ao autenticar e-mail e/ou senha: {e}"
+    finally:
+        cursor.close()
+        conexao.close()
 
 def listar_professores():
     try:
@@ -30,14 +48,21 @@ def listar_professores():
         cursor.close()
         conexao.close()
 
-def atualizar_professor(id_professor, nome_completo, email, senha, cpf, numero_telefone, endereco, idioma_lecionado):
+def buscar_professor():
+    pass
+
+def atualizar_professor(id_professor: int, parametro: str, atualizar: str, tipo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        # TODO: Melhorar isso
-        cursor.execute("UPDATE professor SET nome_completo = %s, email = %s, senha = %s, cpf = %s, numero_telefone = %s, endereco = %s, idioma_lecionado = %s WHERE id_professor = %s", (nome_completo, email, senha, cpf, numero_telefone, endereco, idioma_lecionado, id_professor))
+
+        # TODO: Criptografar a senha modificada
+        if tipo == "Senha":
+            parametro == criptografar(parametro)
+        
+        cursor.execute(f"UPDATE professores_teste SET {atualizar} = %s WHERE id_professor = %s", (parametro, id_professor))
+        print(f"{tipo} atualizado com sucesso!")
         conexao.commit()
-        print("Professor atualizado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar professor: {e}")
     finally:

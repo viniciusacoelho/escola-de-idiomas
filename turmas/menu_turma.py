@@ -1,41 +1,37 @@
 from limpar_tela.limpar_tela import limpar_tela
-from professores.menu_professor import menu_professor
-from alunos.menu_alunos import menu_aluno
-from turmas.menu_turma import menu_turma
-from cursos.menu_cursos import menu_curso
+from turmas.cadastramento_turma import cadastramento_turma
+from turmas.crud_turmas import listar_turmas, deletar_turma, atualizar_turma
 
-def menu_administrador():
-
-    menu = ["Cursos", "Professores", "Alunos", "Turmas", "Voltar"]
+def menu_turma():
+    menu = ["Cadastrar Turma", "Listar Turma", "Buscar Turma", "Atualizar Turma", "Deletar Turma", "Voltar"]
 
     while True:
         limpar_tela()
         print("--------------------------------------------")
-        print("              Escola de Idiomas")
+        print("              Escola de Idiomas             ")
         print("--------------------------------------------")
-        print("Adiministrador\n")
 
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
-        print("--------------------------------------------")
         try:
+            print("--------------------------------------------")
             opcao = int(input("Digite uma opção: "))
 
             match opcao:
                 case 1:
-                   menu_curso() 
+                    cadastramento_turma()
                 case 2:
-                    menu_professor()
+                    listar_turmas()                    
                 case 3:
-                   menu_aluno()
+                    atualizar_turma()
                 case 4:
-                    menu_turma()
-                case 5:
+                    deletar_turma()
+                case 5:  
                     print("Voltando...")
                     break
                 case _:
-                   print("Opção inválida!")
+                    print("Digite uma opção válida!")
 
         except ValueError:
             print("[ERRO]: Digite um número!")

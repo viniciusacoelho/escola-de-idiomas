@@ -21,7 +21,9 @@ def validar_numero_telefone(numero_telefone: str) -> str:
         return f"Número de telefone inválido!\nEsperava-se: '+XX (XX) YYYYY-ZZZZ'."
 
 def validar_endereco(endereco: str) -> str:
-    pass
+    TAMANHO_MINIMO_ENDERECO = 10
+    if len(endereco) < TAMANHO_MINIMO_ENDERECO:
+        return f"Endereço inválido!"
 
 def validar_idioma_lecionado(idioma_lecionado: str) -> str:
     pass

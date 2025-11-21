@@ -4,9 +4,9 @@ from identificacao.identificacao import identificacao
 from administrador.menu_administrador import menu_administrador
 # from alunos.menu_alunos import menu_aluno
 from alunos.identificacao_aluno import identificacao_aluno
+from professores.identificacao_professor import identificacao_professor
 
 menu = ["Administrador", "Professor", "Aluno", "Sair"]
-
 # menu = ["Curso", "Professor", "Aluno", "Turma", "Sair"]
 
 while True:
@@ -25,8 +25,7 @@ while True:
         if opcao == 1:
             menu_administrador()
         elif opcao == 2:
-            print("--------------------------------------------")
-            print("Em breve")
+            identificacao_professor()
         elif opcao == 3:
             # identificacao(opcao)
             identificacao_aluno()

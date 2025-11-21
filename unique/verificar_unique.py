@@ -1,5 +1,6 @@
 from alunos.crud_alunos import listar_alunos
 from cursos.crud_cursos import listar_cursos
+from professores.crud_professor import listar_professores
 
 def verificar_unique(tipo: str, parametro: str, posicao = int, nome = str) -> str:
     """
@@ -18,7 +19,9 @@ def verificar_unique(tipo: str, parametro: str, posicao = int, nome = str) -> st
         itens = listar_alunos()
     elif tipo == "Cursos":
         itens = listar_cursos()
-
+    elif tipo == "Professores":
+        itens = listar_professores()
+        
     lista_cadastrados = []
 
     for item in itens:
