@@ -1,6 +1,7 @@
 from limpar_tela.limpar_tela import limpar_tela
 from professores.menu_atualizar_professor import menu_atualizar_professor
 from turmas.crud_turmas import inserir_turma
+from turmas.portal_turma import curso_turma, aluno_turma
 
 from banco_de_dados.bd import criar_conexao
 
@@ -22,6 +23,7 @@ def professor_turma(id_professor: int):
         conexao = criar_conexao()
         cursor = conexao.cursor()
         cursor.execute("SELECT t.id_turma, t.dia_semana, t.horario FROM professor_turma pt INNER JOIN turmas_teste t ON t.id_turma = pt.id_turma WHERE id_professor = %s", (id_professor,))
+        # cursor.execute("SELECT c.nome_curso FROM professor_turma pt INNER JOIN professores_teste p ON p.id_professor = pt.id_professor WHERE id_turma = %s", (id_turma,))
         professor_turmas = cursor.fetchall()
         return professor_turmas
     except Exception as e:
@@ -45,6 +47,7 @@ def professor_curso(id_professor: int):
 
 def portal_professor(professor_autenticado):
     menu = ["Visualizar Turma", "Atualizar Cadastro", "Voltar"]
+
     while True:
         limpar_tela()
         print("--------------------------------------------")
@@ -60,27 +63,44 @@ def portal_professor(professor_autenticado):
 
             match opcao:
                 case 1:
-                    print(f"Turma {professor_turma(professor_autenticado[0])}:")
-                    cursos = professor_curso(professor_autenticado[0])
-                    
-                    # if len(cursos) > 0:
-                    for curso in cursos:
-                        print(f"Curso: {curso[0]}")
-                    # else:
-                    #     print("Nenhum curso cadastrado anteriormente na turma.")
+                    turmas = professor_turma(professor_autenticado[0])
+                    if len(turmas) > 0:
+                        print(f"Professor: {professor_autenticado[1]}")
+                        
+                        for turma in turmas:
+                            print("--------------------------------------------")
+                            print(f"Turma {turma[0]}:")
+                            
+                            cursos = curso_turma(turma[0])
+                        
+                            if len(cursos) > 0:
+                                for curso in cursos:
+                                    print(f"Curso: {curso[0]}")
+                            
+                            else:
+                                print("Nenhum curso cadastrado anteriormente na turma.")
 
-                    alunos = professor_aluno(professor_autenticado[0])
+                            alunos = aluno_turma(turma[0])
 
-                    print("Alunos: ")
+                            print("Alunos: ")
 
-                    if len(alunos) > 0:
-                        for aluno in alunos:
-                            print(aluno[1])
-                    print(f"Professor: {professor_autenticado[1]}")
-                        # print("Você não foi cadastrado em nenhuma turma anteriormente.")
-                    
-                    for curso in cursos:
-                        print(f"Horário: {curso[1]} ({curso[2]})")
+                            if len(alunos) > 0:
+                                for aluno in alunos:
+                                    print(aluno[0])
+
+                            else:
+                                print("Nenhum aluno cadastrado anteriormente na turma.")
+                            
+                            # TODO: Ajeitar isso, está funcionando, mas se não tiver curso, ele não mostra o horário, mesmo se 
+                            # estiver cadastrado
+                            if len(cursos) > 0:
+                                for curso in cursos:
+                                    print(f"Horário: {curso[1]} ({curso[2]})")
+                            
+                            else:
+                                print("Nenhum curso cadastrado anteriormente na turma.")
+                    else:
+                        print("Nenhuma turma cadastrada anteriormente.")
 
                 case 2:
                     menu_atualizar_professor(professor_autenticado[0])

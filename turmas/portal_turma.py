@@ -67,8 +67,8 @@ def curso_turma(id_turma: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT c.nome_curso FROM curso_turma ct INNER JOIN cursos_teste c ON c.id_curso = ct.id_curso WHERE id_turma = %s", (id_turma,))
         # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos_teste a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
+        cursor.execute("SELECT c.nome_curso, t.dia_semana, t.horario FROM curso_turma ct INNER JOIN cursos_teste c ON c.id_curso = ct.id_curso INNER JOIN turmas_teste t ON t.id_turma = ct.id_turma WHERE t.id_turma = %s", (id_turma,))
         conexao.commit()
         alunos_turma = cursor.fetchall()
         return alunos_turma
@@ -111,7 +111,7 @@ def portal_turma(turma_autenticada):
                 case 1:
                     print(f"Turma {turma_autenticada[0]}:")
                     cursos = curso_turma(turma_autenticada[0])
-                    
+
                     if len(cursos) > 0:
                         for curso in cursos:
                             print(f"Curso: {curso[0]}")
@@ -134,11 +134,17 @@ def portal_turma(turma_autenticada):
                     if len(alunos) > 0:
                         # TODO: Verificar se isso funciona, ele insere o professor na tabela 'professor_aluno' se e somente se
                         #       os alunos estiverem matriculados/listados na turma
-                        inserir_professor(id_professor, id_aluno, "aluno")
+                        # inserir_professor(id_professor, id_aluno, "aluno")
                         for aluno in alunos:
                             print(aluno[0])
                     else:
                         print("Nenhum aluno cadastrado anteriormente na turma.")
+                    
+                    if len(cursos) > 0:
+                        for curso in cursos:
+                            print(f"Dia/Horário: {curso[1]} ({curso[2]})")
+                    else:
+                        print("Nenhum curso cadastrado anteriormente na turma.")
 
                 case 2:
                     while True:
@@ -151,7 +157,7 @@ def portal_turma(turma_autenticada):
                             id_professor = int(input("Digite o id do professor que deseja inserir na turma: \n"))
                             # TODO: Verificar se o ID já foi cadastrado anteriormente
                             # TODO: Verificar se o ID já foi cadastrado anteriormente na turma
-                            inserir_turma(turma_autenticada[0], id_professor, "id_professor", "Professor")
+                            inserir_turma(turma_autenticada[0], id_professor, "Professor")
                             break
 
                         except ValueError:
@@ -184,23 +190,7 @@ def portal_turma(turma_autenticada):
                             id_aluno = int(input("Digite o id do aluno que deseja inserir na turma: \n"))
                             # TODO: Verificar se o ID já foi cadastrado anteriormente
                             # TODO: Verificar se o ID já foi cadastrado anteriormente na turma
-                            inserir_turma(turma_autenticada[0], id_aluno, "id_aluno", "Aluno")
-                            break
-
-                        except ValueError:
-                            print("[ERRO]: Digite apenas números!")
-                            break
-                    
-                case 4:
-                    while True:
-                        cursos = listar_cursos()
-
-                        for curso in cursos:
-                            print(f"{curso[0]} - {curso[1]}")
-
-                        try:
-                            id_curso = int(input("Digite o id do curso que deseja inserir na turma: \n"))
-                            inserir_turma(turma_autenticada[0], id_curso, "id_curso", "Curso")
+                            inserir_turma(turma_autenticada[0], id_aluno, "Aluno")
                             break
 
                         except ValueError:
@@ -208,6 +198,44 @@ def portal_turma(turma_autenticada):
                             break
                     
                 case 5:
+                    while True:
+                        alunos = listar_alunos()
+
+                        if len(alunos) > 0:
+                            try:
+                                id_aluno = int(input("Digite o ID do aluno que deseja deletar da turma:\n"))
+                                # TODO: Verificar se o ID já foi cadastrado anteriormente
+                                # TODO: Verificar se o ID já foi cadastrado anteriormente na turma
+                                deletar_aluno_turma(id_aluno)
+                                break
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+
+                        else:
+                            print("Nenhum aluno cadastrado anteriormente.")
+
+                case 6:
+                    while True:
+                        cursos = listar_cursos()
+
+                        if len(cursos) > 0:
+                            for curso in cursos:
+                                print(f"{curso[0]} - {curso[1]}")
+
+                            try:
+                                id_curso = int(input("Digite o id do curso que deseja inserir na turma: \n"))
+                                # TODO: Verificar se o ID já foi cadastrado anteriormente
+                                # TODO: Verificar se o ID já foi cadastrado anteriormente na turma
+                                inserir_turma(turma_autenticada[0], id_curso, "Curso")
+                                break
+                            except ValueError:
+                                print("[ERRO]: Digite apenas números!")
+                                break
+
+                        else:
+                            print("Nenhum curso cadastrado anteriormente.")
+
+                case 7:
                     while True:
                         cursos = listar_cursos()
 
@@ -220,6 +248,7 @@ def portal_turma(turma_autenticada):
                                 break
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
+
                 case 8:    
                     print("Voltando...")
                     break

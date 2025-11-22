@@ -29,11 +29,11 @@ def autenticar_turma(id_turma: int):
         cursor.close()
         conexao.close()
 
-def inserir_turma(id_turma: int, parametro: str, tipo: str):
+def inserir_turma(id_turma: int, atributo: str, tipo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"INSERT INTO {tipo.lower()}_turma VALUES (%s, %s)", (parametro, id_turma))
+        cursor.execute(f"INSERT INTO {tipo.lower()}_turma VALUES (%s, %s)", (atributo, id_turma))
         conexao.commit()
         print(f"{tipo} inserido com sucesso!")
     except Exception as e:
