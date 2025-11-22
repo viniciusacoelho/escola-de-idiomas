@@ -2,6 +2,7 @@ import getpass
 
 from limpar_tela.limpar_tela import limpar_tela
 from professores.validar_professor import validar_nome_completo, validar_email, validar_senha, validar_cpf, validar_numero_telefone, validar_endereco, validar_idioma_lecionado
+from unique.verificar_unique import verificar_unique
 from professores.crud_professor import cadastrar_professor
 
 def cadastramento_professor():
@@ -22,36 +23,63 @@ def cadastramento_professor():
             break
 
     while True:
-        email = input("Digite o seu e-mail:\n")
+        email = input("Digite seu e-mail:\n")
         erro_email = validar_email(email)
-        
+
         if erro_email:
             print(erro_email)
             print("--------------------------------------------\n")
         else:
-            break
+            erro_verificar_unique = verificar_unique("Professores", email, 2, "E-mail")
+            
+            if erro_verificar_unique:
+                print(erro_verificar_unique)
+            else:
+                break
 
     while True:
-        cpf = input("Digite o seu CPF: ")
-        erro_cpf = validar_cpf(cpf)
+        print("--------------------------------------------\n")
+        cpf = input("Digite seu CPF:\n")
         
-        if erro_cpf:
-            print(erro_cpf)
-            print("--------------------------------------------\n")
-        else:
-            cpf = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
-            break
+        try:
+            int(cpf)
+            erro_cpf = validar_cpf(cpf)
+            
+            if erro_cpf:
+                print(erro_cpf)
+            else:
+                cpf = f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
+                erro_verificar_unique = verificar_unique("Professores", cpf, 3, "CPF")
+
+                if erro_verificar_unique:
+                    print(erro_verificar_unique)
+                else:
+                    break
+
+        except ValueError:
+            print("[ERRO]: Digite apenas números!")
 
     while True:
-        numero_telefone = input("Digite o seu número de telefone:\n")
-        erro_numero_telefone = validar_numero_telefone(numero_telefone)
+        print("--------------------------------------------\n")
+        numero_telefone = input("Digite seu número de telefone:\n")   
         
-        if erro_numero_telefone:
-            print(erro_numero_telefone)
-            print("--------------------------------------------\n")
-        else:
-            numero_telefone = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
-            break
+        try:
+            int(numero_telefone)
+            erro_numero_telefone = validar_numero_telefone(numero_telefone)
+            
+            if erro_numero_telefone:
+                print(erro_numero_telefone)
+            else:
+                numero_telefone = f"({numero_telefone[:2]}) {numero_telefone[2:7]}-{numero_telefone[7:]}"
+                erro_verificar_unique = verificar_unique("Professores", numero_telefone, 4, "Número de telefone")
+
+                if erro_verificar_unique:
+                    print(erro_verificar_unique)
+                else:
+                    break
+
+        except ValueError:
+            print("[ERRO]: Digite apenas números!")
 
     while True:
         endereco = input("Digite o seu endereço:\n")

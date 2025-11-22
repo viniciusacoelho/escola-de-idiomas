@@ -1,4 +1,5 @@
 import re
+from unique.verificar_unique import verificar_unique
 
 def validar_nome_completo(nome_completo: str) -> str:
     regex_nome_completo = r"^[a-zA-ZÀ-ÖØ-öø-ÿ ]{3,}$"
@@ -26,7 +27,9 @@ def validar_endereco(endereco: str) -> str:
         return f"Endereço inválido!"
 
 def validar_idioma_lecionado(idioma_lecionado: str) -> str:
-    pass
+    existe_curso = verificar_unique("Cursos", idioma_lecionado, 1, "Curso")
+    if not existe_curso:
+        return f"Curso não cadastrado anteriormente."
 
 def validar_senha(senha: str) -> str:
     # if len(senha) < 6:

@@ -25,12 +25,24 @@ def autenticar_professor(email: str, senha: str):
         professores_teste = cursor.fetchone()
     
         if professores_teste and checar_senha(senha, bytes(professores_teste[7])):
-            print(f"E-mail '{email}' logado com sucesso!")
             return professores_teste
         return None
     
     except Exception as e:
         return f"[ERRO]: Falha ao autenticar e-mail e/ou senha: {e}"
+    finally:
+        cursor.close()
+        conexao.close()
+
+def inserir_professor(id_professor: int, parametro: str, atualizar: str, tipo: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute(f"INSERT INTO professor_{tipo.lower()} VALUES (%s, %s)", (parametro, id_professor))
+        conexao.commit()
+        print(f"{tipo} inserido com sucesso!")
+    except Exception as e:
+        print(f"[ERRO]: Falha ao atualizar professor: {e}")
     finally:
         cursor.close()
         conexao.close()
@@ -48,8 +60,19 @@ def listar_professores():
         cursor.close()
         conexao.close()
 
-def buscar_professor():
-    pass
+def buscar_professor(id_professor: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM professores_teste WHERE id_professor = %s", (id_professor,))
+        turma = cursor.fetchall()
+        print(f"Professor buscado com sucesso!")
+        return turma
+    except Exception as e:
+        print(f"[ERRO]: Falha ao buscar professor: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
 
 def atualizar_professor(id_professor: int, parametro: str, atualizar: str, tipo: str):
     try:

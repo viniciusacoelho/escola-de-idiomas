@@ -15,23 +15,32 @@ def cadastrar_turma(dia_semana: str, horario: str):
         cursor.close()
         conexao.close()
 
-# def autenticar_professor(email: str, senha: str):
-#     try:
-#         conexao = criar_conexao()
-#         cursor = conexao.cursor()
-#         cursor.execute("SELECT * FROM professores_teste WHERE email=%s", (email,))
-#         professores_teste = cursor.fetchone()
-    
-#         if professores_teste and checar_senha(senha, bytes(professores_teste[7])):
-#             print(f"E-mail '{email}' logado com sucesso!")
-#             return professores_teste
-#         return None
-    
-#     except Exception as e:
-#         return f"[ERRO]: Falha ao autenticar e-mail e/ou senha: {e}"
-#     finally:
-#         cursor.close()
-#         conexao.close()
+def autenticar_turma(id_turma: int):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM turmas_teste WHERE id_turma = %s", (id_turma,))
+        turma = cursor.fetchone()
+        print(f"Turma '{id_turma}' logada com sucesso!")
+        return turma
+    except Exception as e:
+        return f"[ERRO]: Falha ao autenticar turma: {e}"
+    finally:
+        cursor.close()
+        conexao.close()
+
+def inserir_turma(id_turma: int, parametro: str, tipo: str):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute(f"INSERT INTO {tipo.lower()}_turma VALUES (%s, %s)", (parametro, id_turma))
+        conexao.commit()
+        print(f"{tipo} inserido com sucesso!")
+    except Exception as e:
+        print(f"[ERRO]: Falha ao atualizar turma: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
 
 def listar_turmas():
     try:
@@ -46,11 +55,24 @@ def listar_turmas():
         cursor.close()
         conexao.close()
 
+def buscar_turma(id_turma: int):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM turmas_teste WHERE id_turma = %s", (id_turma,))
+        turma = cursor.fetchall()
+        print(f"Turma '{id_turma}' buscada com sucesso!")
+        return turma
+    except Exception as e:
+        print(f"[ERRO]: Falha ao buscar turma: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+    
 def atualizar_turma(id_turma: int, parametro: str, atualizar: str, tipo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-
         cursor.execute(f"UPDATE turmas_teste SET {atualizar} = %s WHERE id_turma = %s", (parametro, id_turma))
         conexao.commit()
         print(f"{tipo} atualizado com sucesso!")
@@ -66,7 +88,7 @@ def deletar_turma(id_turma: int):
         cursor = conexao.cursor()
         cursor.execute("DELETE FROM turmas_teste WHERE id_turma = %s", (id_turma,))
         conexao.commit()
-        print("Turma deletado com sucesso!")
+        print("Turma deletada com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar turma: {e}")
     finally:

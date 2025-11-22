@@ -22,7 +22,7 @@ while True:
     print("--------------------------------------------")
     try:
         opcao = int(input("Digite uma opção:\n"))
-        if opcao == 1:
+        if opcao == 1:  
             menu_administrador()
         elif opcao == 2:
             identificacao_professor()

@@ -1,14 +1,16 @@
 from limpar_tela.limpar_tela import limpar_tela
 from turmas.cadastramento_turma import cadastramento_turma
-from turmas.crud_turmas import listar_turmas, deletar_turma, atualizar_turma
+from turmas.crud_turmas import listar_turmas, buscar_turma, atualizar_turma, deletar_turma
+from turmas.atualizar_turma import atualizar_turma
+from turmas.login_turma import login_turma
 
 def menu_turma():
-    menu = ["Cadastrar Turma", "Listar Turma", "Buscar Turma", "Atualizar Turma", "Deletar Turma", "Voltar"]
+    menu = ["Cadastrar Turma", "Logar Turma", "Listar Turma", "Buscar Turma", "Atualizar Turma", "Deletar Turma", "Voltar"]
 
     while True:
         limpar_tela()
         print("--------------------------------------------")
-        print("              Escola de Idiomas             ")
+        print("               Atualizar Turma")
         print("--------------------------------------------")
 
         for i in range(len(menu)):
@@ -22,12 +24,82 @@ def menu_turma():
                 case 1:
                     cadastramento_turma()
                 case 2:
-                    listar_turmas()                    
+                    turmas = listar_turmas()                    
+                    
+                    if len(turmas) > 0:
+                        login_turma()
+                    else:
+                        print("Nenhuma turma cadastrada anteriormente.")
+                    
                 case 3:
-                    atualizar_turma()
+                    turmas = listar_turmas()                    
+                    
+                    if len(turmas) > 0:
+                        print("Turmas litadas com sucesso!")
+                        print("--------------------------------------------\n")
+                        
+                        for turma in turmas:
+                            print(f"Turma {turma[0]}:\n{turma[1]} ({turma[2]})")
+                            print("--------------------------------------------")
+                    
+                    else:
+                        print("Nenhuma turma cadastrada anteriormente.")
+
                 case 4:
-                    deletar_turma()
-                case 5:  
+                    while True:    
+                        turmas = listar_turmas()                    
+                        
+                        if len(turmas) > 0:
+                            try:
+                                id_turma = int(input("Digite o ID da turma que você deseja buscar:\n"))
+                                turmas = buscar_turma(id_turma)
+
+                                for turma in turmas:
+                                    print("--------------------------------------------")
+                                    print(f"Turma {turma[0]}:\n{turma[1]} ({turma[2]})")
+                                break
+
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+                                break
+                            
+                        else:
+                            print("Nenhuma turma cadastrada anteriormente.")
+
+                case 5:
+                    while True:    
+                        turmas = listar_turmas()                    
+                        
+                        if len(turmas) > 0:
+                            try:
+                                id_turma = int(input("Digite o ID da turma que você deseja atualizar:\n"))
+                                atualizar_turma(id_turma)
+
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+                                break
+
+                        else:
+                            print("Nenhuma turma cadastrada anteriormente.")
+
+                case 6:
+                    while True:    
+                        turmas = listar_turmas()                    
+                        
+                        if len(turmas) > 0:
+                            try:
+                                id_turma = int(input("Digite o ID da turma que você deseja deletar:\n"))
+                                deletar_turma(id_turma)
+                                break
+
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+                                break
+
+                        else:
+                            print("Nenhuma turma cadastrada anteriormente.")
+
+                case 7:  
                     print("Voltando...")
                     break
                 case _:

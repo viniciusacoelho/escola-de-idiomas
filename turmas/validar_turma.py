@@ -1,3 +1,5 @@
+import re
+
 def validar_dia_semana(dia_semana: str) -> str | None:
     dias_semana = [
         "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo",
@@ -6,12 +8,8 @@ def validar_dia_semana(dia_semana: str) -> str | None:
     # TODO: Permitir o usuário não digitar exatamente como está na lista
     if dia_semana not in dias_semana:
             return "Dia da semana inválido! Esperava-se: 'Segunda ou Segunda-Feira'"
-
-while True:
-    dia_semana = input("Digite o dia da semana da turma: ")
-    erro_dia_semana = validar_dia_semana(dia_semana)
-
-    if erro_dia_semana:
-        print(erro_dia_semana)
-    else:
-        print("Dia da semana válido!")
+    
+def validar_horario(horario: str) -> str | None:
+    regex_horario = r"^[0-9]{2}:[0-9]{2}-[0-9]{2}:[0-9]{2}$"
+    if not re.match(regex_horario, horario):
+        return "Dia da semana inválido! Esperava-se: '12:34-56:78'"    

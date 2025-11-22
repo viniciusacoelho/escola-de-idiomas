@@ -3,6 +3,21 @@ from limpar_tela.limpar_tela import limpar_tela
 from professores.crud_professor import autenticar_professor
 from professores.portal_professor import portal_professor
 
+from banco_de_dados.bd import criar_conexao
+
+def professor(tabela: str, id_turma: int):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute(f"SELECT * FROM {tabela}_turma WHERE id_turma = %s", (id_turma,))
+        professores_teste = cursor.fetchone()
+        return professores_teste
+    except Exception as e:
+        return f"[ERRO]: Falha ao autenticar e-mail e/ou senha: {e}"
+    finally:
+        cursor.close()
+        conexao.close()
+
 def login_professor():
     while True:
         limpar_tela()
@@ -16,6 +31,7 @@ def login_professor():
         professor_autenticado = autenticar_professor(email, senha)
 
         if professor_autenticado:
+            print(f"Professor '{professor_autenticado[1]}' logado com sucesso!")
             portal_professor(professor_autenticado)
             break
         else:
