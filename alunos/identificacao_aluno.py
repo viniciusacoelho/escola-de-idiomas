@@ -10,7 +10,7 @@ def identificacao_aluno():
         limpar_tela()
 
         print("--------------------------------------------")
-        print("             Escola de Idiomas              ")
+        print("             Escola de Idiomas")
         print("--------------------------------------------")
 
         for i in range(len(menu)):

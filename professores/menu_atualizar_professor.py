@@ -148,6 +148,7 @@ def menu_atualizar_professor(id_professor: int):
                         else:
                             atualizar_professor(id_professor, nova_senha, "senha", "Senha")
                             break
+
                 case 8:
                     print("Voltando...")
                     break

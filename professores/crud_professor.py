@@ -74,17 +74,16 @@ def buscar_professor(id_professor: str):
         cursor.close()
         conexao.close()
 
-def atualizar_professor(id_professor: int, parametro: str, atualizar: str, tipo: str):
+def atualizar_professor(id_professor: int, parametro: str, atributo: str, nome_atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
 
-        # TODO: Criptografar a senha modificada
-        if tipo == "Senha":
-            parametro == criptografar(parametro)
+        if atributo == "senha":
+            parametro = criptografar(parametro)
         
-        cursor.execute(f"UPDATE professores_teste SET {atualizar} = %s WHERE id_professor = %s", (parametro, id_professor))
-        print(f"{tipo} atualizado com sucesso!")
+        cursor.execute(f"UPDATE professores_teste SET {atributo} = %s WHERE id_professor = %s", (parametro, id_professor))
+        print(f"{nome_atributo} atualizado com sucesso!")
         conexao.commit()
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar professor: {e}")

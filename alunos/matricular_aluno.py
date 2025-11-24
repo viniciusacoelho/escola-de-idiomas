@@ -6,11 +6,11 @@ from unique.verificar_unique import verificar_unique
 # from cursos.crud_cursos import listar_cursos, inserir_aluno
 
 def matricular_aluno():
-    """Cadastra os dados do aluno no banco de dados, pedindo uma série de informações."""
+    """Cadastra os dados do aluno no banco de dados com uma série de informações."""
     limpar_tela()
 
     print("--------------------------------------------")
-    print("                  Cadastro")
+    print("                  Matrícula")
     print("--------------------------------------------")
     print("Matricule-se\n")
     

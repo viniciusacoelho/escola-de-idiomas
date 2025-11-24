@@ -141,6 +141,7 @@ def menu_atualizar_alunos(id_aluno: int):
 
                         except ValueError:
                             print("[ERRO]: Digite apenas números!")
+
                 case 7:
                     print("--------------------------------------------\n")
                     nova_senha = getpass.getpass("Digite a nova senha do aluno:\n")

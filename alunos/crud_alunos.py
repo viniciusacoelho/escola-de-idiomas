@@ -113,7 +113,7 @@ def buscar_aluno(usuario: str):
         cursor.close()
         conexao.close()
 
-def atualizar_aluno(id_aluno: int, parametro: str, atualizar: str, tipo: str):
+def atualizar_aluno(id_aluno: int, parametro: str, atributo: str, nome_atributo: str):
     """
     Atualiza os dados do aluno no banco de dados.
 
@@ -130,11 +130,11 @@ def atualizar_aluno(id_aluno: int, parametro: str, atualizar: str, tipo: str):
         conexao = criar_conexao()
         cursor = conexao.cursor()
 
-        if tipo == "Senha":
+        if atributo == "senha":
             parametro = criptografar(parametro)
 
-        cursor.execute(f"UPDATE alunos_teste SET {atualizar} = %s WHERE id_aluno = %s", (parametro, id_aluno))
-        print(f"'{tipo}' de aluno atualizado com sucesso!")
+        cursor.execute(f"UPDATE alunos_teste SET {atributo} = %s WHERE id_aluno = %s", (parametro, id_aluno))
+        print(f"'{nome_atributo}' de aluno atualizado com sucesso!")
         conexao.commit()
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar aluno: {e}")
@@ -162,6 +162,22 @@ def deletar_aluno(id_aluno: int, alunos: list):
         print(f"Aluno deletado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao deletar aluno: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def aluno_curso(id_aluno: int):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT c.nome_curso from aluno_curso ac INNER JOIN cursos_teste c ON c.id_curso = ac.id_curso WHERE id_aluno = %s", (id_aluno,))
+        alunos = cursor.fetchall()
+        conexao.commit()
+        return alunos
+        
+        # print(f"Aluno curso com sucesso!")
+    except Exception as e:
+        print(f"[ERRO]: Falha ao relacionar aluno curso: {e}")
     finally:
         cursor.close()
         conexao.close()
