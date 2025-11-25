@@ -1,11 +1,9 @@
 from banco_de_dados.bd import criar_conexao
 
-# def cadastrar_turma(id_professor, id_alunos, id_curso, dia_semana, horario):
 def cadastrar_turma(dia_semana: str, horario: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-
         cursor.execute("INSERT INTO turmas_teste (dia_semana, horario) VALUES (%s, %s)", (dia_semana, horario)) 
         conexao.commit()
         print("Turma cadastrada com sucesso!")
@@ -29,13 +27,13 @@ def autenticar_turma(id_turma: int):
         cursor.close()
         conexao.close()
 
-def inserir_turma(id_turma: int, atributo: str, tipo: str):
+def inserir_turma(id_turma: int, atributo: str, entidade: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"INSERT INTO {tipo.lower()}_turma VALUES (%s, %s)", (atributo, id_turma))
+        cursor.execute(f"INSERT INTO {entidade.lower()}_turma VALUES (%s, %s)", (atributo, id_turma))
         conexao.commit()
-        print(f"{tipo} inserido com sucesso!")
+        print(f"{entidade} inserido com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar turma: {e}")
     finally:
@@ -69,13 +67,13 @@ def buscar_turma(id_turma: int):
         cursor.close()
         conexao.close()
     
-def atualizar_turma(id_turma: int, parametro: str, atualizar: str, tipo: str):
+def atualizar_turma(id_turma: int, parametro_atributo: str, atributo: str, nome_atributo: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE turmas_teste SET {atualizar} = %s WHERE id_turma = %s", (parametro, id_turma))
+        cursor.execute(f"UPDATE turmas_teste SET {atributo} = %s WHERE id_turma = %s", (parametro_atributo, id_turma))
         conexao.commit()
-        print(f"{tipo} atualizado com sucesso!")
+        print(f"{nome_atributo} atualizado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao atualizar turma: {e}")
     finally:

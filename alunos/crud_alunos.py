@@ -113,7 +113,7 @@ def buscar_aluno(usuario: str):
         cursor.close()
         conexao.close()
 
-def atualizar_aluno(id_aluno: int, parametro: str, atributo: str, nome_atributo: str):
+def atualizar_aluno(id_aluno: int, parametro_atributo: str, atributo: str, nome_atributo: str):
     """
     Atualiza os dados do aluno no banco de dados.
 
@@ -133,7 +133,7 @@ def atualizar_aluno(id_aluno: int, parametro: str, atributo: str, nome_atributo:
         if atributo == "senha":
             parametro = criptografar(parametro)
 
-        cursor.execute(f"UPDATE alunos_teste SET {atributo} = %s WHERE id_aluno = %s", (parametro, id_aluno))
+        cursor.execute(f"UPDATE alunos_teste SET {atributo} = %s WHERE id_aluno = %s", (parametro_atributo, id_aluno))
         print(f"'{nome_atributo}' de aluno atualizado com sucesso!")
         conexao.commit()
     except Exception as e:

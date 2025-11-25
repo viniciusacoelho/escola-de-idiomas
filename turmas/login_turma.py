@@ -12,6 +12,7 @@ def login_turma():
         try:
             id_turma = int(input("Digite o ID da turma que você deseja logar:\n"))
             turma_autenticada = autenticar_turma(id_turma)
+            
             if turma_autenticada:
                 portal_turma(turma_autenticada)
                 break

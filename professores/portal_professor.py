@@ -2,21 +2,9 @@ from limpar_tela.limpar_tela import limpar_tela
 from professores.menu_atualizar_professor import menu_atualizar_professor
 from turmas.crud_turmas import inserir_turma
 from turmas.portal_turma import curso_turma, aluno_turma
+from cursos.crud_cursos import listar_cursos
 
 from banco_de_dados.bd import criar_conexao
-
-def professor_aluno(id_professor: int):
-    try:
-        conexao = criar_conexao()
-        cursor = conexao.cursor()
-        cursor.execute("SELECT a.nome_completo FROM professor_aluno pa INNER JOIN alunos_teste a ON a.id_aluno = pa.id_aluno WHERE id_professor = %s", (id_professor,))
-        professor_alunos = cursor.fetchall()
-        return professor_alunos
-    except Exception as e:
-        print(f"[ERRO]: Falha ao vizualizar alunos: {e}")
-    finally:
-        cursor.close()
-        conexao.close()
 
 def professor_turma(id_professor: int):
     try:
@@ -32,21 +20,8 @@ def professor_turma(id_professor: int):
         cursor.close()
         conexao.close()
 
-def professor_curso(id_professor: int):
-    try:
-        conexao = criar_conexao()
-        cursor = conexao.cursor()
-        cursor.execute("SELECT c.nome_curso FROM professor_curso pc INNER JOIN cursos_teste c ON c.id_curso = pc.id_curso WHERE id_professor = %s", (id_professor,))
-        professor_cursos = cursor.fetchall()
-        return professor_cursos
-    except Exception as e:
-        print(f"[ERRO]: Falha ao vizualizar cueso: {e}")
-    finally:
-        cursor.close()
-        conexao.close()
-
 def portal_professor(professor_autenticado):
-    menu = ["Visualizar Turma", "Atualizar Cadastro", "Voltar"]
+    menu = ["Visualizar Turma", "Selecionar Curso", "Atualizar Cadastro", "Voltar"]
 
     while True:
         limpar_tela()
@@ -64,24 +39,23 @@ def portal_professor(professor_autenticado):
             match opcao:
                 case 1:
                     turmas = professor_turma(professor_autenticado[0])
+                    
                     if len(turmas) > 0:
                         print(f"Professor: {professor_autenticado[1]}")
-                        
+
                         for turma in turmas:
                             print("--------------------------------------------")
                             print(f"Turma {turma[0]}:")
-                            
                             cursos = curso_turma(turma[0])
-                        
+
                             if len(cursos) > 0:
                                 for curso in cursos:
                                     print(f"Curso: {curso[0]}")
-                            
+
                             else:
                                 print("Nenhum curso cadastrado anteriormente na turma.")
 
                             alunos = aluno_turma(turma[0])
-
                             print("Alunos: ")
 
                             if len(alunos) > 0:
@@ -90,21 +64,50 @@ def portal_professor(professor_autenticado):
 
                             else:
                                 print("Nenhum aluno cadastrado anteriormente na turma.")
-                            
+
                             # TODO: Ajeitar isso, está funcionando, mas se não tiver curso, ele não mostra o horário, mesmo se 
                             # estiver cadastrado
                             if len(cursos) > 0:
                                 for curso in cursos:
                                     print(f"Horário: {curso[1]} ({curso[2]})")
-                            
+
                             else:
-                                print("Nenhum curso cadastrado anteriormente na turma.")
+                                print("Nenhum dia/horário cadastrado anteriormente na turma.")
+
                     else:
                         print("Nenhuma turma cadastrada anteriormente.")
 
                 case 2:
-                    menu_atualizar_professor(professor_autenticado[0])
+                    while True:
+                        cursos = listar_cursos()
+
+                        if len(cursos) > 0:
+                            for curso in cursos:
+                                print(f"{curso[0]} - {curso[1]}")
+
+                            try:
+                                id_curso = int(input("Digite o ID do curso que deseja cadastrar: "))
+                                
+                                for curso in cursos:
+                                    if id_curso == curso[0]:
+                                        # TODO: Fazer uma relaçao professor-curso no banco de dados
+                                        # professor_curso(id_curso)
+                                        pass
+                                else:
+                                    print("ID do curso não cadastrado anteriormente.")
+                                break
+                            
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+                                break
+
+                        print("Nenhum curso cadastrado anteriormente.")
+                        break
+
                 case 3:
+                    menu_atualizar_professor(professor_autenticado[0])
+                    # break
+                case 4:
                     print("Voltando...")
                     break
 

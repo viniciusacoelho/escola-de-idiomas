@@ -65,6 +65,7 @@ def menu_turma():
                             
                         else:
                             print("Nenhuma turma cadastrada anteriormente.")
+                            break
 
                 case 5:
                     while True:    
@@ -81,6 +82,7 @@ def menu_turma():
 
                         else:
                             print("Nenhuma turma cadastrada anteriormente.")
+                            break
 
                 case 6:
                     while True:    
@@ -98,6 +100,7 @@ def menu_turma():
 
                         else:
                             print("Nenhuma turma cadastrada anteriormente.")
+                            break
 
                 case 7:  
                     print("Voltando...")

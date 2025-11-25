@@ -53,6 +53,7 @@ def menu_professor():
                             
                         else:
                             print("Nenhum professor cadastrado anteriormente.")
+                            break
 
                 case 4:
                     while True:
@@ -78,6 +79,7 @@ def menu_professor():
 
                         else:
                             print("Nenhum professor cadastrado anteriormente.")
+                            break
 
                 case 5:
                     while True:
@@ -103,6 +105,7 @@ def menu_professor():
 
                         else:
                             print("Nenhum professor cadastrada anteriormente.")
+                            break
 
                 case 6:
                     print("Voltando...")

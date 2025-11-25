@@ -42,16 +42,26 @@ def portal_aluno(aluno_autenticado):
                             turmas = aluno_turma(aluno_autenticado[0])
 
                             print(f"Turma:")
-                            for turma in turmas:
-                                print(turma[0])
+                            if len(turmas) > 0:
+                                for turma in turmas:
+                                    print(turma[0])
+                            else:
+                                print("Nenhuma turma cadastrada anteriormente.")
 
                             professores = professor_turma(aluno_autenticado[0])
-                            
-                            for professor in professores:
-                                print(f"Professor: {professor[0]}")
+                            if len(professores) > 0:
+                                for professor in professores:
+                                    print(f"Professor: {professor[0]}")
+                            else:
+                                print("Nenhum professor cadastrado anteriormente.")
 
-                            print(f"Dia/Horário: {curso[1]} ({curso[2]})")
-                        
+                            if len(cursos) > 0:
+                                print(f"Dia/Horário: {curso[1]} ({curso[2]})")
+                            else:
+                                print("Nenhum dia/horário cadastrado anteriormente.")
+                    else:
+                        print("Nenhuma turma cadastrada anteriormente.")
+
                 case 2:
                     menu_atualizar_alunos(aluno_autenticado[0])
                 case 3:
@@ -69,6 +79,7 @@ def portal_aluno(aluno_autenticado):
                                 for curso in cursos:
                                     if id_curso == curso[0]:
                                         curso_escolhido = ja_matriculado(aluno_autenticado[0], id_curso)
+
                                         if not curso_escolhido:
                                             matricular_aluno_curso(aluno_autenticado[0], id_curso)
                                         else:

@@ -4,6 +4,7 @@ from limpar_tela.limpar_tela import limpar_tela
 from professores.validar_professor import validar_nome_completo, validar_email, validar_senha, validar_cpf, validar_numero_telefone, validar_endereco, validar_idioma_lecionado
 from unique.verificar_unique import verificar_unique
 from professores.crud_professor import cadastrar_professor
+from cursos.crud_cursos import listar_cursos
 
 def cadastramento_professor():
     limpar_tela()
@@ -92,16 +93,34 @@ def cadastramento_professor():
             break
 
     while True:
-        idioma_lecionado = input("Digite o idioma que você leciona:\n")
-        erro_idioma_lecionado = validar_idioma_lecionado(idioma_lecionado)
+        cursos = listar_cursos()
+
+        if len(cursos) > 0:
+            for curso in cursos:
+                print(f"{curso[0]} - {curso[1]}")
+            
+            print("0 - Nenhuma das opções acima.")
+            idioma_lecionado = input("Digite o idioma que você leciona:\n")
+            
+            if idioma_lecionado == "0":
+                break
+
+            erro_idioma_lecionado = validar_idioma_lecionado(idioma_lecionado)
+            
+            if erro_idioma_lecionado:
+                print(erro_idioma_lecionado)
+                print("--------------------------------------------\n")
+            else:
+                break
+            
         
-        if erro_idioma_lecionado:
-            print(erro_idioma_lecionado)
-            print("--------------------------------------------\n")
         else:
+            print("--------------------------------------------\n")
+            print("Nenhum idioma para lecionar cadastrado anteriormente.")
             break
 
     while True:
+        print("--------------------------------------------\n")
         senha = getpass.getpass("Digite a sua senha:\n")
         erro_senha = validar_senha(senha)
         

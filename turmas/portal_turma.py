@@ -13,8 +13,8 @@ def professor_turma(id_turma: int):
         cursor = conexao.cursor()
         cursor.execute("SELECT p.nome_completo FROM professor_turma pt INNER JOIN professores_teste p ON p.id_professor = pt.id_professor WHERE id_turma = %s", (id_turma,))
         # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos_teste a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
-        alunos_turma = cursor.fetchall()
-        return alunos_turma
+        professor_turmas = cursor.fetchall()
+        return professor_turmas
     except Exception as e:
         print(f"[ERRO]: Falha ao vizualizar professor da turma: {e}")
     finally:
