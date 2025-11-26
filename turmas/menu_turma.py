@@ -5,6 +5,7 @@ from turmas.atualizar_turma import atualizar_turma
 from turmas.login_turma import login_turma
 
 def menu_turma():
+    """Página do menu da turma."""
     menu = ["Cadastrar Turma", "Logar Turma", "Listar Turma", "Buscar Turma", "Atualizar Turma", "Deletar Turma", "Voltar"]
 
     while True:
@@ -30,12 +31,12 @@ def menu_turma():
                         login_turma()
                     else:
                         print("Nenhuma turma cadastrada anteriormente.")
-                    
+
                 case 3:
                     turmas = listar_turmas()                    
-                    
+
                     if len(turmas) > 0:
-                        print("Turmas litadas com sucesso!")
+                        print("Turmas listadas com sucesso!")
                         print("--------------------------------------------\n")
                         
                         for turma in turmas:
@@ -48,7 +49,7 @@ def menu_turma():
                 case 4:
                     while True:    
                         turmas = listar_turmas()                    
-                        
+
                         if len(turmas) > 0:
                             try:
                                 id_turma = int(input("Digite o ID da turma que você deseja buscar:\n"))
@@ -62,7 +63,7 @@ def menu_turma():
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
                                 break
-                            
+
                         else:
                             print("Nenhuma turma cadastrada anteriormente.")
                             break
@@ -70,7 +71,7 @@ def menu_turma():
                 case 5:
                     while True:    
                         turmas = listar_turmas()                    
-                        
+
                         if len(turmas) > 0:
                             try:
                                 id_turma = int(input("Digite o ID da turma que você deseja atualizar:\n"))
@@ -87,7 +88,7 @@ def menu_turma():
                 case 6:
                     while True:    
                         turmas = listar_turmas()                    
-                        
+
                         if len(turmas) > 0:
                             try:
                                 id_turma = int(input("Digite o ID da turma que você deseja deletar:\n"))

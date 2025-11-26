@@ -1,9 +1,9 @@
 from limpar_tela.limpar_tela import limpar_tela
 from professores.crud_professor import listar_professores
-from alunos.crud_alunos import listar_alunos 
+from professores.crud_professor import inserir_professor
+from alunos.crud_aluno import listar_alunos 
 from turmas.crud_turmas import inserir_turma, listar_turmas
 from cursos.crud_cursos import listar_cursos 
-from professores.crud_professor import inserir_professor
 
 from banco_de_dados.bd import criar_conexao
 
@@ -149,22 +149,39 @@ def portal_turma(turma_autenticada):
                 case 2:
                     while True:
                         professores = listar_professores()
-                        # if len(professores < 1):
-                        for professor in professores:
-                            print(f"{professor[0]} - {professor[1]}")
 
-                        try:
-                            id_professor = int(input("Digite o id do professor que deseja inserir na turma: \n"))
-                            # TODO: Verificar se o ID já foi cadastrado anteriormente
-                            # TODO: Verificar se o ID já foi cadastrado anteriormente na turma
-                            inserir_turma(turma_autenticada[0], id_professor, "Professor")
+                        if len(professores) > 0:
+                            for professor in professores:
+                                print(f"{professor[0]} - {professor[1]}")
+
+                            try:
+                                id_professor = int(input("Digite o id do professor que deseja inserir na turma:\n"))
+                                professor_turma(turma_autenticada[0])
+
+                                for professor in professores:
+                                    if id_professor == professor[0]:
+                                        professores_turma = professor_turma(turma_autenticada[0])
+
+                                        for professor_turmas in professores_turma:
+                                            if id_professor == professor_turmas[0]:
+                                                print("Professor já inserido na turma anteriormente.")
+                                                break
+                                        else:
+                                            inserir_turma(turma_autenticada[0], id_professor, "Professor")
+                                        break
+
+                                else:
+                                    print("ID do professor inválido!")
+                                break
+
+                            except ValueError:
+                                print("[ERRO]: Digite apenas números!")
+                                break
+
+                        else:
+                            print("Nenhum professor cadastrado anteriormente.")
                             break
 
-                        except ValueError:
-                            print("[ERRO]: Digite apenas números!")
-                            break
-                        # else:
-                        #     print("Cada turma poderá somente ter um professor.")
                 case 3:
                     while True:
                         professores = listar_professores()
@@ -172,13 +189,24 @@ def portal_turma(turma_autenticada):
                         if len(professores) > 0:
                             try:
                                 id_professor = int(input("Digite o ID do professor que deseja deletar da turma:\n"))
-                                # TODO: Verificar se o ID já foi cadastrado anteriormente
-                                # TODO: Verificar se o ID já foi cadastrado anteriormente na turma
-                                deletar_professor_turma(id_professor)
+                                for professor in professores:
+                                    if id_professor == professor[0]:
+                                        professores_turma = professor_turma(turma_autenticada[0])
+
+                                        for professor_turmas in professores_turma:
+                                            if id_professor == professor_turmas[0]:
+                                                print("Professor já inserido na turma anteriormente.")
+                                                break
+                                        else:
+                                            deletar_professor_turma(id_professor)
                                 break
+
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
-
+                        
+                        else:
+                            print("Nenhum professor cadastrado anteriormente.")
+                            break
                 case 4:
                     while True:
                         alunos = listar_alunos()
@@ -188,6 +216,7 @@ def portal_turma(turma_autenticada):
 
                         try:
                             id_aluno = int(input("Digite o id do aluno que deseja inserir na turma: \n"))
+                            
                             # TODO: Verificar se o ID já foi cadastrado anteriormente
                             # TODO: Verificar se o ID já foi cadastrado anteriormente na turma
                             inserir_turma(turma_autenticada[0], id_aluno, "Aluno")
@@ -203,6 +232,7 @@ def portal_turma(turma_autenticada):
 
                         if len(alunos) > 0:
                             try:
+
                                 id_aluno = int(input("Digite o ID do aluno que deseja deletar da turma:\n"))
                                 # TODO: Verificar se o ID já foi cadastrado anteriormente
                                 # TODO: Verificar se o ID já foi cadastrado anteriormente na turma

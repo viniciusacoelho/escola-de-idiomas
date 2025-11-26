@@ -22,7 +22,7 @@ def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data
         cursor = conexao.cursor()
 
         senha = criptografar(senha)
-        
+    
         cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha))
         conexao.commit()
         print(f"Aluno '{nome_completo}' cadastrado com sucesso!")
@@ -56,12 +56,12 @@ def autenticar_aluno(usuario: str, senha: str):
         cursor = conexao.cursor()
         cursor.execute("SELECT * FROM alunos_teste WHERE usuario = %s", (usuario,))
         alunos_teste = cursor.fetchone()
-        
+
         if alunos_teste and checar_senha(senha, bytes(alunos_teste[7])):
             # print(f"Usuário '{usuario}' logado com sucesso!")
             return alunos_teste
         return None
-        
+
     except Exception as e:
         return f"[ERRO]: Falha ao logar usuário e/ou senha: {e}"
     finally:
@@ -155,7 +155,7 @@ def deletar_aluno(id_aluno: int, alunos: list):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("DELETE from alunos_teste WHERE id_aluno = %s", (id_aluno,))
+        cursor.execute("DELETE FROM alunos_teste WHERE id_aluno = %s", (id_aluno,))
         conexao.commit()
         # TODO: Verificar se tem como colocar o nome do aluno aqui:
         # print(f"Aluno '{alunos}' deletado com sucesso!")
@@ -174,8 +174,6 @@ def aluno_curso(id_aluno: int):
         alunos = cursor.fetchall()
         conexao.commit()
         return alunos
-        
-        # print(f"Aluno curso com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao relacionar aluno curso: {e}")
     finally:

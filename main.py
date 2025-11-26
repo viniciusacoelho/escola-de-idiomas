@@ -1,13 +1,12 @@
 from limpar_tela.limpar_tela import limpar_tela
-from identificacao.identificacao import identificacao
+# from identificacao.identificacao import identificacao
 # from cursos.menu_cursos import menu_curso
-from administrador.menu_administrador import menu_administrador
+from administrador.identificacao_adiministrador import identificacao_administrador
 # from alunos.menu_alunos import menu_aluno
 from alunos.identificacao_aluno import identificacao_aluno
 from professores.identificacao_professor import identificacao_professor
 
 menu = ["Administrador", "Professor", "Aluno", "Sair"]
-# menu = ["Curso", "Professor", "Aluno", "Turma", "Sair"]
 
 while True:
     limpar_tela()
@@ -23,7 +22,7 @@ while True:
     try:
         opcao = int(input("Digite uma opção:\n"))
         if opcao == 1:  
-            menu_administrador()
+            identificacao_administrador()
         elif opcao == 2:
             identificacao_professor()
         elif opcao == 3:

@@ -40,22 +40,24 @@ def menu_atualizar_professor(id_professor: int):
                         else:
                             atualizar_professor(id_professor, novo_nome_completo, "nome_completo", "Nome completo")
                             break
+
                 case 2:
                     while True:
                         print("--------------------------------------------\n")
                         novo_email = input("Digite o novo e-mail do professor:\n").lower()
                         erro_novo_email = validar_email(novo_email)
-                        
+
                         if erro_novo_email:
                             print(erro_novo_email)
                         else:
                             erro_verificar_unique = verificar_unique("Professores", novo_email, 2, "E-mail")
-                            
+
                             if erro_verificar_unique:
                                 print(erro_verificar_unique)
                             else:
                                 atualizar_professor(id_professor, novo_email, "email", "E-mail")
                                 break
+
                 case 3:
                     while True:
                         print("--------------------------------------------\n")
@@ -79,6 +81,7 @@ def menu_atualizar_professor(id_professor: int):
 
                         except ValueError:
                             print("[ERRO]: Digite apenas números!")
+
                 case 4:
                     while True:
                         print("--------------------------------------------\n")
@@ -102,6 +105,7 @@ def menu_atualizar_professor(id_professor: int):
 
                         except ValueError:
                             print("[ERRO]: Digite apenas números!")
+
                 case 5:
                     while True:
                         print("--------------------------------------------\n")
@@ -115,6 +119,7 @@ def menu_atualizar_professor(id_professor: int):
                             novo_endereco_validado = f"{novo_endereco[:2]}/{novo_endereco[2:4]}/{novo_endereco[4:]}"
                             atualizar_professor(id_professor, novo_endereco_validado, "novo_endereco", "Novo Endereço")
                             break
+
                 case 6:
                     while True:
                         print("--------------------------------------------\n")
@@ -134,15 +139,15 @@ def menu_atualizar_professor(id_professor: int):
                         except ValueError:
                             print("[ERRO]: Digite apenas números!")
                 
-                # TODO: Criptografar a senha modificada
+
                 case 7:
                     print("--------------------------------------------\n")
                     nova_senha = getpass.getpass("Digite a nova senha do professor:\n")
                     validar_senha(nova_senha)
-                    
+
                     while True:
                         confirmar_nova_senha = getpass.getpass("Confirme a nova senha do professor:\n")
-                        
+
                         if confirmar_nova_senha != nova_senha:
                             print("Digite a mesma senha!")
                         else:

@@ -4,6 +4,12 @@ from turmas.crud_turmas import listar_turmas, buscar_turma, atualizar_turma, del
 from turmas.validar_turma import validar_dia_semana, validar_horario
 
 def atualizar_turma(id_turma: int):
+    """
+    Atualiza a turma do usuário.
+
+    Args:
+        id_turma (int): ID da turma cadastrada no banco de dados.
+    """
     menu = ["Atualizar Horário", "Atualizar Turma", "Voltar"]
 
     while True:

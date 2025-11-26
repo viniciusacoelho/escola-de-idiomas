@@ -1,8 +1,8 @@
-from alunos.crud_alunos import listar_alunos
+from alunos.crud_aluno import listar_alunos
 from cursos.crud_cursos import listar_cursos
 from professores.crud_professor import listar_professores
 
-def verificar_unique(tipo: str, parametro: str, posicao = int, nome = str) -> str:
+def verificar_unique(entidade: str, parametro: str, posicao = int, nome = str) -> str:
     """
     Verifica se os dados únicos já foram cadastrados anteriormente no banco de dados.
     
@@ -15,11 +15,11 @@ def verificar_unique(tipo: str, parametro: str, posicao = int, nome = str) -> st
     Returns:
         str: 'nome' já cadastrado anteriormente.
     """
-    if tipo == "Alunos":
+    if entidade == "Alunos":
         itens = listar_alunos()
-    elif tipo == "Cursos":
+    elif entidade == "Cursos":
         itens = listar_cursos()
-    elif tipo == "Professores":
+    elif entidade == "Professores":
         itens = listar_professores()
         
     lista_cadastrados = []

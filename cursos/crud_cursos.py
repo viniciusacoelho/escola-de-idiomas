@@ -6,7 +6,7 @@ def cadastrar_curso(nome_curso: str):
 
         Args:
             nome_curso (str): Nome do curso digitado pelo usuário.
-        
+
         Raises:
             [ERRO]: Falha ao cadastrar curso.
     """
@@ -29,7 +29,7 @@ def ja_matriculado(id_aluno, id_curso):
         Args:
             id_aluno (int): ID do aluno cadastrado no banco de dados.
             id_curso (int): ID do curso cadastrado no banco de dados.
-        
+
         Raises:
             [ERRO]: Falha ao matricular aluno no curso.
     """
@@ -123,7 +123,7 @@ def atualizar_curso(id_curso: int, novo_nome_curso: str):
         Args:
             id_curso (int): ID do curso cadastrado no banco de dados.
             nome_curso (str): Nome do curso digitado pelo usuário.
-        
+
         Raises:
             [ERRO]: Falha ao atualizar curso.
     """
@@ -140,7 +140,6 @@ def atualizar_curso(id_curso: int, novo_nome_curso: str):
         conexao.close()
 
 def deletar_curso(id_curso: int):
-# def deletar_curso(id_curso: int, nome_curso: str):
     """
         Deleta o curso cadastrado no banco de dados.
 
@@ -154,11 +153,6 @@ def deletar_curso(id_curso: int):
         conexao = criar_conexao()
         cursor = conexao.cursor()
         # cursor.execute("INSERT INTO lixeira-teste (nome) VALUES (%s)", (id_curso,))
-        cursos = listar_cursos()
-        # for curso in cursos:
-        #     if id_curso == curso[0]:
-        #         print(f"Curso '{curso[1]}' deletado com sucesso!")
-        #     break
         cursor.execute("DELETE FROM cursos_teste WHERE id_curso = %s", (id_curso,))
         # TODO: Verificar se vai funcionar, porque o usuário não digita o nome do curso aqui
         # cursor.execute("DELETE FROM cursos_teste WHERE id_curso = %s AND nome_curso = %s", (id_curso, nome_curso))

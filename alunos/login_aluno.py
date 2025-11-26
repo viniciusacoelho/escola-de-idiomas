@@ -1,11 +1,11 @@
 import getpass
 
 from limpar_tela.limpar_tela import limpar_tela
-from alunos.crud_alunos import autenticar_aluno
+from alunos.crud_aluno import autenticar_aluno
 from alunos.portal_aluno import portal_aluno
 
 def login_aluno():
-    """Página de login do aluno."""
+    """Página de login do aluno que pede seus dados já cadastrados anteriormente."""
     while True:
         limpar_tela()
 

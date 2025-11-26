@@ -1,5 +1,6 @@
 from limpar_tela.limpar_tela import limpar_tela
 from professores.menu_atualizar_professor import menu_atualizar_professor
+from professores.crud_professor import buscar_professor
 from turmas.crud_turmas import inserir_turma
 from turmas.portal_turma import curso_turma, aluno_turma
 from cursos.crud_cursos import listar_cursos
@@ -11,7 +12,6 @@ def professor_turma(id_professor: int):
         conexao = criar_conexao()
         cursor = conexao.cursor()
         cursor.execute("SELECT t.id_turma, t.dia_semana, t.horario FROM professor_turma pt INNER JOIN turmas_teste t ON t.id_turma = pt.id_turma WHERE id_professor = %s", (id_professor,))
-        # cursor.execute("SELECT c.nome_curso FROM professor_turma pt INNER JOIN professores_teste p ON p.id_professor = pt.id_professor WHERE id_turma = %s", (id_turma,))
         professor_turmas = cursor.fetchall()
         return professor_turmas
     except Exception as e:
@@ -21,7 +21,8 @@ def professor_turma(id_professor: int):
         conexao.close()
 
 def portal_professor(professor_autenticado):
-    menu = ["Visualizar Turma", "Selecionar Curso", "Atualizar Cadastro", "Voltar"]
+    menu = ["Visualizar Turma", "Atualizar Cadastro", "Mostrar Cadastro", "Voltar"]
+    # menu = ["Visualizar Turma", "Selecionar Curso", "Atualizar Cadastro", "Mostrar Cadastro", "Voltar"]
 
     while True:
         limpar_tela()
@@ -39,7 +40,7 @@ def portal_professor(professor_autenticado):
             match opcao:
                 case 1:
                     turmas = professor_turma(professor_autenticado[0])
-                    
+
                     if len(turmas) > 0:
                         print(f"Professor: {professor_autenticado[1]}")
 
@@ -82,21 +83,23 @@ def portal_professor(professor_autenticado):
                         cursos = listar_cursos()
 
                         if len(cursos) > 0:
+                            print("--------------------------------------------")
                             for curso in cursos:
                                 print(f"{curso[0]} - {curso[1]}")
 
                             try:
-                                id_curso = int(input("Digite o ID do curso que deseja cadastrar: "))
-                                
+                                print("--------------------------------------------")
+                                id_curso = int(input("Digite o nome do curso que deseja cadastrar:\n"))
+
                                 for curso in cursos:
-                                    if id_curso == curso[0]:
+                                    if id_curso == curso[1]:
                                         # TODO: Fazer uma relaçao professor-curso no banco de dados
                                         # professor_curso(id_curso)
                                         pass
                                 else:
                                     print("ID do curso não cadastrado anteriormente.")
                                 break
-                            
+
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
                                 break
@@ -108,6 +111,23 @@ def portal_professor(professor_autenticado):
                     menu_atualizar_professor(professor_autenticado[0])
                     # break
                 case 4:
+                    professores = buscar_professor(professor_autenticado[2])
+
+                    for professor in professores:
+                        print("--------------------------------------------")
+                        print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nCPF: {professor[3]}\nNúmero de telefone: {professor[4]}\nEndereço: {professor[5]}\nIdioma lecionado: {professor[6]}\nSenha: *****")
+
+                        # cursos = professor_curso(professor[0])
+                        # if len(cursos) > 0:
+                        #     print("Curso:")
+
+                        #     for curso in cursos:
+                        #         print(curso[0])
+
+                        # else:
+                        #     print("Curso: Nenhum curso escolhido anteriormente.")
+
+                case 5:
                     print("Voltando...")
                     break
 

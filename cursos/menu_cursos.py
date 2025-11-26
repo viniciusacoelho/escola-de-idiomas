@@ -1,5 +1,5 @@
-from cursos.crud_cursos import cadastrar_curso, listar_cursos, buscar_curso, atualizar_curso, deletar_curso
 from limpar_tela.limpar_tela import limpar_tela
+from cursos.crud_cursos import cadastrar_curso, listar_cursos, buscar_curso, atualizar_curso, deletar_curso
 from unique.verificar_unique import verificar_unique
 
 def menu_curso():
@@ -41,6 +41,7 @@ def menu_curso():
 
                         for curso in cursos:
                             print(f"{curso[0]} - {curso[1]}")
+                        print(f"Cursos cadastrados: {len(cursos)}")
 
                     else:
                         print("Nenhum curso cadastrado anteriormente.")
@@ -59,11 +60,16 @@ def menu_curso():
                                 break
                             else:
                                 nome_buscado = buscar_curso(nome_busca)
-                                
+
                                 # TODO: Aparecer a quantidade de alunos, professores e turmas no curso
                                 for nome in nome_buscado:
                                     print(f"{nome[0]} - {nome[1]}")
+                                
+                                print(f"Alunos cadastrados: {len(cursos)}")
+                                print(f"Professores cadastrados: {len(cursos)}")
+                                print(f"Turmas cadastradas: {len(cursos)}")
                                 break
+
                         else:
                             print("Nenhum curso cadastrado anteriormente.")
                             break

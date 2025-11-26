@@ -1,7 +1,7 @@
 import getpass
 
 from limpar_tela.limpar_tela import limpar_tela
-from alunos.crud_alunos import atualizar_aluno, listar_alunos
+from alunos.crud_aluno import atualizar_aluno, listar_alunos
 from alunos.validar_alunos import validar_nome_completo, validar_usuario, validar_email, validar_cpf, validar_data_nascimento, validar_numero_telefone, validar_senha
 from unique.verificar_unique import verificar_unique
 
@@ -149,7 +149,7 @@ def menu_atualizar_alunos(id_aluno: int):
 
                     while True:
                         confirmar_nova_senha = getpass.getpass("Confirme a nova senha do aluno:\n")
-                        
+
                         if confirmar_nova_senha != nova_senha:
                             print("Digite a mesma senha!")
                         else:

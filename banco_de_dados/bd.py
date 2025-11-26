@@ -1,6 +1,7 @@
 import psycopg2
 
 def criar_conexao():
+    "Cria a conexão com o banco de dados PostgreSQL."
     try:
         conexao = psycopg2.connect(
             # dbase = 'escola-idiomas',
@@ -10,7 +11,6 @@ def criar_conexao():
             host = 'localhost',
             port = '5432'
         )
-        # print("Conexão realizada com sucesso!")
         return conexao
     except Exception as e:
         print(f"[ERRO]: Falha ao criar conexão: {e}")

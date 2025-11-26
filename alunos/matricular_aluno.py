@@ -1,9 +1,8 @@
 import getpass
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.validar_alunos import validar_nome_completo, validar_usuario, validar_email, validar_cpf, validar_data_nascimento, validar_numero_telefone, validar_senha
-from alunos.crud_alunos import cadastrar_aluno, listar_alunos
+from alunos.crud_aluno import cadastrar_aluno
 from unique.verificar_unique import verificar_unique
-# from cursos.crud_cursos import listar_cursos, inserir_aluno
 
 def matricular_aluno():
     """Cadastra os dados do aluno no banco de dados com uma série de informações."""
@@ -13,11 +12,11 @@ def matricular_aluno():
     print("                  Matrícula")
     print("--------------------------------------------")
     print("Matricule-se\n")
-    
+
     while True:
         nome_completo = input("Digite seu nome completo:\n")
         erro_nome_completo = validar_nome_completo(nome_completo)
-        
+
         if erro_nome_completo:
             print(erro_nome_completo)
             print("--------------------------------------------\n")
@@ -33,12 +32,12 @@ def matricular_aluno():
             print(erro_usuario)
         else:
             erro_verificar_unique = verificar_unique("Alunos", usuario, 2, "Usuário")
-            
+
             if erro_verificar_unique:
                 print(erro_verificar_unique)
             else:
                 break
-    
+
     while True:
         print("--------------------------------------------\n")
         email = input("Digite seu e-mail:\n").lower()
@@ -48,7 +47,7 @@ def matricular_aluno():
             print(erro_email)
         else:
             erro_verificar_unique = verificar_unique("Alunos", email, 3, "E-mail")
-            
+
             if erro_verificar_unique:
                 print(erro_verificar_unique)
             else:
@@ -57,11 +56,11 @@ def matricular_aluno():
     while True:
         print("--------------------------------------------\n")
         cpf = input("Digite seu CPF:\n")
-        
+
         try:
             int(cpf)
             erro_cpf = validar_cpf(cpf)
-            
+
             if erro_cpf:
                 print(erro_cpf)
             else:
@@ -75,15 +74,15 @@ def matricular_aluno():
 
         except ValueError:
             print("[ERRO]: Digite apenas números!")
-    
+
     while True:
         print("--------------------------------------------\n")
         data_nascimento = input("Digite sua data de nascimento:\n")
-        
+
         try:
             int(data_nascimento)
             erro_data_nascimento =  validar_data_nascimento(data_nascimento)
-            
+
             if erro_data_nascimento:
                 print(erro_data_nascimento)
             else:
@@ -92,15 +91,15 @@ def matricular_aluno():
 
         except ValueError:
             print("[ERRO]: Digite apenas números!")
-    
+
     while True:
         print("--------------------------------------------\n")
         numero_telefone = input("Digite seu número de telefone:\n")   
-        
+
         try:
             int(numero_telefone)
             erro_numero_telefone = validar_numero_telefone(numero_telefone)
-            
+
             if erro_numero_telefone:
                 print(erro_numero_telefone)
             else:
@@ -111,7 +110,7 @@ def matricular_aluno():
                     print(erro_verificar_unique)
                 else:
                     break
-        
+
         except ValueError:
             print("[ERRO]: Digite apenas números!")
 
@@ -132,41 +131,9 @@ def matricular_aluno():
         print("--------------------------------------------\n")
         confirmar_senha = getpass.getpass("Confirme sua senha:\n")
         
-        if confirmar_senha not in senha:
-        # TODO: Verificar se não é para fazer desse jeito
-        # if confirmar_senha != senha:
+        if confirmar_senha != senha:
             print("Digite a mesma senha!")
         else:
             break
 
-    # while True:
-    #     print("--------------------------------------------\n")
-    #     cursos = listar_cursos()
-    #     if len(cursos) > 0:
-    #         try:
-    #             for curso in cursos:
-    #                 print(f"{curso[0]} - {curso[1]}")
-    #             print("--------------------------------------------")
-    #             id_curso = input("Digite o ID do curso que você deseja se matricular:\n")
-    #             cursos = listar_cursos(id_curso[0])
-    #             break
-    #         except ValueError:
-    #             print("[ERRO]: Digite um número!")
-    #         except IndexError:
-    #             print("[ERRO]: ID do curso não cadastrado anteriormente.")
-    #         break
-    #     else:
-    #         print("Nenhum curso cadastrado anteriormente.")
-    #         break
-
     cadastrar_aluno(nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha)
-    # aluno = listar_alunos()
-
-
-    '''
-    1 - Cadastrar Turma
-    2 - Listar Turma
-    3 - 
-    
-    
-    '''

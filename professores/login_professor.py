@@ -1,15 +1,16 @@
 import getpass
+
 from limpar_tela.limpar_tela import limpar_tela
 from professores.crud_professor import autenticar_professor
 from professores.portal_professor import portal_professor
 
 from banco_de_dados.bd import criar_conexao
 
-def professor(tabela: str, id_turma: int):
+def professor(entidade: str, id_turma: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"SELECT * FROM {tabela}_turma WHERE id_turma = %s", (id_turma,))
+        cursor.execute(f"SELECT * FROM {entidade}_turma WHERE id_turma = %s", (id_turma,))
         professores_teste = cursor.fetchone()
         return professores_teste
     except Exception as e:
@@ -19,8 +20,10 @@ def professor(tabela: str, id_turma: int):
         conexao.close()
 
 def login_professor():
+    """Página de login do professor."""
     while True:
         limpar_tela()
+
         print("--------------------------------------------")
         print("             Login - Professor")
         print("--------------------------------------------")

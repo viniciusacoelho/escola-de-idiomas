@@ -3,6 +3,7 @@ from turmas.crud_turmas import cadastrar_turma
 from turmas.validar_turma import validar_dia_semana, validar_horario
 
 def cadastramento_turma():
+    """Página de cadastro da turma."""
     limpar_tela()
     print("--------------------------------------------")
     print("              Escola de Idiomas             ")
@@ -27,5 +28,5 @@ def cadastramento_turma():
             print(erro_horario)
         else:
             break
-            
+
     cadastrar_turma(dia_semana, horario)

@@ -1,12 +1,12 @@
 from limpar_tela.limpar_tela import limpar_tela
-from alunos.matricular_aluno import matricular_aluno
 from alunos.login_aluno import login_aluno
+from alunos.matricular_aluno import matricular_aluno
 
 def identificacao_aluno():
     """Página de identificação do aluno."""
     menu = ["Já sou aluno", "Não sou aluno", "Voltar"]
-    
-    while True:    
+
+    while True:
         limpar_tela()
 
         print("--------------------------------------------")
@@ -15,7 +15,7 @@ def identificacao_aluno():
 
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
-        
+
         try:
             print("--------------------------------------------")
             opcao = int(input("Digite uma opção:\n"))
@@ -31,5 +31,6 @@ def identificacao_aluno():
                     break
                 case _:
                     print("Opção inválida!")
+
         except ValueError:
             print("[ERRO]: Digite um número!")

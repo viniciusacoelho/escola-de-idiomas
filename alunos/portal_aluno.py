@@ -1,18 +1,55 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
 from cursos.crud_cursos import listar_cursos, matricular_aluno_curso, ja_matriculado
-# from unique.verificar_unique import verificar_unique
 from turmas.portal_turma import aluno_turma, curso_turma, professor_turma
+from alunos.crud_aluno import buscar_aluno, aluno_curso
+
+from banco_de_dados.bd import criar_conexao
+
+def curso_aluno(id_aluno: int):
+    """
+        Lista os cursos cadastrados no banco de dados.
+
+        Returns:
+            lista_cursos: Lista dos cursos castrados.
+
+        Raises:
+            [ERRO]: Falha ao listar curso.
+    """
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT c.id_curso, c.nome_curso FROM aluno_curso ac INNER JOIN cursos_teste c ON c.id_curso = ac.id_curso WHERE id_aluno = %s", (id_aluno,))
+        lista_cursos = cursor.fetchall()
+        return lista_cursos
+        # return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao relacionar curso aluno: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def sair_curso(id_aluno: int, id_curso: int):
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("DELETE FROM aluno_curso WHERE id_aluno = %s AND id_curso = %s", (id_aluno, id_curso))
+        print("Aluno deletado do curso com sucesso!")
+        conexao.commit()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao relacionar aluno curso: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
 
 def portal_aluno(aluno_autenticado):
     """
     Portal do aluno referente ao aluno logado.
 
     Args:
-        aluno_autenticado (list): Todos os dados cadastrados do aluno autenticado.
+        aluno_autenticado (db): Todos os dados cadastrados do aluno autenticado.
     """
-    menu = ["Vizualizar Turma", "Atualizar Cadastro", "Escolher Curso", "Sair"]
-    # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mudar Curso", "Sair"]
+    menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Cadastro", "Escolher Curso", "Sair Curso", "Sair"]
     # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Caadastro", "Mudar Curso", "Sair"]
 
     while True:
@@ -33,38 +70,61 @@ def portal_aluno(aluno_autenticado):
 
             match opcao:
                 case 1:
-                    cursos = curso_turma(aluno_autenticado[0])
+                    turmas = aluno_turma(aluno_autenticado[0])
                     
-                    if len(cursos) > 0:
-                        for curso in cursos:
-                            print(f"Curso: {curso[0]}")
+                    if len(turmas) > 0:
+                        cursos = curso_turma(aluno_autenticado[0])
 
-                            turmas = aluno_turma(aluno_autenticado[0])
+                        if len(cursos) > 0:
+                            for curso in cursos:
+                                print(f"Curso: {curso[0]}")
+                                turmas = aluno_turma(aluno_autenticado[0])
+                                print(f"Turma:")
+                                
+                                if len(turmas) > 0:
+                                    for turma in turmas:
+                                        print(turma[0])
+                                else:
+                                    print("Nenhuma turma cadastrada anteriormente.")
 
-                            print(f"Turma:")
-                            if len(turmas) > 0:
-                                for turma in turmas:
-                                    print(turma[0])
-                            else:
-                                print("Nenhuma turma cadastrada anteriormente.")
+                                professores = professor_turma(aluno_autenticado[0])
 
-                            professores = professor_turma(aluno_autenticado[0])
-                            if len(professores) > 0:
-                                for professor in professores:
-                                    print(f"Professor: {professor[0]}")
-                            else:
-                                print("Nenhum professor cadastrado anteriormente.")
+                                if len(professores) > 0:
+                                    for professor in professores:
+                                        print(f"Professor: {professor[0]}")
+                                else:
+                                    print("Professor:\nNenhum professor cadastrado anteriormente.")
 
-                            if len(cursos) > 0:
-                                print(f"Dia/Horário: {curso[1]} ({curso[2]})")
-                            else:
-                                print("Nenhum dia/horário cadastrado anteriormente.")
+                                if len(cursos) > 0:
+                                    print(f"Dia/Horário: {curso[1]} ({curso[2]})")
+                                else:
+                                    print("Dia/Horário\nNenhum dia/horário cadastrado anteriormente.")
+                        
+                        else:
+                            print("Nenhum curso cadastrado anteriormente.")
+
                     else:
                         print("Nenhuma turma cadastrada anteriormente.")
 
                 case 2:
                     menu_atualizar_alunos(aluno_autenticado[0])
                 case 3:
+                    alunos = buscar_aluno(aluno_autenticado[2])
+
+                    for aluno in alunos:
+                        print(f"Aluno {aluno[0]}\nNome completo: {aluno[1]}\nUsuário: {aluno[2]}\nE-mail: {aluno[3]}\nCPF: {aluno[4]}\nData de nascimento: {aluno[5]}\nNúmero de telefone: {aluno[6]}\nSenha: *****")
+
+                        cursos = aluno_curso(aluno[0])
+                        if len(cursos) > 0:
+                            print("Curso:")
+
+                            for curso in cursos:
+                                print(curso[0])
+
+                        else:
+                            print("Curso: Nenhum curso escolhido anteriormente.")
+
+                case 4:
                     while True:
                         print("--------------------------------------------\n")
                         cursos = listar_cursos()
@@ -98,7 +158,41 @@ def portal_aluno(aluno_autenticado):
                         else:
                             print("Nenhum curso cadastrado anteriormente.")
                             break
-                case 4:
+                case 5:
+                    while True:
+                        print("--------------------------------------------\n")
+                        cursos = curso_aluno(aluno_autenticado[0])
+                        
+                        if cursos:
+                            for curso in cursos:
+                                print(f"{curso[0]} - {curso[1]}")
+                            
+                            try:
+                                print("--------------------------------------------")
+                                id_curso = int(input("Digite o ID do curso que você deseja sair:\n"))
+                                for curso in cursos:
+                                    if id_curso == curso[0]:
+                                        curso_escolhido = ja_matriculado(aluno_autenticado[0], id_curso)
+
+                                        if curso_escolhido:
+                                            sair_curso(aluno_autenticado[0], id_curso)
+                                        else:
+                                            print(f"Aluno '{aluno_autenticado[1]}' não matriculado no curso.")
+                                        break
+
+                                else:
+                                    print("Nenhum do curso não escolhido anteriormente.")
+                                break
+
+                            except ValueError:
+                                print("[ERRO]: Digite um número!")
+
+                        else:
+                            print("Nenhum curso cadastrado anteriormente.")
+                            break
+                case 6:
+                    print("Saindo...") # ou Voltando...
+                    # exit()
                     break
                 case _:
                     print("Opção inválida!")

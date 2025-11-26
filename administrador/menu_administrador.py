@@ -1,11 +1,10 @@
 from limpar_tela.limpar_tela import limpar_tela
-from professores.menu_professor import menu_professor
-from alunos.menu_alunos import menu_aluno
-from turmas.menu_turma import menu_turma
 from cursos.menu_cursos import menu_curso
+from professores.menu_professor import menu_professor
+from alunos.menu_aluno import menu_aluno
+from turmas.menu_turma import menu_turma
 
 def menu_administrador():
-
     menu = ["Cursos", "Professores", "Alunos", "Turmas", "Voltar"]
 
     while True:

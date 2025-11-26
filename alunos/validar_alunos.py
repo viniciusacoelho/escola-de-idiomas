@@ -11,9 +11,7 @@ def validar_nome_completo(nome_completo: str) -> str:
         str: Nome completo inválido!
             Você digitou: 'nome_completo'
     """
-    # TAMANHO_MINIMO_NOME_COMPLETO = 3
     regex_nome_completo = r"^[a-zA-ZÀ-ÖØ-öø-ÿ ]{3,}$"
-    # if len(nome_completo) < TAMANHO_MINIMO_NOME_COMPLETO and not re.match(regex_nome_completo, nome_completo):
     if not re.match(regex_nome_completo, nome_completo):
         return f"Nome completo inválido!\nVocê digitou: {nome_completo}."
 
@@ -90,20 +88,20 @@ def validar_numero_telefone(numero_telefone: str) -> str:
     """
     TAMANHO_NUMERO_TELEFONE = 11
     if len(numero_telefone) != TAMANHO_NUMERO_TELEFONE:
-        return f"Número de telefone inválido!\nEsperava-se: '+XX (XX) YYYYY-ZZZZ'."
+        return f"Número de telefone inválido!\nEsperava-se: 'XXYYYYYZZZZ'."
+        # return f"Número de telefone inválido!\nEsperava-se: '+XX (XX) YYYYY-ZZZZ'."
 
 def validar_senha(senha: str) -> str:
     """
-    Valida a senha do aluno, verificando se ela ... .
+    Valida a senha do aluno, verificando se ela possui pelo menos 8 caracteres.
 
     Args:
         senha (str): Senha do aluno. 
 
     Returns:
         str: Senha inválida!
-            Você digitou: 'senha'.
+            A senha deve conter pelo menos 8 caracteres.
     """
-    # regex_senha = r"^[\w0-9]+$"
-    # if not re.match(regex_senha, senha):
-    #     return f"Senha inválida! Você digitou: 'senha'."
-    pass
+    TAMANHO_MINIMO_SENHA = 6
+    if len(senha) < TAMANHO_MINIMO_SENHA:
+        return "Senha inválida!\nA senha deve conter pelo menos 8 caracteres."

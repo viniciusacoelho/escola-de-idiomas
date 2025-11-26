@@ -1,11 +1,9 @@
 from limpar_tela.limpar_tela import limpar_tela
 from alunos.matricular_aluno import matricular_aluno
-from alunos.crud_alunos import listar_alunos, buscar_aluno, deletar_aluno, aluno_curso
+from alunos.crud_aluno import listar_alunos, buscar_aluno, deletar_aluno, aluno_curso
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
 from unique.verificar_unique import verificar_unique
-from turmas.portal_turma import curso_turma
 
-# TODO: Verifica se há necessidade destes meio mundo de break
 def menu_aluno():
     """Menu principal dos alunos."""
     menu = ["Cadastrar Aluno", "Listar Alunos", "Buscar Aluno", "Atualizar Aluno", "Deletar Aluno", "Voltar"]
@@ -35,26 +33,17 @@ def menu_aluno():
 
                         for aluno in alunos:
                             print(f"Aluno {aluno[0]}\nNome completo: {aluno[1]}\nUsuário: {aluno[2]}\nE-mail: {aluno[3]}\nCPF: {aluno[4]}\nData de nascimento: {aluno[5]}\nNúmero de telefone: {aluno[6]}\nSenha: *****")
-                                    
+
                             cursos = aluno_curso(aluno[0])
                             if len(cursos) > 0:
                                 print("Curso:")
-                            
+
                                 for curso in cursos:
                                     print(curso[0])
-                            
+
                             else:
                                 print("Curso: Nenhum curso escolhido anteriormente.")
                             print("--------------------------------------------")
-                            # cursos = curso_turma(aluno[0])
-                            # if len(cursos) > 0:
-                            #     for curso in cursos:
-                            #         print(f"Curso: {curso[0]}")
-                            #     print("--------------------------------------------")
-                            
-                            # else:
-                            #     print("Curso: Nenhum curso escolhido anteriormente.")
-                            #     print("--------------------------------------------")
 
                     else:
                         print("Nenhum aluno cadastrado anteriormente.")
@@ -77,27 +66,16 @@ def menu_aluno():
                                 print("--------------------------------------------")
                                 for aluno in alunos:
                                     print(f"Aluno {aluno[0]}\nNome completo: {aluno[1]}\nUsuário: {aluno[2]}\nE-mail: {aluno[3]}\nCPF: {aluno[4]}\nData de nascimento: {aluno[5]}\nNúmero de telefone: {aluno[6]}\nSenha: *****")
-                            
+
                                     cursos = aluno_curso(aluno[0])
                                     if len(cursos) > 0:
                                         print("Curso:")
-                                    
+
                                         for curso in cursos:
                                             print(curso[0])
-                                    
+
                                     else:
                                         print("Curso: Nenhum curso escolhido anteriormente.")
-
-                                    # cursos = curso_turma(aluno[0])
-                                    
-                                    # if len(cursos) > 0:
-                                    #     for curso in cursos:
-
-                                    #         print(f"Curso: {curso[0]}")
-                                    
-                                    # else:
-                                    #     print("Curso: Nenhum curso escolhido anteriormente.")
-                                    #     print("--------------------------------------------")
                                 break
 
                         else:
@@ -125,7 +103,7 @@ def menu_aluno():
                                 break
 
                         else:
-                            print("Nehum aluno cadastrado anteriormente.")
+                            print("Nenhum aluno cadastrado anteriormente.")
                             break
 
                 case 5:
@@ -137,7 +115,6 @@ def menu_aluno():
                                 id_aluno = int(input("Digite o ID do aluno que deseja deletar:\n"))
 
                                 for aluno in alunos:
-                                    # TODO: Tentar colocar except IndexError: para ver se funciona
                                     if id_aluno == aluno[0]:
                                         deletar_aluno(id_aluno, alunos[1])
                                         break
@@ -151,7 +128,7 @@ def menu_aluno():
                                 break
 
                         else:
-                            print("Nenhum aluno cadastrado anteriormente")
+                            print("Nenhum aluno cadastrado anteriormente.")
                             break
 
                 case 6:

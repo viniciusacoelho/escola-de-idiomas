@@ -19,8 +19,8 @@ def identificacao(opcao_escolhida: int):
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
         
-        print("--------------------------------------------")
         try:
+            print("--------------------------------------------")
             opcao = int(input("Digite uma opção:\n"))
 
             if opcao == 1 and opcao_escolhida == 1:
@@ -51,5 +51,6 @@ def identificacao(opcao_escolhida: int):
                 break
             else:
                 print("Opção inválida!")
+
         except ValueError:
             print("[ERRO]: Digite um número!")
