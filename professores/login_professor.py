@@ -4,7 +4,7 @@ from limpar_tela.limpar_tela import limpar_tela
 from professores.crud_professor import autenticar_professor
 from professores.portal_professor import portal_professor
 
-from banco_de_dados.bd import criar_conexao
+from banco_de_dados.criar_conexao import criar_conexao
 
 def professor(entidade: str, id_turma: int):
     try:

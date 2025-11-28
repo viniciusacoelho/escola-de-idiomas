@@ -4,7 +4,7 @@ from cursos.crud_cursos import listar_cursos, matricular_aluno_curso, ja_matricu
 from turmas.portal_turma import aluno_turma, curso_turma, professor_turma
 from alunos.crud_aluno import buscar_aluno, aluno_curso
 
-from banco_de_dados.bd import criar_conexao
+from banco_de_dados.criar_conexao import criar_conexao
 
 def curso_aluno(id_aluno: int):
     """

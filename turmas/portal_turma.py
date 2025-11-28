@@ -5,7 +5,7 @@ from alunos.crud_aluno import listar_alunos
 from turmas.crud_turmas import inserir_turma, listar_turmas
 from cursos.crud_cursos import listar_cursos 
 
-from banco_de_dados.bd import criar_conexao
+from banco_de_dados.criar_conexao import criar_conexao
 
 def professor_turma(id_turma: int):
     try:

@@ -1,4 +1,4 @@
-from banco_de_dados.bd import criar_conexao
+from banco_de_dados.criar_conexao import criar_conexao
 from criptografar.criptografar import criptografar, checar_senha
 
 def cadastrar_professor(nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha):

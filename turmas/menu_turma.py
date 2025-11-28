@@ -1,7 +1,7 @@
 from limpar_tela.limpar_tela import limpar_tela
 from turmas.cadastramento_turma import cadastramento_turma
 from turmas.crud_turmas import listar_turmas, buscar_turma, atualizar_turma, deletar_turma
-from turmas.atualizar_turma import atualizar_turma
+from turmas.menu_atualizar_turma import atualizar_turma
 from turmas.login_turma import login_turma
 
 def menu_turma():
