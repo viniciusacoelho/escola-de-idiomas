@@ -28,7 +28,7 @@ def menu_aluno():
                     alunos = listar_alunos()
 
                     if len(alunos) > 0:
-                        print(f"Alunos listados com sucesso!")
+                        print("Alunos listados com sucesso!")
                         print("--------------------------------------------")
 
                         for aluno in alunos:
@@ -40,10 +40,11 @@ def menu_aluno():
 
                                 for curso in cursos:
                                     print(curso[0])
-
+                                
                             else:
                                 print("Curso: Nenhum curso escolhido anteriormente.")
                             print("--------------------------------------------")
+                            print(f"Total de alunos cadastrados: {len(alunos)}")
 
                     else:
                         print("Nenhum aluno cadastrado anteriormente.")

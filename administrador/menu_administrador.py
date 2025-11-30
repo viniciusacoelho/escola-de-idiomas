@@ -5,6 +5,7 @@ from alunos.menu_aluno import menu_aluno
 from turmas.menu_turma import menu_turma
 
 def menu_administrador():
+    """Página do menu de administração da Escola de Idiomas."""
     menu = ["Cursos", "Professores", "Alunos", "Turmas", "Voltar"]
 
     while True:

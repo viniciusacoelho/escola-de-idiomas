@@ -30,6 +30,16 @@ def curso_aluno(id_aluno: int):
         conexao.close()
 
 def sair_curso(id_aluno: int, id_curso: int):
+    """
+        Lista os cursos cadastrados no banco de dados.
+
+        Returns:
+            id_aluno: ID do aluno cadastrado no banco de dados.
+            id_curso: ID do curso cadastrado no banco de dados.
+
+        Raises:
+            [ERRO]: Falha ao listar curso.
+    """
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -50,7 +60,7 @@ def portal_aluno(aluno_autenticado):
         aluno_autenticado (db): Todos os dados cadastrados do aluno autenticado.
     """
     menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Cadastro", "Escolher Curso", "Sair Curso", "Sair"]
-    # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Caadastro", "Mudar Curso", "Sair"]
+    # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Cadastro", "Mudar Curso", "Sair"]
 
     while True:
         limpar_tela()
@@ -64,8 +74,8 @@ def portal_aluno(aluno_autenticado):
         for i in range(len(menu)):
             print(f"{i + 1} - {menu[i]}")
 
-        print("--------------------------------------------")
         try:
+            print("--------------------------------------------")
             opcao = int(input("Digite uma opção: "))
 
             match opcao:
@@ -78,28 +88,34 @@ def portal_aluno(aluno_autenticado):
                         if len(cursos) > 0:
                             for curso in cursos:
                                 print(f"Curso: {curso[0]}")
+
                                 turmas = aluno_turma(aluno_autenticado[0])
-                                print(f"Turma:")
-                                
                                 if len(turmas) > 0:
                                     for turma in turmas:
-                                        print(turma[0])
+                                        print(f"Turma: {turma[0]}")
                                 else:
-                                    print("Nenhuma turma cadastrada anteriormente.")
+                                    print("Turma\nNenhuma turma cadastrada anteriormente.")
 
                                 professores = professor_turma(aluno_autenticado[0])
-
                                 if len(professores) > 0:
                                     for professor in professores:
-                                        print(f"Professor: {professor[0]}")
+                                        print(f"Professor: {professor[1]}")
                                 else:
                                     print("Professor:\nNenhum professor cadastrado anteriormente.")
 
+                                # TODO: Colocar os colegas de classe do aluno
+                                alunos = aluno_turma(turma[0])
+                                if len(alunos) > 0:
+                                    for aluno in alunos:
+                                        print(aluno[1])
+                                else:
+                                    print("Nenhum aluno cadastrado anteriormente na turma.")
+
                                 if len(cursos) > 0:
-                                    print(f"Dia/Horário: {curso[1]} ({curso[2]})")
+                                    print(f"Dia/Horário: {curso[2]} ({curso[3]})")
                                 else:
                                     print("Dia/Horário\nNenhum dia/horário cadastrado anteriormente.")
-                        
+
                         else:
                             print("Nenhum curso cadastrado anteriormente.")
 

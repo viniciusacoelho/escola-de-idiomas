@@ -31,7 +31,7 @@ def validar_email(email: str) -> str:
     if not re.match(regex_email, email):
         return f"E-mail inválido!\nEsperava-se: 'nome@dominio.com'."
 
-def validar_cpf(cpf: str):
+def validar_cpf(cpf: str) -> str:
     """
     Valida o CPF do professor, verificando se não é igual a 11 (tamanho fixo).
 

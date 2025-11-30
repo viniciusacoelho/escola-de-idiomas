@@ -42,7 +42,6 @@ def autenticar_turma(id_turma: int):
         cursor = conexao.cursor()
         cursor.execute("SELECT * FROM turmas_teste WHERE id_turma = %s", (id_turma,))
         turma = cursor.fetchone()
-        print(f"Turma '{id_turma}' logada com sucesso!")
         return turma
     except Exception as e:
         return f"[ERRO]: Falha ao autenticar turma: {e}"
@@ -148,7 +147,7 @@ def deletar_turma(id_turma: int):
     Deleta a turma no banco de dados.
 
     Args:
-        id_usuario (int): ID da turma cadastrada no banco de dados.
+        id_turma (int): ID da turma cadastrada no banco de dados.
     
     Raises:
         [ERRO]: Falha ao deletar turma.

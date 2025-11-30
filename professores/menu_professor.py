@@ -25,11 +25,13 @@ def menu_professor():
                     professores = listar_professores()
 
                     if len(professores) > 0:
+                        print("Professores listados com sucesso!")
+                        print("--------------------------------------------")
 
                         for professor in professores:
                             print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nCPF: {professor[3]}\nNúmero de telefone: {professor[4]}\nEndereço: {professor[5]}\nIdioma lecionado: {professor[6]}\nSenha: *****")
                             print("--------------------------------------------")
-
+                        print(f"Total de professores cadastrados: {len(professores)}")
                     else:
                         print("Nenhum professor cadastrada anteriormente.")
 
@@ -69,11 +71,11 @@ def menu_professor():
                                     if professores == professor[0]:
                                         atualizar_professor(id_professor)
                                         break
-
+                                
                                 else:
                                     print("ID do professor inválido!")
-                                    # break
                                 break
+
                             except ValueError:
                                 print("[ERRO]: Digite um número!")
                                 break
@@ -97,7 +99,7 @@ def menu_professor():
 
                                 else:
                                     print("ID do professor inválido!")
-                                    break
+                                    # break
                                 break
 
                             except ValueError:

@@ -24,4 +24,4 @@ def login_aluno():
             portal_aluno(aluno_autenticado)
             break
         else:
-            print(f"Usuário e/ou senha incorretos!")
+            print(f"Usuário e/ou senha inválidos!")

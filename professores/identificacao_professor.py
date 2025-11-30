@@ -5,7 +5,7 @@ from professores.login_professor import login_professor
 def identificacao_professor():
     """Página de identificação do professor."""
     menu = ["Criar Conta", "Login", "Voltar"]
-    
+
     while True:
         limpar_tela()
         print("--------------------------------------------")

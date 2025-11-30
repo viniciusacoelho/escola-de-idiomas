@@ -42,7 +42,7 @@ def menu_turma():
                         for turma in turmas:
                             print(f"Turma {turma[0]}:\n{turma[1]} ({turma[2]})")
                             print("--------------------------------------------")
-                    
+                        print(f"Total de turmas cadastradas: {len(turmas)}")
                     else:
                         print("Nenhuma turma cadastrada anteriormente.")
 

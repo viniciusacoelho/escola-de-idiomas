@@ -1,10 +1,7 @@
 from limpar_tela.limpar_tela import limpar_tela
-# from identificacao.identificacao import identificacao
-# from cursos.menu_cursos import menu_curso
-from administrador.identificacao_adiministrador import identificacao_administrador
-# from alunos.menu_alunos import menu_aluno
-from alunos.identificacao_aluno import identificacao_aluno
+from administrador.login_administrador import login_administrador
 from professores.identificacao_professor import identificacao_professor
+from alunos.identificacao_aluno import identificacao_aluno
 
 menu = ["Administrador", "Professor", "Aluno", "Sair"]
 
@@ -18,32 +15,34 @@ while True:
     for i in range(len(menu)):
         print(f"{i + 1} - {menu[i]}")
 
-    print("--------------------------------------------")
     try:
+        print("--------------------------------------------")
         opcao = int(input("Digite uma opção:\n"))
-        if opcao == 1:  
-            identificacao_administrador()
-        elif opcao == 2:
-            identificacao_professor()
-        elif opcao == 3:
-            # identificacao(opcao)
-            identificacao_aluno()
-        elif opcao == 4:
-            print("--------------------------------------------")
-            print("Saindo...")
-            limpar_tela()
 
-            print("--------------------------------------------")
-            print("              Desenvolvedores")
-            print("--------------------------------------------")
-            print("@viniciusacoelho_")
-            print("@joao.coelho21")
-            print("--------------------------------------------\n")
-            break
-        else:
-            print("Opção inválida!")
-        # menu_curso()
-        # menu_aluno()
+        match opcao:
+            case 1:  
+                login_administrador()
+            case 2:
+                identificacao_professor()
+            case 3:
+                identificacao_aluno()
+            case 4:
+                print("--------------------------------------------")
+                print("Saindo...")
+                limpar_tela()
+
+                print("--------------------------------------------")
+                print("              Desenvolvedor")
+                print("--------------------------------------------")
+                print("@viniciusacoelho_")
+                print("--------------------------------------------\n")
+                break
+
+            case _:
+                print("Opção inválida!")
+
     except ValueError:
         print("--------------------------------------------")
         print("[ERRO]: Digite um número!")
+
+# TODO: Tirar o nome teste do banco de dados e crud

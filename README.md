@@ -11,7 +11,7 @@ Este projeto é um sistema desenvolvido para gerenciar uma **Escola de Idiomas**
 * Matrícula de novos alunos;
 * Autenticação com verificação de credenciais;
 * Consulta de cursos nos quais o aluno está matriculado;
-* Visualização de dados da turma (professor, horário, dias, alunos etc.).
+* Visualização de dados da turma (professor, horário, dias e alunos).
 
 ### 👨‍🏫 **Professores**
 
@@ -116,15 +116,7 @@ Este projeto é um sistema desenvolvido para gerenciar uma **Escola de Idiomas**
 * Estudante de Sistemas de Informação
 * Desenvolvimento principal do sistema
 * Estruturação, lógica, integração com banco
-* Criação de funcionalidades de alunos e turmas
-
-### 👨 Irmão do Desenvolvedor
-
-* Estudante de Sistemas de Informação
-* Apoio geral no desenvolvimento
-* Testes, sugestões e melhorias
-* Auxílio na estrutura e organização do sistema
-* Criação de funcionalidades de professores e turmas
+* Criação de funcionalidades todas as funcionalidades do projeto
 
 ---
 

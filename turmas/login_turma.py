@@ -15,10 +15,11 @@ def login_turma():
             turma_autenticada = autenticar_turma(id_turma)
 
             if turma_autenticada:
+                print(f"Turma '{turma_autenticada[0]}' logada com sucesso!")
                 portal_turma(turma_autenticada)
                 break
             else:
-                print("ID inválido!")
+                print("ID da turma inválido!")
 
         except ValueError:
             print("[ERRO]: Digite um número!")

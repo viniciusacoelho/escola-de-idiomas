@@ -26,10 +26,6 @@ def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data
         cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha))
         conexao.commit()
         print(f"Aluno '{nome_completo}' cadastrado com sucesso!")
-        # TODO: Colocar somente o primeiro e último nome
-        # nome = []
-        # nome = nome_completo.split(" ")
-        # print(f"Aluno '{nome[0]} {nome[-1]}' cadastrado com sucesso!")
     except Exception as e:
         print(f"[ERRO]: Falha ao cadastrar aluno: {e}")
     finally:
@@ -58,7 +54,7 @@ def autenticar_aluno(usuario: str, senha: str):
         alunos_teste = cursor.fetchone()
 
         if alunos_teste and checar_senha(senha, bytes(alunos_teste[7])):
-            # print(f"Usuário '{usuario}' logado com sucesso!")
+            # print(f"Usuário '{alunos_teste[1]}' logado com sucesso!")
             return alunos_teste
         return None
 
@@ -147,7 +143,7 @@ def deletar_aluno(id_aluno: int, alunos: list):
     Deleta o aluno no banco de dados.
 
     Args:
-        id_usuario (int): ID do aluno cadastrado no banco de dados.
+        id_aluno (int): ID do aluno cadastrado no banco de dados.
     
     Raises:
         [ERRO]: Falha ao deletar aluno.
@@ -167,6 +163,15 @@ def deletar_aluno(id_aluno: int, alunos: list):
         conexao.close()
 
 def aluno_curso(id_aluno: int):
+    """
+    Relaciona aluno com curso no banco de dados.
+
+    Args:
+        id_aluno (int): ID do aluno cadastrado no banco de dados.
+    
+    Raises:
+        [ERRO]: Falha ao relacionar aluno curso.
+    """
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()

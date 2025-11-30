@@ -8,9 +8,9 @@ def criptografar(senha: str):
         senha (str): Senha do usuário.
 
     Returns:
-
+        hashed: hash da senha.
     """
-    senha_bites = senha.encode("utf-8")
+    senha_bites = senha.encode("UTF-8")
     salt = bcrypt.gensalt()
     hashed = bcrypt.hashpw(senha_bites, salt)
     return hashed
@@ -21,10 +21,10 @@ def checar_senha(senha: str, hashed):
 
     Args:
         senha (str): Senha do usuário.
-        hashed: 
+        hashed: hash da senha
 
     Returns:
-
+        Checa se a senha do usuário está criptografada na hora da autenticação.
     """
-    senha_bites = senha.encode("utf-8")
+    senha_bites = senha.encode("UTF-8")
     return bcrypt.checkpw(senha_bites, hashed)

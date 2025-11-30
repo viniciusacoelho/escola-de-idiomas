@@ -184,14 +184,4 @@ def deletar_professor(id_professor):
         conexao.close()
 
 def cadastrar_curso_professor(nome_curso: str):
-    try:
-        conexao = criar_conexao()
-        cursor = conexao.cursor()
-        cursor.execute("INSERT INTO professores_teste (nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha))
-        conexao.commit()
-        print(f"Professor '{nome_completo}' cadastrado com sucesso!")
-    except Exception as e:
-        print(f"[ERRO]: Falha ao cadastrar professor: {e}")
-    finally:
-        cursor.close()
-        conexao.close()
+    pass

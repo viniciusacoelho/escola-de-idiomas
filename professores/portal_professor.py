@@ -8,6 +8,18 @@ from cursos.crud_cursos import listar_cursos
 from banco_de_dados.criar_conexao import criar_conexao
 
 def professor_turma(id_professor: int):
+    """
+    Relacionamento de professores e turmas cadastrados no banco de dados.
+
+    Args:
+        id_professor (int): ID do professor cadastrado no banco de dados.
+
+    Returns:
+        professor_turmas: Relacionamento de professores e turmas cadastrados no banco de dados.
+
+    Raises:
+        [ERRO]: Falha ao visualizar professor.
+    """
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
@@ -15,12 +27,18 @@ def professor_turma(id_professor: int):
         professor_turmas = cursor.fetchall()
         return professor_turmas
     except Exception as e:
-        print(f"[ERRO]: Falha ao vizualizar turmas: {e}")
+        print(f"[ERRO]: Falha ao visualizar turmas: {e}")
     finally:
         cursor.close()
         conexao.close()
 
 def portal_professor(professor_autenticado):
+    """
+    Página do portal do professor.
+
+    Args:
+        professor_autenticado (db): Todos os dados cadastrados do professor autenticado.
+    """
     menu = ["Visualizar Turma", "Atualizar Cadastro", "Mostrar Cadastro", "Voltar"]
     # menu = ["Visualizar Turma", "Selecionar Curso", "Atualizar Cadastro", "Mostrar Cadastro", "Voltar"]
 
