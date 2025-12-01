@@ -102,6 +102,7 @@ def validar_senha(senha: str) -> str:
         str: Senha inválida!
             A senha deve conter pelo menos 8 caracteres.
     """
-    TAMANHO_MINIMO_SENHA = 6
+    # TAMANHO_MINIMO_SENHA = 6
+    TAMANHO_MINIMO_SENHA = 4
     if len(senha) < TAMANHO_MINIMO_SENHA:
         return "Senha inválida!\nA senha deve conter pelo menos 8 caracteres."

@@ -29,11 +29,11 @@ def menu_professor():
                         print("--------------------------------------------")
 
                         for professor in professores:
-                            print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nCPF: {professor[3]}\nNúmero de telefone: {professor[4]}\nEndereço: {professor[5]}\nIdioma lecionado: {professor[6]}\nSenha: *****")
+                            print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nGênero: {professor[3]}\nCPF: {professor[4]}\nNúmero de telefone: {professor[5]}\nEndereço: {professor[6]}\\nSenha: *****")
                             print("--------------------------------------------")
                         print(f"Total de professores cadastrados: {len(professores)}")
                     else:
-                        print("Nenhum professor cadastrada anteriormente.")
+                        print("Nenhum professor cadastrado anteriormente.")
 
                 case 3:
                     while True:    
@@ -48,7 +48,7 @@ def menu_professor():
 
                                     for professor in professores:
                                         print("--------------------------------------------")
-                                        print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nCPF: {professor[3]}\nNúmero de telefone: {professor[4]}\nEndereço: {professor[5]}\nIdioma lecionado: {professor[6]}\nSenha: *****")
+                                        print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nGênero: {professor[3]}\nCPF: {professor[4]}\nNúmero de telefone: {professor[5]}\nEndereço: {professor[6]}\\nSenha: *****")
                                     break
                                 
                                 else:

@@ -19,8 +19,8 @@ def professor_turma(id_turma: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT p.id_professor, p.nome_completo FROM professor_turma pt INNER JOIN professores_teste p ON p.id_professor = pt.id_professor WHERE id_turma = %s", (id_turma,))
-        # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos_teste a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
+        cursor.execute("SELECT p.id_professor, p.nome_completo FROM professor_turma pt INNER JOIN professores p ON p.id_professor = pt.id_professor WHERE id_turma = %s", (id_turma,))
+        # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
         professor_turmas = cursor.fetchall()
         return professor_turmas
     except Exception as e:
@@ -85,10 +85,10 @@ def aluno_turma(id_turma: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT a.id_aluno, a.nome_completo FROM aluno_turma att INNER JOIN alunos_teste a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
+        cursor.execute("SELECT a.id_aluno, a.nome_completo FROM aluno_turma att INNER JOIN alunos a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
         # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM aluno_turma att INNER JOIN {tabela} a ON {tabela[0]}.{id_entidade} = att.{id_entidade} WHERE id_turma = %s ORDER BY {tabela}.{atributo} ASC", (id_turma,))
-        # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos_teste a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
-        # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos_teste a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
+        # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
+        # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
         alunos_turma = cursor.fetchall()
         return alunos_turma
     except Exception as e:
@@ -132,8 +132,8 @@ def curso_turma(id_turma: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos_teste a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
-        cursor.execute("SELECT c.id_curso, c.nome_curso, t.dia_semana, t.horario FROM curso_turma ct INNER JOIN cursos_teste c ON c.id_curso = ct.id_curso INNER JOIN turmas_teste t ON t.id_turma = ct.id_turma WHERE t.id_turma = %s", (id_turma,))
+        # cursor.execute(f"SELECT {tabela[0]}.{atributo} FROM {tabela} att INNER JOIN alunos a ON a.id_aluno = att.id_aluno WHERE id_turma = %s ORDER BY a.nome_completo ASC", (id_turma,))
+        cursor.execute("SELECT c.id_curso, c.nome_curso, t.dia_semana, t.horario FROM curso_turma ct INNER JOIN cursos c ON c.id_curso = ct.id_curso INNER JOIN turmas t ON t.id_turma = ct.id_turma WHERE t.id_turma = %s", (id_turma,))
         conexao.commit()
         alunos_turma = cursor.fetchall()
         return alunos_turma
@@ -210,7 +210,7 @@ def portal_turma(turma_autenticada):
                     print("Alunos:")
                     alunos = aluno_turma(turma_autenticada[0])
                     # TODO: Verificar se tem como fazer assim, para não criar várias funções
-                    # alunos = aluno_turma(turma_autenticada[0], "id_aluno", "alunos_teste", "nome_completo")
+                    # alunos = aluno_turma(turma_autenticada[0], "id_aluno", "alunos", "nome_completo")
 
                     if len(alunos) > 0:
                         # TODO: Verificar se isso funciona, ele insere o professor na tabela 'professor_aluno' se e somente se

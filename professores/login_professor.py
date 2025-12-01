@@ -38,4 +38,4 @@ def login_professor():
             portal_professor(professor_autenticado)
             break
         else:
-            print(f"Usuário e/ou senha incorretos!")
+            print(f"E-mail e/ou senha incorretos!")

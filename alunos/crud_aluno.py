@@ -23,7 +23,7 @@ def cadastrar_aluno(nome_completo: str, usuario: str, email: str, cpf: str, data
 
         senha = criptografar(senha)
     
-        cursor.execute("INSERT INTO alunos_teste (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha))
+        cursor.execute("INSERT INTO alunos (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, usuario, email, cpf, data_nascimento, numero_telefone, senha))
         conexao.commit()
         print(f"Aluno '{nome_completo}' cadastrado com sucesso!")
     except Exception as e:
@@ -50,12 +50,12 @@ def autenticar_aluno(usuario: str, senha: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM alunos_teste WHERE usuario = %s", (usuario,))
-        alunos_teste = cursor.fetchone()
+        cursor.execute("SELECT * FROM alunos WHERE usuario = %s", (usuario,))
+        alunos = cursor.fetchone()
 
-        if alunos_teste and checar_senha(senha, bytes(alunos_teste[7])):
-            # print(f"Usuário '{alunos_teste[1]}' logado com sucesso!")
-            return alunos_teste
+        if alunos and checar_senha(senha, bytes(alunos[7])):
+            # print(f"Usuário '{alunos[1]}' logado com sucesso!")
+            return alunos
         return None
 
     except Exception as e:
@@ -77,7 +77,7 @@ def listar_alunos():
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM alunos_teste ORDER BY id_aluno ASC")
+        cursor.execute("SELECT * FROM alunos ORDER BY id_aluno ASC")
         lista_alunos = cursor.fetchall()
         return lista_alunos
     except Exception as e:
@@ -99,7 +99,7 @@ def buscar_aluno(usuario: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM alunos_teste WHERE usuario LIKE %s", (f"%{usuario}%",))
+        cursor.execute("SELECT * FROM alunos WHERE usuario LIKE %s", (f"%{usuario}%",))
         aluno = cursor.fetchall()
         print(f"Usuário '{usuario}' buscado com sucesso!")
         return aluno
@@ -127,9 +127,9 @@ def atualizar_aluno(id_aluno: int, parametro_atributo: str, atributo: str, nome_
         cursor = conexao.cursor()
 
         if atributo == "senha":
-            parametro = criptografar(parametro)
+            parametro_atributo = criptografar(parametro_atributo)
 
-        cursor.execute(f"UPDATE alunos_teste SET {atributo} = %s WHERE id_aluno = %s", (parametro_atributo, id_aluno))
+        cursor.execute(f"UPDATE alunos SET {atributo} = %s WHERE id_aluno = %s", (parametro_atributo, id_aluno))
         print(f"'{nome_atributo}' de aluno atualizado com sucesso!")
         conexao.commit()
     except Exception as e:
@@ -151,7 +151,7 @@ def deletar_aluno(id_aluno: int, alunos: list):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("DELETE FROM alunos_teste WHERE id_aluno = %s", (id_aluno,))
+        cursor.execute("DELETE FROM alunos WHERE id_aluno = %s", (id_aluno,))
         conexao.commit()
         # TODO: Verificar se tem como colocar o nome do aluno aqui:
         # print(f"Aluno '{alunos}' deletado com sucesso!")
@@ -175,7 +175,7 @@ def aluno_curso(id_aluno: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT c.nome_curso from aluno_curso ac INNER JOIN cursos_teste c ON c.id_curso = ac.id_curso WHERE id_aluno = %s", (id_aluno,))
+        cursor.execute("SELECT c.nome_curso from aluno_curso ac INNER JOIN cursos c ON c.id_curso = ac.id_curso WHERE id_aluno = %s", (id_aluno,))
         alunos = cursor.fetchall()
         conexao.commit()
         return alunos

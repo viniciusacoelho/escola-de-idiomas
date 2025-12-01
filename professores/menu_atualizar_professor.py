@@ -2,7 +2,7 @@ import getpass
 
 from limpar_tela.limpar_tela import limpar_tela
 from professores.crud_professor import atualizar_professor
-from professores.validar_professor import validar_cpf, validar_email, validar_endereco, validar_idioma_lecionado, validar_nome_completo, validar_numero_telefone, validar_senha
+from professores.validar_professor import validar_nome_completo, validar_email, validar_genero, validar_cpf, validar_numero_telefone, validar_endereco, validar_senha
 from unique.verificar_unique import verificar_unique
 
 def menu_atualizar_professor(id_professor: int):
@@ -12,8 +12,8 @@ def menu_atualizar_professor(id_professor: int):
     Args:
         id_professor: ID do professor cadastrado no banco de dados.
     """
-    menu_atualizar = ["Atualizar Nome Completo", "Atualizar E-mail", "Atualizar CPF",  "Atualizar Número de Telefone",
-                      "Atualizar Endereço", "Atualizar Idioma Lecionado", "Atualizar Senha", "Voltar"]
+    menu_atualizar = ["Atualizar Nome Completo", "Atualizar E-mail", "Atualizar Gênero", "Atualizar CPF",  "Atualizar Número de Telefone",
+                      "Atualizar Endereço", "Atualizar Senha", "Voltar"]
 
     while True:
         limpar_tela()
@@ -61,6 +61,23 @@ def menu_atualizar_professor(id_professor: int):
                 case 3:
                     while True:
                         print("--------------------------------------------\n")
+                        novo_genero = input("Digite o novo gênero do professor:\n")
+                        erro_genero = validar_genero(novo_genero)
+
+                        if erro_genero:
+                            print(erro_genero)
+                            print("--------------------------------------------\n")
+                        else:
+                            if novo_genero == "M":
+                                novo_genero = "Masculino"
+                            else:
+                                novo_genero = "Feminino"
+                                atualizar_professor(id_professor, novo_genero, "genero", "Gênero")
+                                break
+
+                case 4:
+                    while True:
+                        print("--------------------------------------------\n")
                         novo_cpf = input("Digite o novo CPF do professor:\n")
 
                         try:
@@ -71,7 +88,7 @@ def menu_atualizar_professor(id_professor: int):
                                 print(erro_cpf)
                             else:
                                 novo_cpf = f"{novo_cpf[:3]}.{novo_cpf[3:6]}.{novo_cpf[6:9]}-{novo_cpf[9:]}"
-                                erro_verificar_unique = verificar_unique("professors", novo_cpf, 3, "CPF")
+                                erro_verificar_unique = verificar_unique("professor", novo_cpf, 3, "CPF")
 
                                 if erro_verificar_unique:
                                     print(erro_verificar_unique)
@@ -82,7 +99,7 @@ def menu_atualizar_professor(id_professor: int):
                         except ValueError:
                             print("[ERRO]: Digite apenas números!")
 
-                case 4:
+                case 5:
                     while True:
                         print("--------------------------------------------\n")
                         novo_numero_telefone = input("Digite o novo número de telefone do professor:\n")
@@ -95,7 +112,7 @@ def menu_atualizar_professor(id_professor: int):
                                 print(erro_numero_telefone)
                             else:
                                 novo_numero_telefone = f"({novo_numero_telefone[:2]}) {novo_numero_telefone[2:7]}-{novo_numero_telefone[7:]}"
-                                erro_verificar_unique = verificar_unique("professors", novo_numero_telefone, 4, "Número de telefone")
+                                erro_verificar_unique = verificar_unique("professor", novo_numero_telefone, 4, "Número de telefone")
 
                                 if erro_verificar_unique:
                                     print(erro_verificar_unique)
@@ -106,7 +123,7 @@ def menu_atualizar_professor(id_professor: int):
                         except ValueError:
                             print("[ERRO]: Digite apenas números!")
 
-                case 5:
+                case 6:
                     while True:
                         print("--------------------------------------------\n")
                         novo_endereco = input("Digite a novo endereço do professor:\n")
@@ -120,32 +137,19 @@ def menu_atualizar_professor(id_professor: int):
                             atualizar_professor(id_professor, novo_endereco_validado, "novo_endereco", "Novo Endereço")
                             break
 
-                case 6:
+                case 7:
                     while True:
                         print("--------------------------------------------\n")
-                        novo_idioma_lecionado = input("Digite a nova data de nascimento do professor:\n")
+                        nova_senha = getpass.getpass("Digite a nova senha do professor:\n")
+                        erro_senha = validar_senha(nova_senha)
 
-                        try:
-                            input(novo_idioma_lecionado)
-                            erro_novo_idioma_lecionado = validar_idioma_lecionado(novo_idioma_lecionado)
-
-                            if erro_novo_idioma_lecionado:
-                                print(erro_novo_idioma_lecionado)
-                            else:
-                                novo_idioma_lecionado_validado = f"{novo_idioma_lecionado[:2]}/{novo_idioma_lecionado[2:4]}/{novo_idioma_lecionado[4:]}"
-                                atualizar_professor(id_professor, novo_idioma_lecionado_validado, "idioma_lecionado", "Idioma Lecionado")
-                                break
-
-                        except ValueError:
-                            print("[ERRO]: Digite apenas números!")
-                
-
-                case 7:
-                    print("--------------------------------------------\n")
-                    nova_senha = getpass.getpass("Digite a nova senha do professor:\n")
-                    validar_senha(nova_senha)
+                        if erro_senha:
+                            print(erro_senha)
+                        else:
+                            break
 
                     while True:
+                        print("--------------------------------------------\n")
                         confirmar_nova_senha = getpass.getpass("Confirme a nova senha do professor:\n")
 
                         if confirmar_nova_senha != nova_senha:

@@ -140,6 +140,9 @@ def menu_curso():
 
                         if len(cursos) > 0:    
                             try:
+                                for curso in cursos:
+                                    print(f"{curso[0]} - {curso[1]}")
+
                                 print("--------------------------------------------")
                                 id_curso = int(input("Digite o ID do curso que deseja deletar:\n"))
 

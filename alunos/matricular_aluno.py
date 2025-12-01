@@ -117,15 +117,12 @@ def matricular_aluno():
     while True:
         print("--------------------------------------------\n")
         senha = getpass.getpass("Digite sua senha:\n")
-        # TODO:
-        # erro_senha = validar_senha(senha)
-        
-        # if erro_senha:
-        #     print(erro_senha)
-        # else:
-        #     senha_validada = erro_senha
-        #     break
-        break
+        erro_senha = validar_senha(senha)
+
+        if erro_senha:
+            print(erro_senha)
+        else:
+            break
 
     while True:
         print("--------------------------------------------\n")

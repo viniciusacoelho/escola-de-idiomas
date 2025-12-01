@@ -13,7 +13,7 @@ def cadastrar_curso(nome_curso: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO cursos_teste (nome_curso) VALUES (%s)", (nome_curso,))
+        cursor.execute("INSERT INTO cursos (nome_curso) VALUES (%s)", (nome_curso,))
         conexao.commit()
         print(f"Curso '{nome_curso}' cadastrado com sucesso!")
     except Exception as e:
@@ -83,7 +83,7 @@ def listar_cursos():
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM cursos_teste ORDER BY id_curso ASC")
+        cursor.execute("SELECT * FROM cursos ORDER BY id_curso ASC")
         lista_cursos = cursor.fetchall()
         return lista_cursos
         # return cursor.fetchall()
@@ -106,7 +106,7 @@ def buscar_curso(nome_curso: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM cursos_teste WHERE nome_curso LIKE %s", (f"%{nome_curso}%",))
+        cursor.execute("SELECT * FROM cursos WHERE nome_curso LIKE %s", (f"%{nome_curso}%",))
         cursos = cursor.fetchall()
         print(f"Curso '{nome_curso}' buscado com sucesso!")
         return cursos
@@ -130,7 +130,7 @@ def atualizar_curso(id_curso: int, novo_nome_curso: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("UPDATE cursos_teste SET nome_curso = %s WHERE id_curso = %s", (novo_nome_curso, id_curso))
+        cursor.execute("UPDATE cursos SET nome_curso = %s WHERE id_curso = %s", (novo_nome_curso, id_curso))
         conexao.commit()
         print(f"Curso '{novo_nome_curso}' atualizado com sucesso!")
     except Exception as e:
@@ -153,9 +153,9 @@ def deletar_curso(id_curso: int):
         conexao = criar_conexao()
         cursor = conexao.cursor()
         # cursor.execute("INSERT INTO lixeira-teste (nome) VALUES (%s)", (id_curso,))
-        cursor.execute("DELETE FROM cursos_teste WHERE id_curso = %s", (id_curso,))
+        cursor.execute("DELETE FROM cursos WHERE id_curso = %s", (id_curso,))
         # TODO: Verificar se vai funcionar, porque o usuário não digita o nome do curso aqui
-        # cursor.execute("DELETE FROM cursos_teste WHERE id_curso = %s AND nome_curso = %s", (id_curso, nome_curso))
+        # cursor.execute("DELETE FROM cursos WHERE id_curso = %s AND nome_curso = %s", (id_curso, nome_curso))
         conexao.commit()
         print("Curso deletado com sucesso!")
 

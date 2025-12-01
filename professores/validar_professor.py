@@ -1,5 +1,4 @@
 import re
-from unique.verificar_unique import verificar_unique
 
 def validar_nome_completo(nome_completo: str) -> str:
     """
@@ -31,6 +30,20 @@ def validar_email(email: str) -> str:
     if not re.match(regex_email, email):
         return f"E-mail inválido!\nEsperava-se: 'nome@dominio.com'."
 
+def validar_genero(genero: str) -> str:
+    """
+    Valida o gênero do professor.
+
+    Args:
+        genero (str): Gênero do professor. 
+
+    Returns:
+        str: Gênero inválido!
+            Esperava-se 'M' ou 'F'.
+    """
+    if genero != "M" and genero != "F":
+        return f"Gênero inválido! Esperava-se 'M' ou 'F'."
+
 def validar_cpf(cpf: str) -> str:
     """
     Valida o CPF do professor, verificando se não é igual a 11 (tamanho fixo).
@@ -60,7 +73,6 @@ def validar_numero_telefone(numero_telefone: str) -> str:
     TAMANHO_NUMERO_TELEFONE = 11
     if len(numero_telefone) != TAMANHO_NUMERO_TELEFONE:
         return f"Número de telefone inválido!\nEsperava-se: 'XXYYYYYZZZZ'."
-        # return f"Número de telefone inválido!\nEsperava-se: '+XX (XX) YYYYY-ZZZZ'."
 
 def validar_endereco(endereco: str) -> str:
     """
@@ -76,20 +88,6 @@ def validar_endereco(endereco: str) -> str:
     if len(endereco) < TAMANHO_MINIMO_ENDERECO:
         return f"Endereço inválido!"
 
-def validar_idioma_lecionado(idioma_lecionado: str) -> str:
-    """
-    Valida o idioma lecionado do professor, verificando se não é igual a 11 (tamanho fixo).
-
-    Args:
-        idioma_lecionado (str): Idioma lecionado do professor. 
-
-    Returns:
-        str: Idioma lecionado inválido!
-    """
-    existe_curso = verificar_unique("Cursos", idioma_lecionado, 1, "Curso")
-    if not existe_curso:
-        return f"Idioma lecionado inválido!"
-
 def validar_senha(senha: str) -> str:
     """
     Valida a senha do professor, verificando se ela possui pelo menos 8 caracteres.
@@ -101,6 +99,7 @@ def validar_senha(senha: str) -> str:
         str: Senha inválida!
             A senha deve conter pelo menos 8 caracteres.
     """
-    TAMANHO_MINIMO_SENHA = 6
+    # TAMANHO_MINIMO_SENHA = 6
+    TAMANHO_MINIMO_SENHA = 4
     if len(senha) < TAMANHO_MINIMO_SENHA:
         return "Senha inválida!\nA senha deve conter pelo menos 8 caracteres."

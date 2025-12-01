@@ -1,7 +1,7 @@
 from banco_de_dados.criar_conexao import criar_conexao
 from criptografar.criptografar import criptografar, checar_senha
 
-def cadastrar_professor(nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha):
+def cadastrar_professor(nome_completo, email, genero, cpf, numero_telefone, endereco, senha):
     """
     Cadastra o professor no banco de dados.
 
@@ -24,7 +24,7 @@ def cadastrar_professor(nome_completo, email, cpf, numero_telefone, endereco, id
 
         senha = criptografar(senha)
 
-        cursor.execute("INSERT INTO professores_teste (nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha))
+        cursor.execute("INSERT INTO professores (nome_completo, email, genero, cpf, numero_telefone, endereco, senha) VALUES (%s, %s, %s, %s, %s, %s, %s)", (nome_completo, email, genero, cpf, numero_telefone, endereco, senha))
         conexao.commit()
         print(f"Professor '{nome_completo}' cadastrado com sucesso!")
     except Exception as e:
@@ -51,7 +51,7 @@ def autenticar_professor(email: str, senha: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM professores_teste WHERE email = %s", (email,))
+        cursor.execute("SELECT * FROM professores WHERE email = %s", (email,))
         professores = cursor.fetchone()
 
         if professores and checar_senha(senha, bytes(professores[7])):
@@ -100,7 +100,7 @@ def listar_professores():
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM professores_teste ORDER BY id_professor ASC")
+        cursor.execute("SELECT * FROM professores ORDER BY id_professor ASC")
         professores = cursor.fetchall()
         return professores
     except Exception as e:
@@ -122,7 +122,7 @@ def buscar_professor(email: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM professores_teste WHERE email LIKE %s", (f"%{email}%",))
+        cursor.execute("SELECT * FROM professores WHERE email LIKE %s", (f"%{email}%",))
         turma = cursor.fetchall()
         print(f"Professor buscado com sucesso!")
         return turma
@@ -152,7 +152,7 @@ def atualizar_professor(id_professor: int, parametro_atributo: str, atributo: st
         if atributo == "senha":
             parametro = criptografar(parametro)
         
-        cursor.execute(f"UPDATE professores_teste SET {atributo} = %s WHERE id_professor = %s", (parametro_atributo, id_professor))
+        cursor.execute(f"UPDATE professores SET {atributo} = %s WHERE id_professor = %s", (parametro_atributo, id_professor))
         print(f"{nome_atributo} atualizado com sucesso!")
         conexao.commit()
     except Exception as e:

@@ -1,17 +1,16 @@
 import getpass
 
 from limpar_tela.limpar_tela import limpar_tela
-from professores.validar_professor import validar_nome_completo, validar_email, validar_senha, validar_cpf, validar_numero_telefone, validar_endereco, validar_idioma_lecionado
+from professores.validar_professor import validar_nome_completo, validar_email, validar_genero, validar_cpf, validar_numero_telefone, validar_endereco, validar_senha
 from professores.crud_professor import cadastrar_professor
 from unique.verificar_unique import verificar_unique
-from cursos.crud_cursos import listar_cursos
 
 def cadastramento_professor():
     """Página de cadastro do professor."""
     limpar_tela()
 
     print("--------------------------------------------")
-    print("            Cadastro - Professor            ")
+    print("                 Cadastro")
     print("--------------------------------------------")
 
     while True:
@@ -39,6 +38,21 @@ def cadastramento_professor():
                 print(erro_verificar_unique)
             else:
                 break
+    
+    while True:
+        print("--------------------------------------------\n")
+        genero = input("Digite seu gênero: (M/F)\n").upper()
+
+        erro_genero = validar_genero(genero)
+
+        if erro_genero:
+            print(erro_genero)
+        else:
+            if genero == "M":
+                genero = "Masculino"
+            else:
+                genero = "Feminino"
+            break
 
     while True:
         print("--------------------------------------------\n")
@@ -97,33 +111,6 @@ def cadastramento_professor():
 
     while True:
         print("--------------------------------------------\n")
-        cursos = listar_cursos()
-
-        if len(cursos) > 0:
-            for curso in cursos:
-                print(f"{curso[0]} - {curso[1]}")
-
-            # print("0 - Nenhuma das opções acima.")
-            idioma_lecionado = input("Digite o nome do seu idioma lecionado:\n")
-
-            # if idioma_lecionado == "0":
-            #     break
-
-            erro_idioma_lecionado = validar_idioma_lecionado(idioma_lecionado)
-
-            if erro_idioma_lecionado:
-                print(erro_idioma_lecionado)
-                print("--------------------------------------------\n")
-            else:
-                break
-
-        else:
-            print("--------------------------------------------\n")
-            print("Nenhum idioma para lecionar cadastrado anteriormente.")
-            break
-
-    while True:
-        print("--------------------------------------------\n")
         senha = getpass.getpass("Digite a sua senha:\n")
         erro_senha = validar_senha(senha)
 
@@ -144,4 +131,4 @@ def cadastramento_professor():
             print("--------------------------------------------\n")
             break
 
-    cadastrar_professor(nome_completo, email, cpf, numero_telefone, endereco, idioma_lecionado, senha)
+    cadastrar_professor(nome_completo, email, genero, cpf, numero_telefone, endereco, senha)

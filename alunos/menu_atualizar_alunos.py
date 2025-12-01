@@ -143,11 +143,18 @@ def menu_atualizar_alunos(id_aluno: int):
                             print("[ERRO]: Digite apenas números!")
 
                 case 7:
-                    print("--------------------------------------------\n")
-                    nova_senha = getpass.getpass("Digite a nova senha do aluno:\n")
-                    validar_senha(nova_senha)
+                    while True:
+                        print("--------------------------------------------\n")
+                        nova_senha = getpass.getpass("Digite a nova senha do aluno:\n")
+                        erro_senha = validar_senha(nova_senha)
+
+                        if erro_senha:
+                            print(erro_senha)
+                        else:
+                            break
 
                     while True:
+                        print("--------------------------------------------\n")
                         confirmar_nova_senha = getpass.getpass("Confirme a nova senha do aluno:\n")
 
                         if confirmar_nova_senha != nova_senha:

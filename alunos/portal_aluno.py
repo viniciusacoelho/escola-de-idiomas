@@ -19,7 +19,7 @@ def curso_aluno(id_aluno: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT c.id_curso, c.nome_curso FROM aluno_curso ac INNER JOIN cursos_teste c ON c.id_curso = ac.id_curso WHERE id_aluno = %s", (id_aluno,))
+        cursor.execute("SELECT c.id_curso, c.nome_curso FROM aluno_curso ac INNER JOIN cursos c ON c.id_curso = ac.id_curso WHERE id_aluno = %s", (id_aluno,))
         lista_cursos = cursor.fetchall()
         return lista_cursos
         # return cursor.fetchall()
@@ -142,7 +142,7 @@ def portal_aluno(aluno_autenticado):
 
                 case 4:
                     while True:
-                        print("--------------------------------------------\n")
+                        print("--------------------------------------------")
                         cursos = listar_cursos()
 
                         if len(cursos) > 0:
@@ -176,7 +176,7 @@ def portal_aluno(aluno_autenticado):
                             break
                 case 5:
                     while True:
-                        print("--------------------------------------------\n")
+                        print("--------------------------------------------")
                         cursos = curso_aluno(aluno_autenticado[0])
                         
                         if cursos:

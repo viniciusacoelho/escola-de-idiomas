@@ -14,7 +14,7 @@ def cadastrar_turma(dia_semana: str, horario: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("INSERT INTO turmas_teste (dia_semana, horario) VALUES (%s, %s)", (dia_semana, horario)) 
+        cursor.execute("INSERT INTO turmas (dia_semana, horario) VALUES (%s, %s)", (dia_semana, horario)) 
         conexao.commit()
         print("Turma cadastrada com sucesso!")
     except Exception as e:
@@ -40,7 +40,7 @@ def autenticar_turma(id_turma: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM turmas_teste WHERE id_turma = %s", (id_turma,))
+        cursor.execute("SELECT * FROM turmas WHERE id_turma = %s", (id_turma,))
         turma = cursor.fetchone()
         return turma
     except Exception as e:
@@ -85,7 +85,7 @@ def listar_turmas():
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM turmas_teste ORDER BY id_turma ASC")
+        cursor.execute("SELECT * FROM turmas ORDER BY id_turma ASC")
         turmas = cursor.fetchall()
         return turmas
     except Exception as e:
@@ -107,7 +107,7 @@ def buscar_turma(id_turma: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT * FROM turmas_teste WHERE id_turma = %s", (id_turma,))
+        cursor.execute("SELECT * FROM turmas WHERE id_turma = %s", (id_turma,))
         turma = cursor.fetchall()
         print(f"Turma '{id_turma}' buscada com sucesso!")
         return turma
@@ -133,7 +133,7 @@ def atualizar_turma(id_turma: int, parametro_atributo: str, atributo: str, nome_
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute(f"UPDATE turmas_teste SET {atributo} = %s WHERE id_turma = %s", (parametro_atributo, id_turma))
+        cursor.execute(f"UPDATE turmas SET {atributo} = %s WHERE id_turma = %s", (parametro_atributo, id_turma))
         conexao.commit()
         print(f"{nome_atributo} atualizado com sucesso!")
     except Exception as e:
@@ -155,7 +155,7 @@ def deletar_turma(id_turma: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("DELETE FROM turmas_teste WHERE id_turma = %s", (id_turma,))
+        cursor.execute("DELETE FROM turmas WHERE id_turma = %s", (id_turma,))
         conexao.commit()
         print("Turma deletada com sucesso!")
     except Exception as e:
