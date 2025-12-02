@@ -1,6 +1,8 @@
 from limpar_tela.limpar_tela import limpar_tela
 from professores.cadastramento_professor import cadastramento_professor
 from professores.crud_professor import listar_professores, buscar_professor, atualizar_professor, deletar_professor
+from professores.portal_professor import relacionar_professor_curso
+
 def menu_professor():
     "Página do menu do professor."
     menu = ["Cadastrar Professor", "Listar Professores", "Buscar Professor", "Atualizar Professor", "Deletar Professor", "Voltar"]
@@ -29,9 +31,19 @@ def menu_professor():
                         print("--------------------------------------------")
 
                         for professor in professores:
-                            print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nGênero: {professor[3]}\nCPF: {professor[4]}\nNúmero de telefone: {professor[5]}\nEndereço: {professor[6]}\\nSenha: *****")
+                            print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nGênero: {professor[3]}\nCPF: {professor[4]}\nNúmero de telefone: {professor[5]}\nEndereço: {professor[6]}\nSenha: *****")
+                        
+                        cursos = relacionar_professor_curso(professor[0])
+                        if len(cursos) > 0:
+                            print("Curso:")
+                            for curso in cursos:
+                                print(curso[0])
+                        else:
+                            print("Curso: Nenhum curso escolhido anteriormente.")
                             print("--------------------------------------------")
+                    
                         print(f"Total de professores cadastrados: {len(professores)}")
+                    
                     else:
                         print("Nenhum professor cadastrado anteriormente.")
 
@@ -48,7 +60,15 @@ def menu_professor():
 
                                     for professor in professores:
                                         print("--------------------------------------------")
-                                        print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nGênero: {professor[3]}\nCPF: {professor[4]}\nNúmero de telefone: {professor[5]}\nEndereço: {professor[6]}\\nSenha: *****")
+                                        print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nGênero: {professor[3]}\nCPF: {professor[4]}\nNúmero de telefone: {professor[5]}\nEndereço: {professor[6]}\nSenha: *****")
+                                    
+                                    cursos = relacionar_professor_curso(professor[0])
+                                    if len(cursos) > 0:
+                                        print("Curso:")
+                                        for curso in cursos:
+                                            print(curso[0])
+                                    else:
+                                        print("Curso: Nenhum curso escolhido anteriormente.")
                                     break
                                 
                                 else:
@@ -99,7 +119,6 @@ def menu_professor():
 
                                 else:
                                     print("ID do professor inválido!")
-                                    # break
                                 break
 
                             except ValueError:

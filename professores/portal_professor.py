@@ -74,11 +74,33 @@ def relacionar_professor_curso(id_professor: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT c.nome_curso FROM professor_curso pc INNER JOIN professor_curso p ON c.id_curso = pc.id_curso WHERE id_professor = %s", (id_professor,))
+        cursor.execute("SELECT c.nome_curso FROM professor_curso pc INNER JOIN cursos c ON c.id_curso = pc.id_curso WHERE id_professor = %s", (id_professor,))
         professor_turmas = cursor.fetchall()
         return professor_turmas
     except Exception as e:
         print(f"[ERRO]: Falha ao relacionar professor com curso: {e}")
+    finally:
+        cursor.close()
+        conexao.close()
+
+def select_existe_relacao(id_professor: int, id_curso: int):
+    """
+    Relaciona o professor com a turma no banco de dados.
+
+    Args:
+        id_professor (int): ID do professor cadastrado no banco de dados.
+        id_curso (int): ID da curso cadastrada no banco de dados.
+    
+    Raises:
+        [ERRO]: Falha ao vizualizar o professor do curso.
+    """
+    try:
+        conexao = criar_conexao()
+        cursor = conexao.cursor()
+        cursor.execute("SELECT * FROM professor_curso WHERE id_professor = %s AND id_curso = %s", (id_professor, id_curso))
+        return cursor.fetchall()
+    except Exception as e:
+        print(f"[ERRO]: Falha ao vizualizar o professor da turma: {e}")
     finally:
         cursor.close()
         conexao.close()
@@ -161,13 +183,20 @@ def portal_professor(professor_autenticado: str):
                                 id_idioma_lecionado = int(input("Digite o ID do idioma que deseja lecionar:\n"))
 
                                 if id_idioma_lecionado == 0:
-                                    break                                
+                                    break
 
                                 for curso in cursos:
                                     if id_idioma_lecionado == curso[0]:
-                                        # TODO: Verificação se o professor escolher o idioma já lecionado anterimente
-                                        professor_curso(professor_autenticado[0], id_idioma_lecionado)
+                                        professores_curso = select_existe_relacao(professor_autenticado[0], id_idioma_lecionado)
+
+                                        for professor_cursos in professores_curso:
+                                            if id_idioma_lecionado == professor_cursos[1] and professor_autenticado[0] == professor_cursos[0]:
+                                                print("Professor já inserido no curso anteriormente.")
+                                                break
+                                        else:
+                                            professor_curso(professor_autenticado[0], id_idioma_lecionado)
                                         break
+
                                 else:
                                     print("ID do curso não cadastrado anteriormente.")
                                 break
@@ -186,17 +215,15 @@ def portal_professor(professor_autenticado: str):
 
                     for professor in professores:
                         print("--------------------------------------------")
-                        print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nGênero: {professor[3]}\nCPF: {professor[4]}\nNúmero de telefone: {professor[5]}\nEndereço: {professor[6]}\\nSenha: *****")
+                        print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nGênero: {professor[3]}\nCPF: {professor[4]}\nNúmero de telefone: {professor[5]}\nEndereço: {professor[6]}\nSenha: *****")
 
-                        # cursos = relacionar_professor_curso(professor_autenticado[0])
-                        # if len(cursos) > 0:
-                        #     print("Curso:")
-
-                        #     for curso in cursos:
-                        #         print(curso[0])
-
-                        # else:
-                        #     print("Curso: Nenhum curso escolhido anteriormente.")
+                        cursos = relacionar_professor_curso(professor_autenticado[0])
+                        if len(cursos) > 0:
+                            print("Curso:")
+                            for curso in cursos:
+                                print(curso[0])
+                        else:
+                            print("Curso: Nenhum curso escolhido anteriormente.")
 
                 case 5:
                     print("Voltando...")

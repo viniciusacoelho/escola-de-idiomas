@@ -34,10 +34,12 @@ def select_existe(id_turma: int, id_professor: int, entidade_atributo: str):
     Relaciona o professor com a turma no banco de dados.
 
     Args:
-        id_turma (int): ID da turma cadastrad no banco de dados.
+        id_turma (int): ID da turma cadastrada no banco de dados.
+        id_professor (int): ID do professor cadastrado no banco de dados.
+        entidade_atributo (str): Entidade e atributo do banco de dados.
     
     Raises:
-        [ERRO]: Falha ao vizualizar professor da turma.
+        [ERRO]: Falha ao vizualizar o professor da turma.
     """
     try:
         conexao = criar_conexao()
@@ -45,7 +47,7 @@ def select_existe(id_turma: int, id_professor: int, entidade_atributo: str):
         cursor.execute(f"SELECT * FROM {entidade_atributo}_turma WHERE id_turma = %s AND id_{entidade_atributo} = %s", (id_turma, id_professor))
         return cursor.fetchall()
     except Exception as e:
-        print(f"[ERRO]: Falha ao vizualizar professor da turma: {e}")
+        print(f"[ERRO]: Falha ao vizualizar o professor da turma: {e}")
     finally:
         cursor.close()
         conexao.close()

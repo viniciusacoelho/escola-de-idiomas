@@ -109,12 +109,19 @@ Este projeto é um sistema desenvolvido para gerenciar uma **Escola de Idiomas**
 
 ---
 
-## 🧑‍💻 **Desenvolvedores**
+## 📝 Licença
+
+Este projeto está licenciado sob os termos da **MIT License**.
+Consulte o arquivo `LICENSE` para mais detalhes.
+
+---
+
+## 👤 **Autor**
 
 ### 👨 Vinícius Araújo Coêlho
 
 * Estudante de Sistemas de Informação
-* Desenvolvimento principal do sistema
+* Desenvolvimento do sistema
 * Estruturação, lógica, integração com banco
 * Criação de funcionalidades todas as funcionalidades do projeto
 
