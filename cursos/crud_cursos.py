@@ -152,7 +152,7 @@ def deletar_curso(id_curso: int):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        # cursor.execute("INSERT INTO lixeira-teste (nome) VALUES (%s)", (id_curso,))
+        # cursor.execute("INSERT INTO lixeira (nome) VALUES (%s)", (id_curso,))
         cursor.execute("DELETE FROM cursos WHERE id_curso = %s", (id_curso,))
         # TODO: Verificar se vai funcionar, porque o usuário não digita o nome do curso aqui
         # cursor.execute("DELETE FROM cursos WHERE id_curso = %s AND nome_curso = %s", (id_curso, nome_curso))

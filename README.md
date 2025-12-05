@@ -1,3 +1,5 @@
+![Python](https://img.shields.io/badge/Python-3.14-blue?logo=python) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-blue?logo=postgresql) ![License](https://img.shields.io/badge/License-MIT-green)
+
 # 🏫 Escola de Idiomas — Sistema Completo de Gerenciamento
 
 Este projeto é um sistema desenvolvido para gerenciar uma **Escola de Idiomas**, abrangendo operações de alunos, professores, cursos e turmas. O objetivo principal é oferecer uma aplicação organizada, escalável e funcional, servindo tanto como solução prática quanto como estudo de boas práticas em Python e PostgreSQL.
@@ -80,28 +82,38 @@ Este projeto é um sistema desenvolvido para gerenciar uma **Escola de Idiomas**
 ├── turmas/
 ├── unique/
 ├── .gitignore.py
+├── .LICENSE.py
 ├── main.py
 ├── README.py
-└── requirements.md
+└── requirements.txt
 ```
 
 ---
 
 ## 🚀 **Como Rodar o Projeto**
 
-1. Instale as dependências necessárias:
+1. Clone o repositório
+
+```
+git clone https://github.com/viniciusacoelho/escola-de-idiomas.git
+```
+
+2. Instale as dependências necessárias:
 
    ```bash
    pip install psycopg2
    pip install bcrypt
    ```
-2. Configure o banco de dados PostgreSQL e execute o script de criação de tabelas:
+
+3. Configure o banco de dados PostgreSQL e execute o script de criação de tabelas:
 
    ```sql
    \i tabelas.sql
    ```
-3. Ajuste os dados de conexão no arquivo `conexao.py`.
-4. Execute o programa:
+
+4. Ajuste os dados de conexão no arquivo `criar_conexao.py`.
+
+5. Execute o programa:
 
    ```bash
    python main.py
