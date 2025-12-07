@@ -215,14 +215,11 @@ def portal_turma(turma_autenticada):
                     # alunos = aluno_turma(turma_autenticada[0], "id_aluno", "alunos", "nome_completo")
 
                     if len(alunos) > 0:
-                        # TODO: Verificar se isso funciona, ele insere o professor na tabela 'professor_aluno' se e somente se
-                        #       os alunos estiverem matriculados/listados na turma
-                        # inserir_professor(id_professor, id_aluno, "aluno")
                         for aluno in alunos:
                             print(aluno[1])
                     else:
-                        print("Nenhum aluno cadastrado anteriormente na turma.")
-                    
+                        print("Nenhum aluno cadastrado na turma anteriormente.")
+
                     if len(cursos) > 0:
                         for curso in cursos:
                             print(f"Dia/Horário: {curso[2]} ({curso[3]})")
@@ -348,9 +345,9 @@ def portal_turma(turma_autenticada):
                                 for aluno in alunos:
                                     # TODO: ORDER BY id_aluno
                                     print(f"{aluno[0]} - {aluno[1]}")
-                                    
+
                                 id_aluno = int(input("Digite o ID do aluno que deseja deletar da turma:\n"))
-                                
+
                                 for aluno in alunos:
                                     if id_aluno == aluno[0]:
                                         alunos_turma = aluno_turma(turma_autenticada[0])

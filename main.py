@@ -44,5 +44,3 @@ while True:
     except ValueError:
         print("--------------------------------------------")
         print("[ERRO]: Digite um número!")
-
-# TODO: Tirar o nome teste do banco de dados e crud

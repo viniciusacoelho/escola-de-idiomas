@@ -7,7 +7,7 @@ def verificar_unique(entidade: str, parametro: str, posicao = int, nome = str) -
     Verifica se os dados únicos já foram cadastrados anteriormente no banco de dados.
     
     Args:
-        entidade (str): O sistema está verificando se é 'Alunos' ou 'Cursos'.
+        entidade (str): O sistema está verificando se é 'Alunos', 'Cursos' ou 'Professores'.
         parametro (str): Os dados que o sistema vai verificar.
         posicao (int): Posição dos dados no banco de dados.
         nome (str): Os dados que o sistema vai verificar para mensagem.

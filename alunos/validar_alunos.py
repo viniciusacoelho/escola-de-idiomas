@@ -58,7 +58,7 @@ def validar_cpf(cpf: str) -> str:
     """
     TAMANHO_CPF = 11
     if len(cpf) != TAMANHO_CPF:
-        return f"CPF inválido!\nEsperava-se: 'XXX.YYY.ZZZ.XY'."
+        return f"CPF inválido!\nEsperava-se: 'XXXYYYZZZXY'."
 
 def validar_data_nascimento(data_nascimento: str) -> str:
     """
@@ -73,7 +73,7 @@ def validar_data_nascimento(data_nascimento: str) -> str:
     """
     TAMANHO_DATA_NASCIMENTO = 8
     if len(data_nascimento) != TAMANHO_DATA_NASCIMENTO:
-        return f"Data de nascimento inválida!\nEsperava-se: 'DD/MM/AAAA'."
+        return f"Data de nascimento inválida!\nEsperava-se: 'DDMMAAAA'."
 
 def validar_numero_telefone(numero_telefone: str) -> str:
     """
@@ -89,7 +89,6 @@ def validar_numero_telefone(numero_telefone: str) -> str:
     TAMANHO_NUMERO_TELEFONE = 11
     if len(numero_telefone) != TAMANHO_NUMERO_TELEFONE:
         return f"Número de telefone inválido!\nEsperava-se: 'XXYYYYYZZZZ'."
-        # return f"Número de telefone inválido!\nEsperava-se: '+XX (XX) YYYYY-ZZZZ'."
 
 def validar_senha(senha: str) -> str:
     """
@@ -102,7 +101,6 @@ def validar_senha(senha: str) -> str:
         str: Senha inválida!
             A senha deve conter pelo menos 8 caracteres.
     """
-    # TAMANHO_MINIMO_SENHA = 6
-    TAMANHO_MINIMO_SENHA = 4
+    TAMANHO_MINIMO_SENHA = 8
     if len(senha) < TAMANHO_MINIMO_SENHA:
         return "Senha inválida!\nA senha deve conter pelo menos 8 caracteres."

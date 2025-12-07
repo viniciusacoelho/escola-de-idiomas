@@ -1,6 +1,6 @@
 ![Python](https://img.shields.io/badge/Python-3.14-blue?logo=python) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-blue?logo=postgresql) ![License](https://img.shields.io/badge/License-MIT-green)
 
-# 🏫 Escola de Idiomas — Sistema Completo de Gerenciamento
+# 🏫 Escola de Idiomas — Sistema de Gerenciamento
 
 Este projeto é um sistema desenvolvido para gerenciar uma **Escola de Idiomas**, abrangendo operações de alunos, professores, cursos e turmas. O objetivo principal é oferecer uma aplicação organizada, escalável e funcional, servindo tanto como solução prática quanto como estudo de boas práticas em Python e PostgreSQL.
 
@@ -62,6 +62,7 @@ Este projeto é um sistema desenvolvido para gerenciar uma **Escola de Idiomas**
 * **psycopg2** (conexão com o banco)
 * **bcrypt** (criptografia)
 * **regex** (validações)
+* **os** (limpar a tela)
 * **PowerShell / Terminal**
 * Estrutura organizada em múltiplos arquivos `.py`
 
@@ -82,9 +83,9 @@ Este projeto é um sistema desenvolvido para gerenciar uma **Escola de Idiomas**
 ├── turmas/
 ├── unique/
 ├── .gitignore.py
-├── .LICENSE.py
+├── LICENSE
 ├── main.py
-├── README.py
+├── README.md
 └── requirements.txt
 ```
 
@@ -101,7 +102,7 @@ git clone https://github.com/viniciusacoelho/escola-de-idiomas.git
 2. Instale as dependências necessárias:
 
    ```bash
-   pip install psycopg2
+   pip install psycopg2-binary
    pip install bcrypt
    ```
 
@@ -135,7 +136,7 @@ Consulte o arquivo `LICENSE` para mais detalhes.
 * Estudante de Sistemas de Informação
 * Desenvolvimento do sistema
 * Estruturação, lógica, integração com banco
-* Criação de funcionalidades todas as funcionalidades do projeto
+* Criação todas as funcionalidades do projeto
 
 ---
 

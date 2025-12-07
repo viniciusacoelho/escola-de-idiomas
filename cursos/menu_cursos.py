@@ -18,7 +18,7 @@ def curso_aluno(nome_curso: str):
     try:
         conexao = criar_conexao()
         cursor = conexao.cursor()
-        cursor.execute("SELECT a.id_aluno from aluno_curso ac INNER JOIN alunos a ON a.id_aluno = ac.id_aluno WHERE nome_curso = %s", (nome_curso,))
+        cursor.execute("SELECT a.id_aluno, c.nome_curso FROM aluno_curso ac INNER JOIN alunos a ON a.id_aluno = ac.id_aluno INNER JOIN cursos c ON c.id_curso = ac.id_curso WHERE c.nome_curso LIKE %s", (f"%{nome_curso}%",))
         alunos = cursor.fetchall()
         conexao.commit()
         return alunos
