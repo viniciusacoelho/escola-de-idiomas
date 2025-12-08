@@ -123,9 +123,7 @@ def buscar_professor(email: str):
         conexao = criar_conexao()
         cursor = conexao.cursor()
         cursor.execute("SELECT * FROM professores WHERE email LIKE %s", (f"%{email}%",))
-        turma = cursor.fetchall()
-        print(f"Professor buscado com sucesso!")
-        return turma
+        return cursor.fetchall()
     except Exception as e:
         print(f"[ERRO]: Falha ao buscar professor: {e}")
     finally:

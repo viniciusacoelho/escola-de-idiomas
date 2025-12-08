@@ -53,12 +53,13 @@ def menu_professor():
 
                         if len(professores) > 0:
                             email_professor = input("Digite o e-mail do professor que você deseja buscar:\n")
-                            professores = buscar_professor(email_professor)
+                            professores_buscados = buscar_professor(email_professor)
 
                             for professor in professores:
                                 if email_professor == professor[2]:
-
-                                    for professor in professores:
+                                    print(f"Professor buscado com sucesso!")
+                                    
+                                    for professor in professores_buscados:
                                         print("--------------------------------------------")
                                         print(f"Professor {professor[0]}:\nNome completo: {professor[1]}\nE-mail: {professor[2]}\nGênero: {professor[3]}\nCPF: {professor[4]}\nNúmero de telefone: {professor[5]}\nEndereço: {professor[6]}\nSenha: *****")
                                     

@@ -95,9 +95,9 @@ Este projeto é um sistema desenvolvido para gerenciar uma **Escola de Idiomas**
 
 1. Clone o repositório
 
-```
-git clone https://github.com/viniciusacoelho/escola-de-idiomas.git
-```
+   ```
+   git clone https://github.com/viniciusacoelho/escola-de-idiomas.git
+   ```
 
 2. Instale as dependências necessárias:
 
