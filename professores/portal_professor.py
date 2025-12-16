@@ -1,6 +1,6 @@
 from limpar_tela.limpar_tela import limpar_tela
 from professores.menu_atualizar_professor import menu_atualizar_professor
-from professores.crud_professor import buscar_professor
+from professores.crud_professor import buscar_professor, deletar_professor
 from turmas.crud_turmas import inserir_turma
 from turmas.portal_turma import curso_turma, aluno_turma
 from cursos.crud_cursos import listar_cursos
@@ -112,7 +112,7 @@ def portal_professor(professor_autenticado: str):
     Args:
         professor_autenticado (db): Todos os dados cadastrados do professor autenticado.
     """
-    menu = ["Visualizar Turma", "Selecionar Curso", "Atualizar Cadastro", "Mostrar Cadastro", "Voltar"]
+    menu = ["Visualizar Turma", "Selecionar Curso", "Atualizar Cadastro", "Mostrar Cadastro", "Deletar Conta", "Voltar"]
 
     while True:
         limpar_tela()
@@ -226,6 +226,17 @@ def portal_professor(professor_autenticado: str):
                             print("Curso: Nenhum curso escolhido anteriormente.")
 
                 case 5:
+                    while True:
+                        resposta = input("Tem certeza que você deseja deletar sua conta? (s/n)\n").lower()
+                        
+                        if resposta == "s" or resposta == "sim":
+                            deletar_professor(professor_autenticado[0])
+                        elif resposta == "n" or resposta == "não" or resposta == "nao":
+                            break
+                        else:
+                            print("Resposta inválida!")
+
+                case 6:
                     print("Voltando...")
                     break
 

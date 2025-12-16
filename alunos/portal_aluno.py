@@ -2,7 +2,7 @@ from limpar_tela.limpar_tela import limpar_tela
 from alunos.menu_atualizar_alunos import menu_atualizar_alunos
 from cursos.crud_cursos import listar_cursos, matricular_aluno_curso, ja_matriculado
 from turmas.portal_turma import aluno_turma, curso_turma, professor_turma
-from alunos.crud_aluno import buscar_aluno, aluno_curso
+from alunos.crud_aluno import buscar_aluno, aluno_curso, deletar_aluno
 
 from banco_de_dados.criar_conexao import criar_conexao
 
@@ -59,7 +59,7 @@ def portal_aluno(aluno_autenticado):
     Args:
         aluno_autenticado (db): Todos os dados cadastrados do aluno autenticado.
     """
-    menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Cadastro", "Escolher Curso", "Sair Curso", "Sair"]
+    menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Cadastro", "Escolher Curso", "Sair Curso", "Deletar Conta", "Sair"]
     # menu = ["Vizualizar Turma", "Atualizar Cadastro", "Mostrar Cadastro", "Mudar Curso", "Sair"]
 
     while True:
@@ -207,6 +207,17 @@ def portal_aluno(aluno_autenticado):
                             print("Nenhum curso cadastrado anteriormente.")
                             break
                 case 6:
+                    while True:
+                        resposta = input("Tem certeza que você deseja deletar sua conta? (s/n)\n").lower()
+                        
+                        if resposta == "s" or resposta == "sim":
+                            deletar_aluno(aluno_autenticado[0])
+                        elif resposta == "n" or resposta == "não" or resposta == "nao":
+                            break
+                        else:
+                            print("Resposta inválida!")
+
+                case 7:
                     print("Saindo...") # ou Voltando...
                     # exit()
                     break
